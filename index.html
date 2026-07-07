@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B-QUEST 샘플페이지</title>
+<style>
+*{box-sizing:border-box}
+:root{
+  --ink:#14213d;
+  --ink-2:#263852;
+  --paper:#fffdf8;
+  --soft:#f3f7ef;
+  --leaf:#2f6b4f;
+  --leaf-2:#6fa56f;
+  --sky:#dff1ff;
+  --gold:#f0b429;
+  --coral:#e76f51;
+  --line:rgba(20,33,61,.14);
+  --muted:#667085;
+}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  line-height:1.6;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.site-nav{
+  position:sticky;
+  top:0;
+  z-index:20;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:14px clamp(18px,4vw,56px);
+  background:rgba(255,253,248,.88);
+  border-bottom:1px solid var(--line);
+  backdrop-filter:blur(14px);
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.02em}
+.brand-mark{
+  width:34px;
+  height:34px;
+  border-radius:8px;
+  display:grid;
+  place-items:center;
+  background:var(--leaf);
+  color:#fff;
+  font-weight:900;
+}
+.nav-links{display:flex;align-items:center;gap:18px;color:var(--ink-2);font-size:.92rem;font-weight:700}
+.nav-cta{
+  padding:9px 14px;
+  border:1px solid var(--leaf);
+  border-radius:8px;
+  color:var(--leaf);
+}
+.hero{
+  min-height:calc(100vh - 64px);
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(360px,.85fr);
+  align-items:center;
+  gap:34px;
+  padding:52px clamp(18px,5vw,72px) 34px;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(111,165,111,.24), transparent 30%),
+    linear-gradient(135deg,#fffdf8 0%,#f7fbf1 48%,#e7f5ff 100%);
+}
+.hero > *{min-width:0}
+.hero-copy{max-width:780px}
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 12px;
+  border:1px solid rgba(47,107,79,.24);
+  border-radius:999px;
+  color:var(--leaf);
+  background:rgba(255,255,255,.58);
+  font-weight:800;
+  font-size:.86rem;
+}
+h1{
+  margin:22px 0 18px;
+  font-size:clamp(3.1rem,7vw,7.3rem);
+  line-height:.92;
+  letter-spacing:0;
+}
+.hero-sub{
+  max-width:650px;
+  color:var(--ink-2);
+  font-size:clamp(1.06rem,2vw,1.35rem);
+  font-weight:650;
+}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:46px;
+  padding:12px 18px;
+  border-radius:8px;
+  border:1px solid transparent;
+  cursor:pointer;
+  font-weight:900;
+}
+.btn.primary{background:var(--leaf);color:#fff;box-shadow:0 12px 26px rgba(47,107,79,.22)}
+.btn.secondary{background:#fff;color:var(--ink);border-color:var(--line)}
+.hero-panel{
+  position:relative;
+  align-self:stretch;
+  min-height:520px;
+  display:grid;
+  align-content:center;
+}
+.slide-stack{
+  position:relative;
+  aspect-ratio:16/10.2;
+  min-height:340px;
+}
+.slide-card{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,.72);
+  background:#dbe6f0;
+  box-shadow:0 22px 60px rgba(20,33,61,.22);
+}
+.slide-card img{width:100%;height:100%;object-fit:cover;display:block}
+.ppt-label{
+  position:absolute;
+  left:7%;
+  top:8%;
+  max-width:58%;
+  color:#14213d;
+}
+.ppt-label small{
+  display:inline-block;
+  padding:6px 12px;
+  border-radius:999px;
+  background:rgba(255,255,255,.76);
+  color:var(--leaf);
+  font-weight:900;
+  font-size:.8rem;
+}
+.ppt-label strong{
+  display:block;
+  margin-top:18px;
+  font-size:clamp(1.8rem,4.8vw,4.6rem);
+  line-height:1.02;
+  letter-spacing:0;
+  text-shadow:0 2px 12px rgba(255,255,255,.75);
+}
+.ppt-label span{
+  display:inline-block;
+  margin-top:18px;
+  padding:10px 16px;
+  border-radius:8px;
+  background:rgba(47,107,79,.9);
+  color:#fff;
+  font-weight:900;
+}
+.slide-card.back{transform:rotate(-5deg) translate(-18px,18px);opacity:.44}
+.slide-card.mid{transform:rotate(4deg) translate(18px,-12px);opacity:.72}
+.slide-card.front{transform:translateY(22px)}
+.signal-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:46px;
+}
+.signal{
+  padding:13px 14px;
+  border-radius:8px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.66);
+}
+.signal b{display:block;font-size:1.25rem;color:var(--leaf)}
+.signal span{display:block;color:var(--muted);font-size:.82rem;font-weight:700}
+.section{padding:74px clamp(18px,5vw,72px)}
+.section.white{background:#fff}
+.section.soft{background:var(--soft)}
+.section-head{
+  max-width:760px;
+  margin-bottom:30px;
+}
+.kicker{color:var(--leaf);font-weight:900;font-size:.86rem;letter-spacing:.08em}
+h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.4rem);line-height:1.05;letter-spacing:0}
+.lead{color:var(--ink-2);font-size:1.08rem;font-weight:600}
+.package-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+}
+.package{
+  padding:22px;
+  min-height:210px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:#fff;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.package .tag{width:max-content;padding:5px 9px;border-radius:999px;background:var(--sky);font-size:.78rem;font-weight:900;color:#14608a}
+.package h3{margin:18px 0 8px;font-size:1.3rem}
+.package p{margin:0;color:var(--muted);font-size:.95rem}
+.flow{
+  display:grid;
+  grid-template-columns:1.02fr .98fr;
+  gap:24px;
+  align-items:start;
+}
+.timeline{
+  display:grid;
+  gap:10px;
+}
+.step{
+  display:grid;
+  grid-template-columns:58px minmax(0,1fr) 72px;
+  gap:14px;
+  align-items:center;
+  padding:16px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:8px;
+}
+.step-num{
+  width:42px;
+  height:42px;
+  border-radius:8px;
+  display:grid;
+  place-items:center;
+  background:var(--leaf);
+  color:#fff;
+  font-weight:900;
+}
+.step h3{margin:0;font-size:1.05rem}
+.step p{margin:2px 0 0;color:var(--muted);font-size:.9rem}
+.step time{color:var(--coral);font-weight:900;text-align:right}
+.teacher-screen{
+  border-radius:8px;
+  overflow:hidden;
+  border:1px solid #243650;
+  background:#0f172a;
+  color:#f8fafc;
+  box-shadow:0 18px 42px rgba(20,33,61,.18);
+}
+.screen-top{display:flex;justify-content:space-between;align-items:center;padding:13px 16px;border-bottom:1px solid rgba(255,255,255,.12)}
+.dots{display:flex;gap:6px}
+.dot{width:9px;height:9px;border-radius:50%;background:#34506d}
+.dot.on{background:var(--gold)}
+.screen-main{padding:24px}
+.timer{font-size:clamp(3.6rem,9vw,6.8rem);font-weight:900;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+.screen-main h3{font-size:1.8rem;margin:10px 0 4px}
+.score-board{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:24px}
+.score{padding:12px;border:1px solid rgba(255,255,255,.12);border-radius:8px;background:rgba(255,255,255,.06)}
+.score b{font-size:1.65rem}
+.sample-layout{
+  display:grid;
+  grid-template-columns:320px minmax(0,1fr);
+  gap:24px;
+  align-items:start;
+}
+.sample-menu{
+  position:sticky;
+  top:82px;
+  display:grid;
+  gap:10px;
+}
+.sample-tab{
+  width:100%;
+  text-align:left;
+  padding:15px 16px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:#fff;
+  color:var(--ink);
+  cursor:pointer;
+  font-weight:900;
+}
+.sample-tab span{display:block;color:var(--muted);font-size:.82rem;font-weight:700}
+.sample-tab.active{border-color:var(--leaf);background:#eef8ee;color:var(--leaf)}
+.preview{
+  min-height:520px;
+  border-radius:8px;
+  border:1px solid var(--line);
+  background:#fff;
+  overflow:hidden;
+}
+.preview-visual{
+  position:relative;
+  aspect-ratio:16/9;
+  background:#edf3ea;
+}
+.preview-visual img{width:100%;height:100%;object-fit:cover;display:block}
+.preview-label{
+  position:absolute;
+  left:6%;
+  top:8%;
+  max-width:58%;
+  color:#14213d;
+}
+.preview-label small{
+  display:inline-block;
+  padding:6px 11px;
+  border-radius:999px;
+  background:rgba(255,255,255,.8);
+  color:var(--leaf);
+  font-weight:900;
+}
+.preview-label strong{
+  display:block;
+  margin-top:16px;
+  font-size:clamp(1.9rem,4.2vw,4.1rem);
+  line-height:1.05;
+  text-shadow:0 2px 14px rgba(255,255,255,.8);
+}
+.preview-label span{
+  display:inline-block;
+  margin-top:16px;
+  padding:9px 14px;
+  border-radius:8px;
+  background:rgba(47,107,79,.92);
+  color:#fff;
+  font-weight:900;
+}
+.preview-copy{padding:24px}
+.preview-copy h3{margin:0 0 8px;font-size:2rem;line-height:1.12}
+.preview-copy p{margin:0;color:var(--ink-2);font-weight:650}
+.prompt-box{
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+.prompt{
+  padding:14px;
+  border-radius:8px;
+  background:var(--soft);
+  border:1px solid rgba(47,107,79,.16);
+}
+.prompt b{display:block;color:var(--leaf);font-size:.84rem;margin-bottom:5px}
+.prompt span{font-size:.92rem;color:var(--ink-2);font-weight:700}
+.curriculum{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:10px;
+}
+.week{
+  min-height:148px;
+  padding:16px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:#fff;
+}
+.week b{display:block;color:var(--leaf);font-size:.85rem}
+.week strong{display:block;margin:8px 0 6px;font-size:1.05rem;line-height:1.25}
+.week span{display:block;color:var(--muted);font-size:.82rem}
+.field-band{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+.field{
+  padding:28px;
+  border-radius:8px;
+  color:#fff;
+  min-height:230px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.field.korea{background:linear-gradient(135deg,#2f6b4f,#234b66)}
+.field.vietnam{background:linear-gradient(135deg,#8f3d2e,#e76f51)}
+.field strong{font-size:2.5rem;line-height:1}
+.field p{margin:14px 0 0;font-size:1.05rem;font-weight:700;max-width:560px}
+.cta{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  gap:24px;
+  padding:34px;
+  border-radius:8px;
+  background:var(--ink);
+  color:#fff;
+}
+.cta h2{margin:0 0 8px;font-size:2.3rem}
+.cta p{margin:0;color:#d7e1ef;font-weight:650}
+@media (max-width:980px){
+  .hero,.flow,.sample-layout,.field-band,.cta{grid-template-columns:1fr}
+  .hero{min-height:auto}
+  .hero-panel{min-height:420px}
+  .package-grid{grid-template-columns:repeat(2,1fr)}
+  .curriculum{grid-template-columns:repeat(2,1fr)}
+  .sample-menu{position:static}
+}
+@media (max-width:640px){
+  .nav-links a:not(.nav-cta){display:none}
+  .hero{padding-top:36px}
+  h1{font-size:3.05rem;line-height:1}
+  .hero-copy,.hero-panel,.slide-stack{width:100%;min-width:0}
+  .hero-panel{min-height:310px}
+  .slide-stack{min-height:250px}
+  .slide-card.back{transform:rotate(-3deg) translate(-8px,12px)}
+  .slide-card.mid{transform:rotate(3deg) translate(8px,-8px)}
+  .signal-row,.package-grid,.prompt-box,.curriculum,.score-board{grid-template-columns:1fr}
+  .step{grid-template-columns:44px minmax(0,1fr)}
+  .step time{grid-column:2;text-align:left}
+  .cta{padding:24px}
+}
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <a class="brand" href="#top" aria-label="B-QUEST 홈">
+    <span class="brand-mark">BQ</span>
+    <span>B-QUEST</span>
+  </a>
+  <div class="nav-links">
+    <a href="#package">패키지</a>
+    <a href="#flow">70분 운영</a>
+    <a href="#sample">샘플 보기</a>
+    <a class="nav-cta" href="#start">무료 샘플</a>
+  </div>
+</nav>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow">교사 1인 운영 · 70분 완결 예배 · 퀘스트형 말씀 활동</span>
+      <h1>B-QUEST</h1>
+      <p class="hero-sub">
+        작은 교회 교회학교를 위해 만든 교사 1인 70분 완결 예배 시스템입니다. 말씀, 질문, 활동, 점수판, 타이머를 한 화면 흐름으로 묶어 아이들이 직접 탐험하듯 예배에 참여합니다.
+      </p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#sample">샘플 수업 체험</a>
+        <a class="btn secondary" href="#flow">운영 구조 보기</a>
+      </div>
+      <div class="signal-row" aria-label="운영 지표">
+        <div class="signal"><b>1인</b><span>교사 운영 가능</span></div>
+        <div class="signal"><b>70분</b><span>예배+활동 완결</span></div>
+        <div class="signal"><b>2개국</b><span>국내·베트남 적용</span></div>
+      </div>
+    </div>
+    <div class="hero-panel" aria-label="PPT 미리보기">
+      <div class="slide-stack">
+        <div class="slide-card back"><img src="assets/encourage-cover.png" alt="B-QUEST 7월 2주차 격려 수업 PPT 표지"><div class="ppt-label"><small>7월 2주차</small><strong>서로<br>세워요</strong><span>격려는 은혜의 언어예요</span></div></div>
+        <div class="slide-card mid"><img src="assets/forgiveness-question.png" alt="용서 수업 베드로의 질문 PPT 화면"><div class="ppt-label"><small>베드로의 질문</small><strong>몇 번이나<br>용서해야 해요?</strong><span>용서는 숫자 세기가 아니에요</span></div></div>
+        <div class="slide-card front"><img src="assets/forgiveness-cover.png" alt="B-QUEST 7월 1주차 예수님이 용서해요 PPT 표지"><div class="ppt-label"><small>7월 1주차</small><strong>예수님이<br>용서해요</strong><span>은혜가 먼저예요</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section white" id="package">
+    <div class="section-head">
+      <div class="kicker">PACKAGE</div>
+      <h2>B-QUEST 샘플페이지 구성</h2>
+      <p class="lead">기존 바이블트리 자료와 B-QUEST 운영 화면을 엮어, 방문자가 “이걸로 바로 수업할 수 있겠다”를 느끼도록 구성했습니다.</p>
+    </div>
+    <div class="package-grid">
+      <article class="package">
+        <div>
+          <span class="tag">Home</span>
+          <h3>이번 주 퀘스트</h3>
+          <p>주제, 본문, 핵심 문장을 한눈에 보여주고 바로 수업 화면으로 진입합니다.</p>
+        </div>
+      </article>
+      <article class="package">
+        <div>
+          <span class="tag">Control</span>
+          <h3>교사용 진행 화면</h3>
+          <p>타이머, 진행 단계, 팀 점수를 한 곳에서 관리합니다.</p>
+        </div>
+      </article>
+      <article class="package">
+        <div>
+          <span class="tag">Q&A</span>
+          <h3>Q&A 탐험</h3>
+          <p>관찰 질문과 해설을 클릭형 인터랙션으로 제공합니다.</p>
+        </div>
+      </article>
+      <article class="package">
+        <div>
+          <span class="tag">Quest</span>
+          <h3>퀘스트 활동</h3>
+          <p>상황 카드, 암송, 점수판으로 말씀을 몸으로 경험하게 합니다.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section soft" id="flow">
+    <div class="section-head">
+      <div class="kicker">70 MINUTE SYSTEM</div>
+      <h2>교사 1명이 바로 운영하는 B-QUEST 화면</h2>
+      <p class="lead">기존 B-QUEST 운영 화면의 장점을 살려 시간, 진행 순서, 팀 점수, 활동 전환을 한 화면에서 관리하는 구조로 확장할 수 있습니다.</p>
+    </div>
+    <div class="flow">
+      <div class="timeline">
+        <div class="step"><div class="step-num">01</div><div><h3>사전 체조</h3><p>신앙고백과 몸 활동으로 마음 열기</p></div><time>3분</time></div>
+        <div class="step"><div class="step-num">02</div><div><h3>찬양</h3><p>오늘 주제와 연결되는 찬양</p></div><time>7분</time></div>
+        <div class="step"><div class="step-num">03</div><div><h3>나침반 타임</h3><p>설교 영상과 본문 흐름 이해</p></div><time>15분</time></div>
+        <div class="step"><div class="step-num">04</div><div><h3>단서 찾기</h3><p>관찰 질문과 말씀 확인</p></div><time>5분</time></div>
+        <div class="step"><div class="step-num">05</div><div><h3>퀘스트 임무</h3><p>말씀을 몸으로 경험하는 활동</p></div><time>20분</time></div>
+        <div class="step"><div class="step-num">06</div><div><h3>비밀 코드</h3><p>암송과 결단, 기도 마무리</p></div><time>20분</time></div>
+      </div>
+      <aside class="teacher-screen" aria-label="운영 화면 예시">
+        <div class="screen-top">
+          <strong>B-QUEST CONTROL</strong>
+          <div class="dots"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        </div>
+        <div class="screen-main">
+          <div class="timer">20:00</div>
+          <h3>퀘스트 임무</h3>
+          <p>용서 저울 게임: 상황 카드를 읽고, 말씀과 연결해 팀별로 이유를 말합니다.</p>
+          <div class="score-board">
+            <div class="score"><span>A팀</span><br><b>3</b></div>
+            <div class="score"><span>B팀</span><br><b>4</b></div>
+            <div class="score"><span>C팀</span><br><b>2</b></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section white" id="sample">
+    <div class="section-head">
+      <div class="kicker">SAMPLE WEEK</div>
+      <h2>B-QUEST 샘플: 예수님이 용서해요</h2>
+      <p class="lead">마태복음 18장 21-35절을 “내가 먼저 탕감받았기 때문에, 나도 용서할 수 있어요”라는 한 문장으로 붙잡습니다.</p>
+    </div>
+    <div class="sample-layout">
+      <div class="sample-menu" role="tablist" aria-label="샘플 화면 선택">
+        <button class="sample-tab active" data-sample="cover" type="button">표지 화면<span>은혜가 먼저예요</span></button>
+        <button class="sample-tab" data-sample="question" type="button">본문 질문<span>몇 번이나 용서해야 해요?</span></button>
+        <button class="sample-tab" data-sample="gospel" type="button">복음 연결<span>예수님이 나를 먼저 용서해요</span></button>
+      </div>
+      <article class="preview" aria-live="polite">
+        <div class="preview-visual">
+          <img id="sampleImage" src="assets/forgiveness-cover.png" alt="예수님이 용서해요 PPT 표지">
+          <div class="preview-label" id="sampleOverlay"><small>7월 1주차</small><strong>예수님이<br>용서해요</strong><span>은혜가 먼저예요</span></div>
+        </div>
+        <div class="preview-copy">
+          <h3 id="sampleTitle">예수님이 용서해요</h3>
+          <p id="sampleText">처음부터 아이에게 “용서해야 한다”고 밀어붙이지 않고, 예수님이 먼저 베푸신 은혜에서 출발합니다.</p>
+          <div class="prompt-box">
+            <div class="prompt"><b>HOOK</b><span>속상한 마음이 있나요?</span></div>
+            <div class="prompt"><b>BOOK</b><span>왕이 큰 빚을 없애 주었어요.</span></div>
+            <div class="prompt"><b>TOOK</b><span>용서하기 어려운 사람을 위해 기도해요.</span></div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="section-head">
+      <div class="kicker">JULY-AUGUST ROADMAP</div>
+      <h2>퀘스트로 확장 가능한 주차별 주제</h2>
+      <p class="lead">B-QUEST 홈에서 주차별 퀘스트를 선택하고, 준비된 주차는 바로 수업 화면으로 들어가는 구조입니다.</p>
+    </div>
+    <div class="curriculum">
+      <div class="week"><b>W01</b><strong>용서</strong><span>마태복음 18:21-35</span></div>
+      <div class="week"><b>W02</b><strong>격려</strong><span>데살로니가전서 5:11-18</span></div>
+      <div class="week"><b>W03</b><strong>은사</strong><span>고린도전서 12:1-7</span></div>
+      <div class="week"><b>W04</b><strong>기도</strong><span>사도행전 4:23-28</span></div>
+      <div class="week"><b>W05</b><strong>빛과 소금</strong><span>이사야 60:1-7</span></div>
+      <div class="week"><b>W06</b><strong>섬김</strong><span>이사야 61:1-7</span></div>
+      <div class="week"><b>W07</b><strong>시험</strong><span>야고보서 1:1-8</span></div>
+      <div class="week"><b>W08</b><strong>먼저 구함</strong><span>마태복음 6:25-33</span></div>
+      <div class="week"><b>W09</b><strong>하나님 나라</strong><span>회복의 소망</span></div>
+      <div class="week"><b>W10</b><strong>복음 전파</strong><span>로마서 10:8-15</span></div>
+    </div>
+  </section>
+
+  <section class="section white">
+    <div class="field-band">
+      <div class="field korea">
+        <div>
+          <strong>국내</strong>
+          <p>작은 교회 교회학교에서 교사 1명 중심으로 운영 가능한 B-QUEST 예배 화면</p>
+        </div>
+        <span>small church ready</span>
+      </div>
+      <div class="field vietnam">
+        <div>
+          <strong>베트남</strong>
+          <p>PCV 교회 현장 적용 및 현지 교사 40명 훈련 경험을 반영한 확장 가능 모델</p>
+        </div>
+        <span>mission field tested</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="start">
+    <div class="cta">
+      <div>
+        <h2>B-QUEST 무료 샘플 1회분</h2>
+        <p>홈 화면, 진행 화면, PPT 스타일 수업 화면, Q&A와 퀘스트 활동까지 한 번에 보여주는 샘플페이지입니다.</p>
+      </div>
+      <a class="btn primary" href="#sample">샘플 다시 보기</a>
+    </div>
+  </section>
+</main>
+
+<script>
+const samples = {
+  cover: {
+    img: "assets/forgiveness-cover.png",
+    alt: "예수님이 용서해요 PPT 표지",
+    title: "예수님이 용서해요",
+    text: "처음부터 아이에게 “용서해야 한다”고 밀어붙이지 않고, 예수님이 먼저 베푸신 은혜에서 출발합니다.",
+    overlay: "<small>7월 1주차</small><strong>예수님이<br>용서해요</strong><span>은혜가 먼저예요</span>"
+  },
+  question: {
+    img: "assets/forgiveness-question.png",
+    alt: "베드로의 질문 PPT 화면",
+    title: "몇 번이나 용서해야 해요?",
+    text: "베드로의 질문을 통해 용서를 숫자로 계산하는 마음을 내려놓고, 예수님의 비유로 들어갑니다.",
+    overlay: "<small>베드로의 질문</small><strong>몇 번이나<br>용서해야 해요?</strong><span>용서는 숫자 세기가 아니에요</span>"
+  },
+  gospel: {
+    img: "assets/forgiveness-gospel.png",
+    alt: "복음 연결 PPT 화면",
+    title: "예수님이 나를 먼저 용서해요",
+    text: "용서의 근거를 아이의 의지력이 아니라 십자가 은혜와 성령님의 도우심으로 연결합니다.",
+    overlay: "<small>복음</small><strong>예수님이 나를<br>먼저 용서해요</strong><span>내가 먼저가 아니라 예수님이 먼저예요</span>"
+  }
+};
+
+document.querySelectorAll(".sample-tab").forEach((button) => {
+  button.addEventListener("click", () => {
+    const item = samples[button.dataset.sample];
+    document.querySelectorAll(".sample-tab").forEach((tab) => tab.classList.remove("active"));
+    button.classList.add("active");
+    document.getElementById("sampleImage").src = item.img;
+    document.getElementById("sampleImage").alt = item.alt;
+    document.getElementById("sampleTitle").textContent = item.title;
+    document.getElementById("sampleText").textContent = item.text;
+    document.getElementById("sampleOverlay").innerHTML = item.overlay;
+  });
+});
+</script>
+</body>
+</html>
