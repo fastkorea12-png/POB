@@ -848,16 +848,19 @@ const SEC = [
 const QA = [
   { q:'베드로가 예수님께 물었습니다.\n"형제가 죄를 지으면 몇 번이나 용서해야 합니까?"',
     choices:['3번','7번','10번'], correct:1,
-    video:'assets/heygen-forgiveness-q1.mp4',
+    video:'assets/gemini-story-q1.mp4',
     script:`정답은 <b>7번</b>이에요.<br>베드로는 충분히 많이 용서한다고 생각했지만, 예수님은 <b>끝없이 용서하는 마음</b>을 가르쳐 주셨어요.`},
   { q:'왕에게 빚을 진 종의 빚은 얼마였을까요?',
     choices:['100데나리온','1,000달란트','1만 달란트'], correct:2,
+    video:'assets/gemini-story-q2.mp4',
     script:`<b>1만 달란트</b>예요.<br>1달란트는 노동자 20년치 월급이에요.<br>1만 달란트면 <b>20만 년치 월급</b>이에요. 지금으로 치면 수조 원!<br><br>이 종은 절대로 <b>스스로 갚을 수 없는 빚</b>을 가지고 있었어요.<br>그런데 왕이 그 빚을 전부 탕감해 주었어요.`},
   { q:'탕감받은 종이 나가서 제일 먼저 한 일은?',
     choices:['감사 기도를 드렸다','100데나리온 빚진 친구를 감옥에 넣었다','잔치를 벌였다'], correct:1,
+    video:'assets/gemini-story-q3.mp4',
     script:`충격적이죠? <b>1만 달란트를 용서받은 종</b>이<br>나가서 제일 먼저 한 일이 친구의 목을 잡은 거예요.<br><br>100데나리온은 <b>4개월치 월급</b>이에요.<br>1만 달란트에 비하면 말도 안 되게 작은 금액이에요.<br>이 종은 받은 은혜를 <b>흘려보내지 않은 거예요.</b>`},
   { q:'예수님이 이 이야기로 가르치신 핵심은?',
     choices:['빚은 반드시 갚아야 한다','강한 사람만 용서할 수 있다','용서받은 것처럼 용서하라'], correct:2,
+    video:'assets/gemini-story-q4.mp4',
     script:`우리가 하나님께 용서받은 것이 <b>1만 달란트</b>예요.<br>예수님이 우리 죄의 빚을 다 갚아주셨어요.<br><br>그런데 우리가 용서해야 할 것들은 <b>100데나리온</b>이에요.<br>비교가 안 되는 거예요.<br><br><b>"내가 너를 용서한 것처럼, 너도 용서하라."</b>`},
 ];
 
@@ -987,7 +990,7 @@ function pick(idx){
     document.getElementById('qaBody').classList.add('answer-mode');
     document.getElementById('qaMain').classList.add('answer-mode');
     document.getElementById('scriptText').innerHTML=q.script;
-    document.getElementById('scriptLabel').textContent=q.video?'해설 영상':'정답 해설';
+    document.getElementById('scriptLabel').textContent=q.video?'스토리 영상':'정답 해설';
     if(q.video){
       const video=document.getElementById('explainVideo');
       document.getElementById('videoExplain').hidden=false;
