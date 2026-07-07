@@ -187,6 +187,9 @@ body{
 .sc-label{font-size:.65rem;color:var(--green);letter-spacing:2px;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
 .sc-text{font-size:.98rem;line-height:2;color:var(--text);}
 .sc-text b{color:var(--gold);}
+.video-explain{background:#f7fbff;border:1px solid var(--dim);border-radius:16px;overflow:hidden;}
+.video-explain[hidden]{display:none;}
+.video-explain video{display:block;width:100%;height:auto;background:#fff;}
 
 .qa-next-row{display:flex;justify-content:flex-end;}
 .qa-next{padding:9px 28px;background:var(--gold);color:#000;border:none;border-radius:10px;font-size:.85rem;font-weight:900;font-family:inherit;cursor:pointer;display:none;transition:all .2s;}
@@ -271,8 +274,9 @@ body{background:#f7fbff;}
 .timer-disp{font-size:1.8rem;}
 .main{
   padding:0;
-  overflow:hidden;
+  overflow:auto;
   min-height:0;
+  scroll-behavior:smooth;
 }
 .screen.on{
   height:100%;
@@ -379,6 +383,11 @@ body{background:#f7fbff;}
   gap:0;
   align-items:stretch;
 }
+.qa-body.answer-mode{
+  height:auto;
+  min-height:100%;
+  grid-template-rows:minmax(340px,48vh) auto;
+}
 .qa-visual{
   order:1;
   position:relative;
@@ -410,12 +419,20 @@ body{background:#f7fbff;}
   padding:22px clamp(48px,7vw,112px) 28px;
   background:linear-gradient(180deg,#fff 0%,#f5fbff 100%);
 }
+.qa-main.answer-mode{
+  justify-content:center;
+  min-height:52vh;
+}
 .qa-prog{justify-content:center;}
 .q-label-row{justify-content:center;}
 .q-label{font-size:.95rem;}
 .q-box{
   padding:24px 34px;
   border-radius:24px;
+}
+.qa-main.answer-mode .q-box,
+.qa-main.answer-mode .choices{
+  display:none;
 }
 .q-text{
   font-size:clamp(2.1rem,3.1vw,3rem);
@@ -432,8 +449,54 @@ body{background:#f7fbff;}
 }
 .script-box{
   font-size:1.14rem;
-  max-height:24vh;
-  overflow:auto;
+  max-height:none;
+  overflow:visible;
+}
+.qa-main.answer-mode .script-box:not(.has-video){
+  padding:42px 52px;
+  border-radius:28px;
+  background:linear-gradient(135deg,#fff 0%,#fff8e8 100%);
+}
+.qa-main.answer-mode .script-box:not(.has-video) .sc-label{
+  justify-content:center;
+  font-size:1rem;
+  color:#1a8b49;
+}
+.qa-main.answer-mode .script-box:not(.has-video) .sc-text{
+  font-size:clamp(1.8rem,2.35vw,2.55rem);
+  line-height:1.72;
+  font-weight:850;
+  text-align:center;
+}
+.script-box.has-video{
+  display:grid;
+  grid-template-columns:minmax(320px,.48fr) minmax(0,.52fr);
+  gap:24px;
+  align-items:center;
+  padding:22px;
+  border-radius:28px;
+  background:linear-gradient(135deg,#fff 0%,#f2fff5 100%);
+}
+.script-box.has-video .sc-label{
+  grid-column:1/-1;
+  margin-bottom:0;
+  font-size:1rem;
+  justify-content:center;
+  color:#1a8b49;
+}
+.script-box.has-video .video-explain{
+  border-radius:24px;
+  box-shadow:0 16px 32px rgba(35,50,77,.14);
+}
+.script-box.has-video .video-explain video{
+  aspect-ratio:16/9;
+  object-fit:contain;
+  max-height:42vh;
+}
+.script-box.has-video .sc-text{
+  font-size:clamp(1.35rem,1.8vw,1.95rem);
+  line-height:1.72;
+  font-weight:800;
 }
 .qa-next-row{justify-content:center;}
 .qa-next{
@@ -548,6 +611,18 @@ body{background:#f7fbff;}
   .q-text{font-size:1.12rem;}
   .q-box{padding:18px;}
   .ch-btn{min-height:54px;font-size:1rem;}
+  .script-box.has-video{
+    grid-template-columns:1fr;
+    gap:14px;
+    padding:16px;
+  }
+  .script-box.has-video .sc-label,
+  .qa-main.answer-mode .script-box:not(.has-video) .sc-label{font-size:.78rem;}
+  .script-box.has-video .sc-text,
+  .qa-main.answer-mode .script-box:not(.has-video) .sc-text{
+    font-size:1rem;
+    text-align:left;
+  }
   .quest-body{flex-direction:column;}
   .quest-body{display:flex;padding:16px;}
   .quest-side{width:100%;}
@@ -653,18 +728,21 @@ body{background:#f7fbff;}
 
 <!-- 3. Q&A 탐험 -->
 <div class="screen" id="sc-qa">
-  <div class="qa-body">
-    <div class="qa-main">
+  <div class="qa-body" id="qaBody">
+      <div class="qa-main" id="qaMain">
       <div class="qa-prog" id="qaProg"></div>
       <div class="q-label-row">
         <div class="q-label" id="qLabel">QUESTION 1 / 4</div>
       </div>
-      <div class="q-box">
+      <div class="q-box" id="qBox">
         <div class="q-text" id="qText"></div>
       </div>
       <div class="choices" id="choices"></div>
       <div class="script-box" id="scriptBox">
-        <div class="sc-label">▶ 정답 해설</div>
+        <div class="sc-label" id="scriptLabel">정답 해설</div>
+        <div class="video-explain" id="videoExplain" hidden>
+          <video id="explainVideo" controls playsinline preload="metadata"></video>
+        </div>
         <div class="sc-text" id="scriptText"></div>
       </div>
       <div class="qa-next-row">
@@ -770,7 +848,8 @@ const SEC = [
 const QA = [
   { q:'베드로가 예수님께 물었습니다.\n"형제가 죄를 지으면 몇 번이나 용서해야 합니까?"',
     choices:['3번','7번','10번'], correct:1,
-    script:`베드로는 <b>7번</b>이면 충분하다고 생각했어요.<br>당시 랍비들은 3번 용서하면 된다고 가르쳤거든요.<br>베드로는 그것보다 두 배 이상인 7번을 말했어요.<br><br>그런데 예수님은 <b>"일흔 번씩 일곱 번이라도 하라"</b>고 하셨어요.<br>490번을 세라는 게 아니에요. <b>셀 수 없이, 끝없이 용서하라</b>는 뜻이에요.`},
+    video:'assets/heygen-forgiveness-q1.mp4',
+    script:`정답은 <b>7번</b>이에요.<br>베드로는 충분히 많이 용서한다고 생각했지만, 예수님은 <b>끝없이 용서하는 마음</b>을 가르쳐 주셨어요.`},
   { q:'왕에게 빚을 진 종의 빚은 얼마였을까요?',
     choices:['100데나리온','1,000달란트','1만 달란트'], correct:2,
     script:`<b>1만 달란트</b>예요.<br>1달란트는 노동자 20년치 월급이에요.<br>1만 달란트면 <b>20만 년치 월급</b>이에요. 지금으로 치면 수조 원!<br><br>이 종은 절대로 <b>스스로 갚을 수 없는 빚</b>을 가지고 있었어요.<br>그런데 왕이 그 빚을 전부 탕감해 주었어요.`},
@@ -878,10 +957,18 @@ function buildQaProg(){
 function loadQ(idx){
   qaIdx=idx; qaAnswered=false;
   const q=QA[idx];
+  const video=document.getElementById('explainVideo');
   document.getElementById('qLabel').textContent='QUESTION '+(idx+1)+' / '+QA.length;
   document.getElementById('qText').innerHTML=q.q.replace(/\n/g,'<br>');
   document.getElementById('choices').innerHTML=q.choices.map((c,i)=>`<button class="ch-btn" onclick="pick(${i})">${c}</button>`).join('');
-  document.getElementById('scriptBox').classList.remove('on');
+  document.getElementById('qaBody').classList.remove('answer-mode');
+  document.getElementById('qaMain').classList.remove('answer-mode');
+  document.getElementById('scriptBox').classList.remove('on','has-video');
+  document.getElementById('videoExplain').hidden=true;
+  video.pause();
+  video.removeAttribute('src');
+  video.load();
+  document.getElementById('scriptLabel').textContent='정답 해설';
   document.getElementById('qaNext').classList.remove('on');
   document.getElementById('qaDone').classList.remove('on');
   QA.forEach((_,i)=>{
@@ -894,10 +981,23 @@ function pick(idx){
   const btns=document.getElementById('choices').querySelectorAll('.ch-btn');
   btns.forEach(b=>b.disabled=true);
   if(idx===QA[qaIdx].correct){
+    const q=QA[qaIdx];
+    const scriptBox=document.getElementById('scriptBox');
     btns[idx].classList.add('ok');
-    document.getElementById('scriptText').innerHTML=QA[qaIdx].script;
-    document.getElementById('scriptBox').classList.add('on');
+    document.getElementById('qaBody').classList.add('answer-mode');
+    document.getElementById('qaMain').classList.add('answer-mode');
+    document.getElementById('scriptText').innerHTML=q.script;
+    document.getElementById('scriptLabel').textContent=q.video?'해설 영상':'정답 해설';
+    if(q.video){
+      const video=document.getElementById('explainVideo');
+      document.getElementById('videoExplain').hidden=false;
+      video.src=q.video;
+      video.load();
+      scriptBox.classList.add('has-video');
+    }
+    scriptBox.classList.add('on');
     document.getElementById('qaNext').classList.add('on');
+    setTimeout(()=>scriptBox.scrollIntoView({behavior:'smooth',block:'center'}),120);
     qaAnswered=true;
   } else {
     btns[idx].classList.add('ng');
