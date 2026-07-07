@@ -209,23 +209,42 @@ body{
 .step-n{font-size:1rem;font-weight:900;color:var(--orange);min-width:20px;}
 .step-t{font-size:.88rem;line-height:1.6;}
 .step-t b{color:var(--text);}
+.quest-arena{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,.58fr);gap:14px;align-items:stretch;min-height:0;}
+.scale-stage{background:linear-gradient(180deg,#fff 0%,#fff8e8 100%);border:1.5px solid var(--dim);border-radius:24px;padding:18px;box-shadow:0 16px 34px rgba(87,123,155,.12);display:flex;flex-direction:column;justify-content:space-between;gap:12px;}
+.active-sit{min-height:92px;background:#fff;border:2px solid rgba(255,138,76,.35);border-radius:20px;padding:18px 20px;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--text);font-size:1.05rem;font-weight:900;line-height:1.55;}
+.scale-wrap{position:relative;height:250px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.scale-beam{position:absolute;top:108px;left:14%;right:14%;height:16px;background:linear-gradient(90deg,var(--coral),var(--gold),var(--green));border-radius:999px;transform:rotate(var(--tilt,0deg));transform-origin:center;transition:transform .45s ease;box-shadow:0 12px 22px rgba(35,50,77,.14);}
+.scale-post{position:absolute;top:70px;width:18px;height:150px;background:#c7d8e8;border-radius:999px;box-shadow:inset 0 0 0 3px rgba(255,255,255,.55);}
+.scale-base{position:absolute;bottom:22px;width:170px;height:26px;background:#dcecf7;border-radius:999px;}
+.pan{position:absolute;top:130px;width:230px;min-height:82px;border:3px solid currentColor;border-radius:24px;background:rgba(255,255,255,.88);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:transform .45s ease,box-shadow .25s ease;}
+.pan b{font-size:1rem;}
+.pan span{font-size:1.85rem;font-weight:900;}
+.pan.no{left:8%;color:var(--coral);transform:translateY(var(--noY,0px));}
+.pan.yes{right:8%;color:var(--green);transform:translateY(var(--yesY,0px));}
+.scale-note{text-align:center;color:var(--muted);font-size:.82rem;font-weight:800;}
 .sit-title{font-size:.65rem;color:var(--dim);letter-spacing:2px;margin-top:4px;}
-.sit-cards{display:flex;flex-direction:column;gap:6px;}
-.sit-card{background:#fff;border:1px solid var(--dim);border-radius:16px;padding:10px 14px;font-size:.85rem;line-height:1.55;cursor:pointer;transition:all .2s;box-shadow:0 10px 20px rgba(87,123,155,.08);}
+.sit-cards{display:grid;grid-template-columns:1fr;gap:7px;}
+.sit-card{background:#fff;border:1px solid var(--dim);border-radius:16px;padding:10px 14px;font-size:.85rem;line-height:1.55;cursor:pointer;transition:all .2s;box-shadow:0 10px 20px rgba(87,123,155,.08);text-align:left;font-family:inherit;color:var(--text);}
 .sit-card:hover{border-color:var(--orange);color:var(--orange);}
-.sit-card.used{opacity:.35;text-decoration:line-through;}
+.sit-card.active{border-color:var(--orange);background:#fff8e8;box-shadow:0 14px 28px rgba(255,138,76,.16);}
+.sit-card.used{opacity:.55;}
 
 .quest-side{width:188px;display:flex;flex-direction:column;gap:10px;}
 .score-card{background:#fff;border:1px solid var(--dim);border-radius:20px;padding:14px;box-shadow:0 14px 32px rgba(87,123,155,.12);}
 .sc-hd{font-size:.62rem;color:var(--dim);letter-spacing:2px;text-align:center;margin-bottom:12px;}
-.team-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;}
-.t-name{font-size:.82rem;font-weight:700;width:44px;}
-.t-score{font-size:1.8rem;font-weight:900;min-width:38px;text-align:center;}
-.t-btns{display:flex;flex-direction:column;gap:3px;}
-.tb{width:28px;height:24px;border:none;border-radius:6px;cursor:pointer;font-size:.85rem;font-weight:900;transition:transform .1s;}
+.team-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid #e8f2fb;}
+.team-row:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0;}
+.t-name{font-size:.82rem;font-weight:900;}
+.t-score{font-size:1.9rem;font-weight:900;min-width:42px;text-align:right;}
+.t-choice{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr 34px 34px;gap:5px;}
+.tb{min-height:30px;border:none;border-radius:8px;cursor:pointer;font-size:.78rem;font-weight:900;transition:transform .1s;font-family:inherit;}
 .tb:active{transform:scale(.85);}
 .tb-p{background:var(--green);color:#000;}
 .tb-m{background:var(--bg3);color:var(--muted);}
+.tb-yes{background:#e9fbef;color:#168648;border:1px solid rgba(84,201,111,.42);}
+.tb-no{background:#ffe7ef;color:#d64354;border:1px solid rgba(255,107,119,.32);}
+.team-row.pick-yes .tb-yes{background:var(--green);color:#07351e;}
+.team-row.pick-no .tb-no{background:var(--coral);color:#fff;}
 .btn-r{width:100%;margin-top:6px;padding:6px;background:transparent;border:1px solid var(--dim);color:var(--dim);border-radius:8px;cursor:pointer;font-size:.7rem;font-family:inherit;}
 
 /* ── MEMORY ── */
@@ -521,20 +540,26 @@ body{background:#f7fbff;}
 
 .quest-body{
   display:grid;
-  grid-template-columns:minmax(0,1fr) 260px;
+  grid-template-columns:minmax(0,1fr) 300px;
   align-items:center;
 }
-.quest-title{font-size:clamp(2.6rem,4.2vw,4.2rem);}
-.quest-intro{font-size:1.35rem;line-height:1.65;}
-.q-step,.sit-card{font-size:1.25rem;}
+.quest-title{font-size:clamp(2.2rem,3.4vw,3.6rem);}
+.quest-intro{font-size:1.15rem;line-height:1.55;}
+.q-step{font-size:1.05rem;}
+.q-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}
+.quest-arena{flex:1;}
+.active-sit{font-size:clamp(1.5rem,2.1vw,2.15rem);}
+.scale-wrap{height:clamp(250px,32vh,350px);}
+.sit-card{font-size:1rem;padding:12px 15px;}
 .score-card{font-size:1.08rem;}
 .t-score{font-size:2.3rem;}
 
 .mem-stage{
   max-width:none;
-  height:100%;
+  min-height:100%;
+  height:auto;
   grid-template-columns:1fr;
-  grid-template-rows:54% 46%;
+  grid-template-rows:minmax(260px,42vh) auto;
   gap:0;
 }
 .mem-art{
@@ -564,13 +589,14 @@ body{background:#f7fbff;}
 .mem-copy{
   order:2;
   justify-content:center;
-  padding:24px clamp(48px,7vw,112px);
+  min-height:calc(100vh - 58px - 64px - 42vh);
+  padding:34px clamp(48px,7vw,112px) 42px;
   background:linear-gradient(180deg,#fff 0%,#fff8e8 100%);
 }
 .mem-icon{display:none;}
 .mem-verse{
-  font-size:clamp(2.1rem,3.1vw,3rem);
-  line-height:1.7;
+  font-size:clamp(1.9rem,2.75vw,2.75rem);
+  line-height:1.55;
   max-width:1120px;
 }
 .mem-teams{gap:18px;}
@@ -768,8 +794,23 @@ body{background:#f7fbff;}
         <div class="q-step"><div class="step-n">②</div><div class="step-t">각 팀이 <b>"용서 O"</b> 또는 <b>"용서 X"</b>를 선택합니다</div></div>
         <div class="q-step"><div class="step-n">③</div><div class="step-t">이유를 말하면 <b>+1점</b> · 오늘 말씀 연결 시 <b>+1점 추가</b></div></div>
       </div>
-      <div class="sit-title">상황 카드 — 클릭하면 사용됨</div>
-      <div class="sit-cards" id="sitCards"></div>
+      <div class="quest-arena">
+        <div class="scale-stage">
+          <div class="active-sit" id="activeSit">상황 카드를 선택하면 저울 게임이 시작됩니다.</div>
+          <div class="scale-wrap" id="scaleWrap" style="--tilt:0deg;--noY:0px;--yesY:0px">
+            <div class="scale-beam"></div>
+            <div class="scale-post"></div>
+            <div class="scale-base"></div>
+            <div class="pan no"><b>용서 X</b><span id="noCount">0</span></div>
+            <div class="pan yes"><b>용서 O</b><span id="yesCount">0</span></div>
+          </div>
+          <div class="scale-note" id="scaleNote">팀 버튼으로 선택하면 저울이 움직입니다.</div>
+        </div>
+        <div>
+          <div class="sit-title">상황 카드 — 하나씩 선택</div>
+          <div class="sit-cards" id="sitCards"></div>
+        </div>
+      </div>
     </div>
     <div class="quest-side">
       <div class="score-card">
@@ -881,6 +922,7 @@ const TEAMS = [
 
 let cur=0, timeLeft=0, running=false, tInt=null, totalSecs=0, eInt=null;
 let scores=[0,0,0], qaIdx=0, qaAnswered=false, memDone=[false,false,false];
+let activeSit=-1, teamChoices=[null,null,null];
 
 function init(){
   buildStars(); buildSits(); buildTeamRows(); buildMemTeams(); buildQaProg(); loadQ(0); updateNav();
@@ -1018,22 +1060,67 @@ function nextQ(){
 
 /* QUEST */
 function buildSits(){
-  document.getElementById('sitCards').innerHTML=SITS.map((s,i)=>`<div class="sit-card" id="sit${i}" onclick="useSit(${i})">"${s}"</div>`).join('');
+  document.getElementById('sitCards').innerHTML=SITS.map((s,i)=>`<button class="sit-card" id="sit${i}" onclick="useSit(${i})">"${s}"</button>`).join('');
 }
-function useSit(i){ document.getElementById('sit'+i).classList.toggle('used'); }
+function useSit(i){
+  activeSit=i;
+  teamChoices=[null,null,null];
+  document.getElementById('activeSit').textContent='"'+SITS[i]+'"';
+  document.querySelectorAll('.sit-card').forEach((card,idx)=>{
+    card.classList.toggle('active',idx===i);
+    if(idx===i) card.classList.add('used');
+  });
+  document.querySelectorAll('.team-row').forEach(row=>row.classList.remove('pick-yes','pick-no'));
+  updateScale();
+}
 function buildTeamRows(){
   document.getElementById('teamRows').innerHTML=TEAMS.map((t,i)=>`
-    <div class="team-row">
+    <div class="team-row" id="team${i}">
       <div class="t-name" style="color:${t.color}">${t.name}</div>
       <div class="t-score" id="sc${i}">0</div>
-      <div class="t-btns">
+      <div class="t-choice">
+        <button class="tb tb-yes" onclick="chooseTeam(${i},'yes')">용서 O</button>
+        <button class="tb tb-no" onclick="chooseTeam(${i},'no')">용서 X</button>
         <button class="tb tb-p" onclick="addSc(${i},1)">+</button>
         <button class="tb tb-m" onclick="addSc(${i},-1)">−</button>
       </div>
     </div>`).join('');
 }
+function chooseTeam(i,choice){
+  if(activeSit<0){
+    document.getElementById('scaleNote').textContent='먼저 상황 카드를 선택하세요.';
+    return;
+  }
+  teamChoices[i]=choice;
+  const row=document.getElementById('team'+i);
+  row.classList.toggle('pick-yes',choice==='yes');
+  row.classList.toggle('pick-no',choice==='no');
+  updateScale();
+}
+function updateScale(){
+  const yes=teamChoices.filter(v=>v==='yes').length;
+  const no=teamChoices.filter(v=>v==='no').length;
+  const diff=yes-no;
+  document.getElementById('yesCount').textContent=yes;
+  document.getElementById('noCount').textContent=no;
+  document.getElementById('scaleWrap').style.setProperty('--tilt',(diff*-7)+'deg');
+  document.getElementById('scaleWrap').style.setProperty('--yesY',(diff>0?18:diff<0?-10:0)+'px');
+  document.getElementById('scaleWrap').style.setProperty('--noY',(diff<0?18:diff>0?-10:0)+'px');
+  if(activeSit<0) document.getElementById('scaleNote').textContent='팀 버튼으로 선택하면 저울이 움직입니다.';
+  else if(yes+no<TEAMS.length) document.getElementById('scaleNote').textContent='아직 선택하지 않은 팀이 있습니다.';
+  else if(yes>no) document.getElementById('scaleNote').textContent='용서 O가 더 많아요. 이유를 말하면 +1점!';
+  else if(no>yes) document.getElementById('scaleNote').textContent='용서 X가 더 많아요. 왜 어려운지 말해보세요.';
+  else document.getElementById('scaleNote').textContent='의견이 같아요. 말씀과 연결해 보세요.';
+}
 function addSc(i,d){scores[i]=Math.max(0,scores[i]+d);document.getElementById('sc'+i).textContent=scores[i];}
-function resetScores(){scores=[0,0,0];scores.forEach((_,i)=>document.getElementById('sc'+i).textContent=0);}
+function resetScores(){
+  scores=[0,0,0]; activeSit=-1; teamChoices=[null,null,null];
+  scores.forEach((_,i)=>document.getElementById('sc'+i).textContent=0);
+  document.getElementById('activeSit').textContent='상황 카드를 선택하면 저울 게임이 시작됩니다.';
+  document.querySelectorAll('.sit-card').forEach(card=>card.classList.remove('active','used'));
+  document.querySelectorAll('.team-row').forEach(row=>row.classList.remove('pick-yes','pick-no'));
+  updateScale();
+}
 
 /* MEMORY */
 function buildMemTeams(){
