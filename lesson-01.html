@@ -7,33 +7,46 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
-  --bg:#0c1426;--bg2:#162040;--bg3:#1e2d54;
-  --gold:#F5C518;--orange:#FF8C42;--teal:#2DD4BF;
-  --purple:#A855F7;--coral:#FF6B6B;--green:#4ADE80;
-  --blue:#60A5FA;--text:#F0F4FF;--muted:#8A9BC4;--dim:#3a4d7a;
+  --bg:#fff8e8;--bg2:#ffffff;--bg3:#eaf7ff;
+  --gold:#f6b73c;--orange:#ff8a4c;--teal:#22c7b8;
+  --purple:#8b6ff7;--coral:#ff6b77;--green:#54c96f;
+  --blue:#4aa3ff;--text:#23324d;--muted:#617089;--dim:#c7d8e8;
+  --cream:#fff4cf;--mint:#e9fbef;--pink:#ffe7ef;
 }
-body{background:var(--bg);color:var(--text);font-family:'Apple SD Gothic Neo','Malgun Gothic',sans-serif;height:100vh;display:flex;flex-direction:column;overflow:hidden;}
+body{
+  background:
+    radial-gradient(circle at 10% 12%, rgba(255,215,105,.34), transparent 24%),
+    radial-gradient(circle at 88% 6%, rgba(74,163,255,.22), transparent 26%),
+    linear-gradient(135deg,#fff9e8 0%,#f4fbff 48%,#effbf3 100%);
+  color:var(--text);
+  font-family:'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
 
 .stars{position:fixed;inset:0;pointer-events:none;z-index:0;}
-.star{position:absolute;border-radius:50%;background:#fff;animation:twinkle var(--d,3s) infinite alternate;}
-@keyframes twinkle{0%{opacity:.04}100%{opacity:.4}}
+.star{position:absolute;border-radius:50%;background:rgba(255,190,74,.42);animation:twinkle var(--d,3s) infinite alternate;}
+@keyframes twinkle{0%{opacity:.08;transform:scale(.8)}100%{opacity:.36;transform:scale(1.18)}}
 
 /* TOP */
-.top{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;padding:10px 24px;background:rgba(22,32,64,.9);border-bottom:1px solid var(--dim);flex-shrink:0;backdrop-filter:blur(8px);}
+.top{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;padding:10px 24px;background:rgba(255,255,255,.86);border-bottom:1px solid var(--dim);flex-shrink:0;backdrop-filter:blur(12px);box-shadow:0 8px 24px rgba(74,123,160,.08);}
 .top-left{display:flex;align-items:center;gap:10px;}
 .home-link{
   color:var(--muted);
   text-decoration:none;
   border:1px solid var(--dim);
-  border-radius:10px;
+  border-radius:999px;
   padding:5px 10px;
   font-size:.72rem;
   font-weight:800;
+  background:#fff;
   transition:all .2s;
 }
 .home-link:hover{color:var(--gold);border-color:var(--gold);}
 .logo-sm{font-size:.9rem;font-weight:900;color:var(--gold);letter-spacing:3px;}
-.sec-badge{background:var(--bg3);border:1px solid var(--dim);border-radius:20px;padding:3px 12px;font-size:.72rem;color:var(--muted);}
+.sec-badge{background:var(--bg3);border:1px solid var(--dim);border-radius:20px;padding:3px 12px;font-size:.72rem;color:var(--blue);font-weight:900;}
 .sec-name{font-size:.9rem;font-weight:700;color:var(--text);}
 .timer-wrap{display:flex;flex-direction:column;align-items:center;}
 .timer-disp{font-size:1.5rem;font-weight:900;font-variant-numeric:tabular-nums;color:var(--gold);transition:color .4s;}
@@ -44,84 +57,122 @@ body{background:var(--bg);color:var(--text);font-family:'Apple SD Gothic Neo','M
 .elapsed{font-size:.7rem;color:var(--dim);}
 
 /* PROGRESS */
-.prog{height:4px;background:var(--bg3);flex-shrink:0;position:relative;z-index:1;}
-.prog-fill{height:100%;background:linear-gradient(90deg,var(--purple),var(--gold));transition:width .6s;border-radius:0 4px 4px 0;}
+.prog{height:6px;background:#e8f2fb;flex-shrink:0;position:relative;z-index:1;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--gold),var(--coral));transition:width .6s;border-radius:0 8px 8px 0;}
 
 /* MAIN */
 .main{flex:1;overflow-y:auto;padding:18px 20px;position:relative;z-index:1;display:flex;flex-direction:column;}
 
 /* NAV */
-.nav{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 20px;background:rgba(22,32,64,.9);border-top:1px solid var(--dim);flex-shrink:0;backdrop-filter:blur(8px);}
-.btn{padding:10px 26px;border:none;border-radius:12px;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s;}
+.nav{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 20px;background:rgba(255,255,255,.88);border-top:1px solid var(--dim);flex-shrink:0;backdrop-filter:blur(12px);box-shadow:0 -8px 24px rgba(74,123,160,.08);}
+.btn{padding:10px 26px;border:none;border-radius:999px;font-size:.9rem;font-weight:900;cursor:pointer;font-family:inherit;transition:all .15s;}
 .btn:hover{filter:brightness(1.12);}
 .btn:active{transform:scale(.96);}
-.btn-prev{background:var(--bg3);color:var(--muted);border:1px solid var(--dim);}
+.btn-prev{background:#fff;color:var(--muted);border:1px solid var(--dim);}
 .btn-prev:disabled{opacity:.3;cursor:default;}
-.btn-timer{background:transparent;border:1px solid var(--dim);color:var(--muted);font-size:.78rem;padding:10px 16px;}
-.btn-next{background:var(--gold);color:#000;padding:10px 44px;}
-.btn-done{background:var(--green);color:#000;padding:10px 44px;}
+.btn-timer{background:#fff;border:1px solid var(--dim);color:var(--muted);font-size:.78rem;padding:10px 16px;}
+.btn-next{background:linear-gradient(135deg,#ffcf5d,#ff8a4c);color:#2f2100;padding:10px 44px;box-shadow:0 10px 22px rgba(255,138,76,.24);}
+.btn-done{background:linear-gradient(135deg,#67dd83,#22c7b8);color:#07351e;padding:10px 44px;}
 
 /* SCREENS */
 .screen{display:none;flex-direction:column;flex:1;}
 .screen.on{display:flex;}
 
 /* ── START ── */
-.start-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;}
-.s-logo{font-size:2.6rem;font-weight:900;color:var(--gold);letter-spacing:6px;text-shadow:0 0 30px rgba(245,197,24,.4);}
+.start-body{flex:1;display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,.82fr);align-items:center;gap:24px;text-align:left;max-width:1180px;width:100%;margin:0 auto;}
+.start-copy{display:flex;flex-direction:column;gap:14px;align-items:flex-start;}
+.s-logo{font-size:2.6rem;font-weight:900;color:var(--orange);letter-spacing:6px;text-shadow:0 3px 0 rgba(255,255,255,.9);}
 .s-date{font-size:.72rem;color:var(--muted);letter-spacing:2px;}
-.s-theme{font-size:3rem;font-weight:900;}
-.s-verse{font-size:.88rem;color:var(--muted);line-height:1.85;border-left:2px solid var(--dim);padding-left:14px;text-align:left;max-width:440px;}
-.s-flow{display:flex;align-items:center;gap:0;background:var(--bg2);border:1px solid var(--dim);border-radius:14px;padding:12px 16px;margin-top:6px;}
+.s-theme{font-size:4.4rem;font-weight:900;line-height:1;color:#203456;}
+.s-verse{font-size:.92rem;color:var(--muted);line-height:1.85;border-left:5px solid var(--gold);padding:16px 18px;text-align:left;max-width:540px;background:rgba(255,255,255,.75);border-radius:14px;box-shadow:0 12px 30px rgba(87,123,155,.12);}
+.s-flow{display:flex;align-items:center;gap:0;background:#fff;border:1px solid var(--dim);border-radius:18px;padding:12px 16px;margin-top:6px;box-shadow:0 12px 26px rgba(87,123,155,.1);}
 .f-step{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;}
 .f-num{font-size:.65rem;font-weight:900;color:var(--gold);}
-.f-name{font-size:.7rem;color:var(--muted);}
+.f-name{font-size:.7rem;color:var(--text);font-weight:900;}
 .f-time{font-size:.6rem;color:var(--dim);}
 .f-sep{color:var(--dim);font-size:.8rem;padding-bottom:2px;}
 .leader-kit{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
   gap:10px;
-  width:min(760px,100%);
+  width:100%;
   margin-top:8px;
 }
 .kit-card{
-  background:rgba(22,32,64,.78);
+  background:rgba(255,255,255,.84);
   border:1px solid var(--dim);
-  border-radius:14px;
+  border-radius:16px;
   padding:14px 16px;
   text-align:left;
+  box-shadow:0 10px 22px rgba(87,123,155,.08);
 }
 .kit-card b{display:block;color:var(--gold);font-size:.76rem;letter-spacing:1px;margin-bottom:5px;}
 .kit-card span{display:block;color:var(--muted);font-size:.8rem;line-height:1.55;}
+.lesson-art{
+  position:relative;
+  border-radius:28px;
+  overflow:hidden;
+  background:#fff;
+  border:1px solid rgba(255,255,255,.8);
+  box-shadow:0 24px 60px rgba(87,123,155,.22);
+}
+.lesson-art img{width:100%;aspect-ratio:16/11;object-fit:cover;object-position:center;display:block;}
+.art-caption{
+  position:absolute;
+  left:22px;
+  right:22px;
+  bottom:22px;
+  padding:16px 18px;
+  border-radius:18px;
+  background:rgba(255,255,255,.88);
+  color:var(--text);
+  box-shadow:0 14px 28px rgba(40,60,85,.16);
+}
+.art-caption b{display:block;color:var(--orange);font-size:.82rem;margin-bottom:4px;}
+.art-caption span{display:block;color:var(--muted);font-size:.9rem;font-weight:800;}
 
 /* ── EXERCISE ── */
 .creed-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;}
-.creed-label{font-size:.7rem;color:var(--gold);letter-spacing:3px;background:rgba(245,197,24,.1);padding:4px 16px;border-radius:20px;}
+.creed-label{font-size:.7rem;color:var(--orange);letter-spacing:3px;background:var(--cream);padding:5px 16px;border-radius:20px;font-weight:900;}
 .creed-text{font-size:1.2rem;line-height:2.5;text-align:center;max-width:700px;}
-.creed-text b{color:var(--gold);}
-.creed-note{font-size:.75rem;color:var(--dim);background:var(--bg2);padding:8px 20px;border-radius:10px;}
+.creed-text b{color:var(--orange);}
+.creed-note{font-size:.75rem;color:var(--muted);background:#fff;padding:8px 20px;border-radius:999px;border:1px solid var(--dim);}
 
 /* ── WORSHIP ── */
 .worship-body{flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;text-align:center;}
 .w-icon{font-size:3rem;}
-.w-label{font-size:.7rem;color:var(--muted);letter-spacing:3px;}
+.w-label{font-size:.7rem;color:var(--orange);letter-spacing:3px;font-weight:900;}
 .w-song{font-size:1.8rem;font-weight:800;}
 .w-note{font-size:.82rem;color:var(--muted);margin-top:8px;}
 
 /* ── Q&A ── */
-.qa-body{flex:1;display:flex;flex-direction:column;gap:14px;}
+.qa-body{flex:1;display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:18px;align-items:start;}
+.qa-main{display:flex;flex-direction:column;gap:14px;}
+.qa-visual{
+  position:sticky;
+  top:0;
+  overflow:hidden;
+  border-radius:22px;
+  background:#fff;
+  border:1px solid var(--dim);
+  box-shadow:0 18px 44px rgba(87,123,155,.16);
+}
+.qa-visual img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block;}
+.qa-visual div{padding:14px 16px;background:#fff;}
+.qa-visual b{display:block;color:var(--orange);font-size:.82rem;margin-bottom:4px;}
+.qa-visual span{display:block;color:var(--muted);font-size:.84rem;font-weight:800;line-height:1.5;}
 .qa-prog{display:flex;gap:6px;align-items:center;}
-.qp-dot{width:28px;height:6px;border-radius:4px;background:var(--bg3);transition:all .3s;}
+.qp-dot{width:28px;height:8px;border-radius:999px;background:#dcecf7;transition:all .3s;}
 .qp-dot.active{background:var(--gold);width:36px;}
 .qp-dot.done{background:var(--green);}
 .q-label-row{display:flex;align-items:center;gap:8px;}
-.q-label{font-size:.65rem;color:var(--gold);letter-spacing:2px;}
-.q-box{background:var(--bg2);border:1.5px solid var(--dim);border-radius:16px;padding:22px 26px;}
+.q-label{font-size:.65rem;color:var(--orange);letter-spacing:2px;font-weight:900;}
+.q-box{background:#fff;border:1.5px solid var(--dim);border-radius:20px;padding:22px 26px;box-shadow:0 14px 34px rgba(87,123,155,.12);}
 .q-text{font-size:1.45rem;font-weight:700;line-height:1.55;}
 .choices{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
 .ch-btn{
-  padding:16px 10px;background:var(--bg3);border:1.5px solid var(--dim);
-  border-radius:14px;color:var(--text);font-size:.95rem;font-weight:700;
+  padding:16px 10px;background:#fff;border:1.5px solid var(--dim);
+  border-radius:18px;color:var(--text);font-size:.95rem;font-weight:900;
   font-family:inherit;cursor:pointer;transition:all .2s;text-align:center;line-height:1.4;
 }
 .ch-btn:hover:not(:disabled){border-color:var(--gold);color:var(--gold);transform:translateY(-2px);}
@@ -130,7 +181,7 @@ body{background:var(--bg);color:var(--text);font-family:'Apple SD Gothic Neo','M
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 .ch-btn:disabled{cursor:default;}
 
-.script-box{background:var(--bg2);border:1.5px solid var(--green);border-radius:16px;padding:20px 24px;display:none;animation:fadeUp .3s ease;}
+.script-box{background:#fff;border:1.5px solid var(--green);border-radius:20px;padding:20px 24px;display:none;animation:fadeUp .3s ease;box-shadow:0 14px 34px rgba(87,123,155,.1);}
 .script-box.on{display:block;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .sc-label{font-size:.65rem;color:var(--green);letter-spacing:2px;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
@@ -142,7 +193,7 @@ body{background:var(--bg);color:var(--text);font-family:'Apple SD Gothic Neo','M
 .qa-next:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(245,197,24,.4);}
 .qa-next.on{display:block;}
 
-.qa-done{text-align:center;padding:16px;color:var(--green);font-size:.95rem;font-weight:700;display:none;background:rgba(74,222,128,.08);border-radius:12px;border:1px solid rgba(74,222,128,.2);}
+.qa-done{text-align:center;padding:16px;color:#1a8b49;font-size:.95rem;font-weight:900;display:none;background:var(--mint);border-radius:16px;border:1px solid rgba(84,201,111,.28);}
 .qa-done.on{display:block;}
 
 /* ── QUEST ── */
@@ -151,18 +202,18 @@ body{background:var(--bg);color:var(--text);font-family:'Apple SD Gothic Neo','M
 .quest-title{font-size:1.5rem;font-weight:900;color:var(--orange);}
 .quest-intro{font-size:.85rem;color:var(--muted);line-height:1.7;}
 .q-steps{display:flex;flex-direction:column;gap:8px;}
-.q-step{display:flex;gap:12px;align-items:flex-start;background:var(--bg2);border-radius:12px;padding:12px 16px;border:1px solid var(--dim);}
+.q-step{display:flex;gap:12px;align-items:flex-start;background:#fff;border-radius:16px;padding:12px 16px;border:1px solid var(--dim);box-shadow:0 10px 22px rgba(87,123,155,.08);}
 .step-n{font-size:1rem;font-weight:900;color:var(--orange);min-width:20px;}
 .step-t{font-size:.88rem;line-height:1.6;}
 .step-t b{color:var(--text);}
 .sit-title{font-size:.65rem;color:var(--dim);letter-spacing:2px;margin-top:4px;}
 .sit-cards{display:flex;flex-direction:column;gap:6px;}
-.sit-card{background:var(--bg2);border:1px solid var(--dim);border-radius:10px;padding:10px 14px;font-size:.85rem;line-height:1.55;cursor:pointer;transition:all .2s;}
+.sit-card{background:#fff;border:1px solid var(--dim);border-radius:16px;padding:10px 14px;font-size:.85rem;line-height:1.55;cursor:pointer;transition:all .2s;box-shadow:0 10px 20px rgba(87,123,155,.08);}
 .sit-card:hover{border-color:var(--orange);color:var(--orange);}
 .sit-card.used{opacity:.35;text-decoration:line-through;}
 
 .quest-side{width:188px;display:flex;flex-direction:column;gap:10px;}
-.score-card{background:var(--bg2);border:1px solid var(--dim);border-radius:16px;padding:14px;}
+.score-card{background:#fff;border:1px solid var(--dim);border-radius:20px;padding:14px;box-shadow:0 14px 32px rgba(87,123,155,.12);}
 .sc-hd{font-size:.62rem;color:var(--dim);letter-spacing:2px;text-align:center;margin-bottom:12px;}
 .team-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;}
 .t-name{font-size:.82rem;font-weight:700;width:44px;}
@@ -176,13 +227,20 @@ body{background:var(--bg);color:var(--text);font-family:'Apple SD Gothic Neo','M
 
 /* ── MEMORY ── */
 .mem-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;text-align:center;}
+.mem-stage{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:22px;align-items:center;max-width:980px;width:100%;}
+.mem-copy{display:flex;flex-direction:column;align-items:center;gap:18px;}
+.mem-art{overflow:hidden;border-radius:24px;background:#fff;border:1px solid var(--dim);box-shadow:0 18px 44px rgba(87,123,155,.16);}
+.mem-art img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block;}
+.mem-art div{padding:14px 16px;background:#fff;text-align:left;}
+.mem-art b{display:block;color:var(--orange);font-size:.82rem;margin-bottom:4px;}
+.mem-art span{display:block;color:var(--muted);font-size:.84rem;font-weight:800;line-height:1.5;}
 .mem-icon{font-size:2.5rem;}
-.mem-ref{font-size:.72rem;color:var(--orange);letter-spacing:2px;}
+.mem-ref{font-size:.72rem;color:var(--orange);letter-spacing:2px;font-weight:900;}
 .mem-verse{font-size:1.65rem;font-weight:700;line-height:1.9;max-width:680px;}
 .mem-verse span{color:var(--orange);}
-.mem-sub{font-size:.78rem;color:var(--dim);background:var(--bg2);padding:8px 18px;border-radius:10px;}
+.mem-sub{font-size:.78rem;color:var(--muted);background:#fff;padding:8px 18px;border-radius:999px;border:1px solid var(--dim);}
 .mem-teams{display:flex;gap:12px;margin-top:6px;}
-.mem-team{background:var(--bg2);border:1.5px solid var(--dim);border-radius:12px;padding:12px 20px;text-align:center;cursor:pointer;transition:all .2s;}
+.mem-team{background:#fff;border:1.5px solid var(--dim);border-radius:16px;padding:12px 20px;text-align:center;cursor:pointer;transition:all .2s;box-shadow:0 10px 22px rgba(87,123,155,.08);}
 .mem-team:hover{border-color:var(--orange);transform:translateY(-2px);}
 .mem-team.done{border-color:var(--orange);background:rgba(255,140,66,.08);}
 .mt-name{font-size:.78rem;color:var(--muted);}
@@ -192,7 +250,7 @@ body{background:var(--bg);color:var(--text);font-family:'Apple SD Gothic Neo','M
 .close-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;}
 .close-title{font-size:1.6rem;font-weight:900;color:var(--gold);}
 .close-winner{font-size:2.6rem;font-weight:900;}
-.close-scores{display:flex;gap:24px;background:var(--bg2);border:1px solid var(--dim);border-radius:16px;padding:16px 32px;}
+.close-scores{display:flex;gap:24px;background:#fff;border:1px solid var(--dim);border-radius:20px;padding:16px 32px;box-shadow:0 14px 32px rgba(87,123,155,.12);}
 .cs{text-align:center;}
 .cs-name{font-size:.78rem;color:var(--muted);margin-bottom:4px;}
 .cs-score{font-size:2rem;font-weight:900;}
@@ -215,6 +273,11 @@ body{background:var(--bg);color:var(--text);font-family:'Apple SD Gothic Neo','M
   .s-flow{width:100%;overflow-x:auto;justify-content:flex-start;}
   .f-step{min-width:74px;}
   .leader-kit{grid-template-columns:1fr;}
+  .start-body,.qa-body,.mem-stage{grid-template-columns:1fr;}
+  .lesson-art{min-height:280px;border-radius:20px;}
+  .lesson-art img{min-height:280px;aspect-ratio:16/10;}
+  .qa-visual,.mem-art{position:static;}
+  .qa-visual img,.mem-art img{aspect-ratio:16/10;}
   .creed-text{font-size:.92rem;line-height:2.15;text-align:left;}
   .choices{grid-template-columns:1fr;}
   .q-text{font-size:1.12rem;}
@@ -253,33 +316,39 @@ body{background:var(--bg);color:var(--text);font-family:'Apple SD Gothic Neo','M
 <!-- 0. START -->
 <div class="screen on" id="sc-start">
   <div class="start-body">
-    <div class="s-logo">B · QUEST</div>
-    <div class="s-date">2026년 7월 5일 (주일) · W01</div>
-    <div class="s-theme">용서</div>
-    <div class="s-verse">
-      "그 때에 베드로가 나아와 이르되 주여 형제가 내게 죄를 범하면<br>
-      몇 번이나 용서하여 주리이까 일곱 번까지 하오리이까<br>
-      예수께서 이르시되 네게 이르노니 일곱 번뿐 아니라<br>
-      일흔 번씩 일곱 번이라도 할지니라"<br>
-      <span style="font-size:.72rem;color:var(--dim)">— 마태복음 18:21-22</span>
+    <div class="start-copy">
+      <div class="s-logo">B · QUEST</div>
+      <div class="s-date">2026년 7월 5일 (주일) · W01</div>
+      <div class="s-theme">용서</div>
+      <div class="s-verse">
+        "그 때에 베드로가 나아와 이르되 주여 형제가 내게 죄를 범하면<br>
+        몇 번이나 용서하여 주리이까 일곱 번까지 하오리이까<br>
+        예수께서 이르시되 네게 이르노니 일곱 번뿐 아니라<br>
+        일흔 번씩 일곱 번이라도 할지니라"<br>
+        <span style="font-size:.72rem;color:var(--muted)">— 마태복음 18:21-22</span>
+      </div>
+      <div class="s-flow">
+        <div class="f-step"><div class="f-num">01</div><div class="f-name">사전체조</div><div class="f-time">3분</div></div>
+        <div class="f-sep">›</div>
+        <div class="f-step"><div class="f-num">02</div><div class="f-name">찬양</div><div class="f-time">7분</div></div>
+        <div class="f-sep">›</div>
+        <div class="f-step"><div class="f-num">03</div><div class="f-name">Q&A 탐험</div><div class="f-time">20분</div></div>
+        <div class="f-sep">›</div>
+        <div class="f-step"><div class="f-num">04</div><div class="f-name">퀘스트 임무</div><div class="f-time">20분</div></div>
+        <div class="f-sep">›</div>
+        <div class="f-step"><div class="f-num">05</div><div class="f-name">비밀 코드</div><div class="f-time">10분</div></div>
+        <div class="f-sep">›</div>
+        <div class="f-step"><div class="f-num">06</div><div class="f-name">마무리</div><div class="f-time">10분</div></div>
+      </div>
+      <div class="leader-kit">
+        <div class="kit-card"><b>오늘의 핵심</b><span>내가 먼저 탕감받았기 때문에, 나도 용서할 수 있어요.</span></div>
+        <div class="kit-card"><b>진행 포인트</b><span>정답 맞히기보다 “받은 은혜를 기억하기”로 흐름을 잡아주세요.</span></div>
+        <div class="kit-card"><b>준비물</b><span>팀 이름 3개, 상황 카드, 암송 보너스 점수만 준비하면 됩니다.</span></div>
+      </div>
     </div>
-    <div class="s-flow">
-      <div class="f-step"><div class="f-num">01</div><div class="f-name">사전체조</div><div class="f-time">3분</div></div>
-      <div class="f-sep">›</div>
-      <div class="f-step"><div class="f-num">02</div><div class="f-name">찬양</div><div class="f-time">7분</div></div>
-      <div class="f-sep">›</div>
-      <div class="f-step"><div class="f-num">03</div><div class="f-name">Q&A 탐험</div><div class="f-time">20분</div></div>
-      <div class="f-sep">›</div>
-      <div class="f-step"><div class="f-num">04</div><div class="f-name">퀘스트 임무</div><div class="f-time">20분</div></div>
-      <div class="f-sep">›</div>
-      <div class="f-step"><div class="f-num">05</div><div class="f-name">비밀 코드</div><div class="f-time">10분</div></div>
-      <div class="f-sep">›</div>
-      <div class="f-step"><div class="f-num">06</div><div class="f-name">마무리</div><div class="f-time">10분</div></div>
-    </div>
-    <div class="leader-kit">
-      <div class="kit-card"><b>오늘의 핵심</b><span>내가 먼저 탕감받았기 때문에, 나도 용서할 수 있어요.</span></div>
-      <div class="kit-card"><b>진행 포인트</b><span>정답 맞히기보다 “받은 은혜를 기억하기”로 흐름을 잡아주세요.</span></div>
-      <div class="kit-card"><b>준비물</b><span>팀 이름 3개, 상황 카드, 암송 보너스 점수만 준비하면 됩니다.</span></div>
+    <div class="lesson-art">
+      <img src="assets/forgiveness-cover.png" alt="친구를 위로하는 밝은 교실 이미지">
+      <div class="art-caption"><b>오늘의 장면</b><span>예수님이 먼저 용서해 주신 은혜를 기억해요.</span></div>
     </div>
   </div>
 </div>
@@ -317,22 +386,28 @@ body{background:var(--bg);color:var(--text);font-family:'Apple SD Gothic Neo','M
 <!-- 3. Q&A 탐험 -->
 <div class="screen" id="sc-qa">
   <div class="qa-body">
-    <div class="qa-prog" id="qaProg"></div>
-    <div class="q-label-row">
-      <div class="q-label" id="qLabel">QUESTION 1 / 4</div>
+    <div class="qa-main">
+      <div class="qa-prog" id="qaProg"></div>
+      <div class="q-label-row">
+        <div class="q-label" id="qLabel">QUESTION 1 / 4</div>
+      </div>
+      <div class="q-box">
+        <div class="q-text" id="qText"></div>
+      </div>
+      <div class="choices" id="choices"></div>
+      <div class="script-box" id="scriptBox">
+        <div class="sc-label">▶ 정답 해설</div>
+        <div class="sc-text" id="scriptText"></div>
+      </div>
+      <div class="qa-next-row">
+        <button class="qa-next" id="qaNext" onclick="nextQ()">다음 질문 →</button>
+      </div>
+      <div class="qa-done" id="qaDone">✦ Q&A 탐험 완료! 퀘스트 임무로 이동하세요 →</div>
     </div>
-    <div class="q-box">
-      <div class="q-text" id="qText"></div>
-    </div>
-    <div class="choices" id="choices"></div>
-    <div class="script-box" id="scriptBox">
-      <div class="sc-label">▶ 정답 해설</div>
-      <div class="sc-text" id="scriptText"></div>
-    </div>
-    <div class="qa-next-row">
-      <button class="qa-next" id="qaNext" onclick="nextQ()">다음 질문 →</button>
-    </div>
-    <div class="qa-done" id="qaDone">✦ Q&A 탐험 완료! 퀘스트 임무로 이동하세요 →</div>
+    <aside class="qa-visual" aria-label="질문 장면 이미지">
+      <img src="assets/forgiveness-question.png" alt="베드로가 예수님께 용서를 묻는 밝은 성경 이야기 장면">
+      <div><b>단서 찾기</b><span>질문을 맞히는 것보다, 왜 예수님이 이 이야기를 들려주셨는지 함께 발견해요.</span></div>
+    </aside>
   </div>
 </div>
 
@@ -363,16 +438,24 @@ body{background:var(--bg);color:var(--text);font-family:'Apple SD Gothic Neo','M
 <!-- 5. 비밀 코드 -->
 <div class="screen" id="sc-memory">
   <div class="mem-body">
-    <div class="mem-icon">🗝️</div>
-    <div class="mem-ref">비밀 코드 · 에베소서 4:32</div>
-    <div class="mem-verse">
-      "서로 친절하게 하며 불쌍히 여기며<br>
-      서로 용서하기를<br>
-      <span>하나님이 그리스도 안에서</span><br>
-      <span>너희를 용서하심과 같이 하라"</span>
+    <div class="mem-stage">
+      <div class="mem-copy">
+        <div class="mem-icon">🗝️</div>
+        <div class="mem-ref">비밀 코드 · 에베소서 4:32</div>
+        <div class="mem-verse">
+          "서로 친절하게 하며 불쌍히 여기며<br>
+          서로 용서하기를<br>
+          <span>하나님이 그리스도 안에서</span><br>
+          <span>너희를 용서하심과 같이 하라"</span>
+        </div>
+        <div class="mem-sub">외운 팀 버튼을 누르면 +3점!</div>
+        <div class="mem-teams" id="memTeams"></div>
+      </div>
+      <aside class="mem-art" aria-label="복음 연결 이미지">
+        <img src="assets/forgiveness-gospel.png" alt="십자가 빛과 따뜻한 마음을 품은 어린이 이미지">
+        <div><b>비밀 코드</b><span>외우는 구절이 오늘의 결단으로 이어지도록 보여줍니다.</span></div>
+      </aside>
     </div>
-    <div class="mem-sub">외운 팀 버튼을 누르면 +3점!</div>
-    <div class="mem-teams" id="memTeams"></div>
   </div>
 </div>
 
