@@ -6,6 +6,7 @@
 <title>B-QUEST | 용서</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
+html{height:100%;}
 :root{
   --bg:#fff8e8;--bg2:#ffffff;--bg3:#eaf7ff;
   --gold:#f6b73c;--orange:#ff8a4c;--teal:#22c7b8;
@@ -21,9 +22,14 @@ body{
   color:var(--text);
   font-family:'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
   height:100vh;
+  height:100svh;
+  min-height:100svh;
   display:flex;
   flex-direction:column;
   overflow:hidden;
+}
+@supports (height:100dvh){
+  body{height:100dvh;min-height:100dvh;}
 }
 
 .stars{position:fixed;inset:0;pointer-events:none;z-index:0;}
@@ -162,9 +168,10 @@ body{
 .qa-visual b{display:block;color:var(--orange);font-size:.82rem;margin-bottom:4px;}
 .qa-visual span{display:block;color:var(--muted);font-size:.84rem;font-weight:800;line-height:1.5;}
 .qa-prog{display:flex;gap:6px;align-items:center;}
-.qp-dot{width:28px;height:8px;border-radius:999px;background:#dcecf7;transition:all .3s;}
+.qp-dot{width:28px;height:8px;border:0;border-radius:999px;background:#dcecf7;transition:all .3s;cursor:pointer;font-family:inherit;}
 .qp-dot.active{background:var(--gold);width:36px;}
 .qp-dot.done{background:var(--green);}
+.qp-dot:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(35,50,77,.12);}
 .q-label-row{display:flex;align-items:center;gap:8px;}
 .q-label{font-size:.65rem;color:var(--orange);letter-spacing:2px;font-weight:900;}
 .q-box{background:#fff;border:1.5px solid var(--dim);border-radius:20px;padding:22px 26px;box-shadow:0 14px 34px rgba(87,123,155,.12);}
@@ -195,6 +202,9 @@ body{
 .qa-next{padding:9px 28px;background:var(--gold);color:#000;border:none;border-radius:10px;font-size:.85rem;font-weight:900;font-family:inherit;cursor:pointer;display:none;transition:all .2s;}
 .qa-next:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(245,197,24,.4);}
 .qa-next.on{display:block;}
+.qa-jump{display:flex;justify-content:center;gap:10px;align-items:center;min-height:28px;}
+.qa-jump .qp-dot{width:18px;height:18px;border:2px solid #fff;box-shadow:0 4px 12px rgba(35,50,77,.12);}
+.qa-jump .qp-dot.active{width:42px;}
 
 .qa-done{text-align:center;padding:16px;color:#1a8b49;font-size:.95rem;font-weight:900;display:none;background:var(--mint);border-radius:16px;border:1px solid rgba(84,201,111,.28);}
 .qa-done.on{display:block;}
@@ -303,7 +313,7 @@ body{background:#f7fbff;}
 }
 .nav{
   min-height:64px;
-  padding:8px 28px;
+  padding:8px 28px calc(8px + env(safe-area-inset-bottom));
 }
 .btn{
   min-width:128px;
@@ -522,6 +532,38 @@ body{background:#f7fbff;}
   border-radius:999px;
   font-size:1.1rem;
   padding:12px 42px;
+}
+
+@media (min-width:761px) and (max-width:1366px), (min-width:761px) and (max-height:900px){
+  .top{min-height:48px;padding:5px 24px;}
+  .timer-disp{font-size:1.35rem;}
+  .timer-lbl{display:none;}
+  .nav{min-height:54px;padding:5px 22px calc(5px + env(safe-area-inset-bottom));}
+  .btn{min-height:38px;font-size:.9rem;padding:8px 20px;}
+  .btn-next,.btn-done{min-width:160px;}
+  .main{min-height:0;}
+  .screen.on{min-height:0;}
+  .qa-body{grid-template-rows:48% 52%;}
+  .qa-main{padding:14px clamp(32px,5vw,74px) 18px;gap:10px;}
+  .q-box{padding:16px 24px;}
+  .q-text{font-size:clamp(1.65rem,2.45vw,2.35rem);line-height:1.42;}
+  .ch-btn{min-height:60px;font-size:clamp(1.1rem,1.65vw,1.6rem);}
+  .qa-visual div{bottom:18px;}
+  .creed-body,.worship-body,.quest-body,.mem-body,.close-body{padding:22px clamp(36px,5vw,82px);}
+  .quest-title{font-size:clamp(1.9rem,2.9vw,3rem);}
+  .quest-intro{font-size:1rem;}
+  .q-step{font-size:.9rem;padding:9px 12px;}
+  .active-sit{min-height:72px;font-size:clamp(1.15rem,1.75vw,1.7rem);}
+  .scale-wrap{height:clamp(205px,28vh,280px);}
+  .pan{top:116px;width:190px;min-height:66px;}
+  .pan span{font-size:1.45rem;}
+  .sit-card{font-size:.86rem;padding:8px 10px;}
+  .mem-stage{grid-template-rows:minmax(210px,36vh) auto;}
+  .mem-copy{min-height:calc(100dvh - 48px - 54px - 36vh);padding:24px clamp(40px,6vw,86px) 30px;}
+  .mem-art div{bottom:28px;}
+  .mem-verse{font-size:clamp(1.55rem,2.35vw,2.25rem);line-height:1.45;}
+  .mem-sub{font-size:.9rem;}
+  .mem-team{padding:10px 18px;}
 }
 
 .creed-body,.worship-body,.quest-body,.mem-body,.close-body{
@@ -771,6 +813,7 @@ body{background:#f7fbff;}
         </div>
         <div class="sc-text" id="scriptText"></div>
       </div>
+      <div class="qa-jump" id="qaJump" aria-label="질문 바로가기"></div>
       <div class="qa-next-row">
         <button class="qa-next" id="qaNext" onclick="nextQ()">다음 질문 →</button>
       </div>
@@ -997,7 +1040,22 @@ function pad(n){return String(n).padStart(2,'0');}
 
 /* Q&A */
 function buildQaProg(){
-  document.getElementById('qaProg').innerHTML=QA.map((_,i)=>`<div class="qp-dot" id="qp${i}"></div>`).join('');
+  const dots=QA.map((_,i)=>`<button class="qp-dot" id="qp${i}" onclick="jumpQ(${i})" aria-label="QUESTION ${i+1}로 이동"></button>`).join('');
+  const jumpDots=QA.map((_,i)=>`<button class="qp-dot" id="qj${i}" onclick="jumpQ(${i})" aria-label="QUESTION ${i+1}로 이동"></button>`).join('');
+  document.getElementById('qaProg').innerHTML=dots;
+  document.getElementById('qaJump').innerHTML=jumpDots;
+}
+function updateQaDots(){
+  QA.forEach((_,i)=>{
+    const cls='qp-dot'+(i<qaIdx?' done':i===qaIdx?' active':'');
+    document.getElementById('qp'+i).className=cls;
+    document.getElementById('qj'+i).className=cls;
+  });
+}
+function jumpQ(idx){
+  if(idx===qaIdx && !qaAnswered) return;
+  loadQ(idx);
+  document.getElementById('main').scrollTo({top:0,behavior:'smooth'});
 }
 function loadQ(idx){
   qaIdx=idx; qaAnswered=false;
@@ -1016,10 +1074,7 @@ function loadQ(idx){
   document.getElementById('scriptLabel').textContent='정답 해설';
   document.getElementById('qaNext').classList.remove('on');
   document.getElementById('qaDone').classList.remove('on');
-  QA.forEach((_,i)=>{
-    const d=document.getElementById('qp'+i);
-    d.className='qp-dot'+(i<idx?' done':i===idx?' active':'');
-  });
+  updateQaDots();
 }
 function pick(idx){
   if(qaAnswered) return;
@@ -1054,7 +1109,10 @@ function nextQ(){
   else{
     document.getElementById('qaNext').classList.remove('on');
     document.getElementById('qaDone').classList.add('on');
-    QA.forEach((_,i)=>document.getElementById('qp'+i).className='qp-dot done');
+    QA.forEach((_,i)=>{
+      document.getElementById('qp'+i).className='qp-dot done';
+      document.getElementById('qj'+i).className='qp-dot done';
+    });
   }
 }
 
