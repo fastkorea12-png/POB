@@ -1182,6 +1182,71 @@ body{background:#f7fbff;}
 }
 
 
+/* PHONE START PAGE FIX */
+@media (max-width:760px){
+  #sc-start.screen.on{min-height:auto;}
+  #sc-start .start-body{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    padding:0;
+  }
+  #sc-start .start-copy{
+    order:1;
+    padding:16px;
+    border:1px solid var(--dim);
+    border-radius:22px;
+    background:rgba(255,255,255,.88);
+    box-shadow:0 16px 34px rgba(87,123,155,.12);
+  }
+  #sc-start .lesson-art{
+    order:2;
+    border-radius:22px;
+    overflow:hidden;
+  }
+  #sc-start .lesson-art img{
+    aspect-ratio:16/9;
+    object-position:center 38%;
+  }
+  #sc-start .s-logo{
+    font-size:1.28rem;
+    line-height:1;
+    letter-spacing:2px;
+  }
+  #sc-start .s-date{font-size:.72rem;}
+  #sc-start .s-theme{
+    font-size:clamp(3.1rem,21vw,4.7rem);
+    line-height:.95;
+  }
+  #sc-start .s-verse{
+    padding:12px 13px;
+    font-size:.78rem;
+    line-height:1.65;
+    border-radius:14px;
+  }
+  #sc-start .s-flow{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+    overflow:visible;
+    padding:0;
+    border:0;
+    background:transparent;
+    box-shadow:none;
+  }
+  #sc-start .f-sep{display:none;}
+  #sc-start .f-step{
+    min-width:0;
+    padding:10px 8px;
+    border:1px solid var(--dim);
+    border-radius:14px;
+    background:#fff;
+  }
+  #sc-start .f-name{font-size:.68rem;}
+  #sc-start .f-time{font-size:.58rem;}
+  #sc-start .leader-kit{display:none;}
+}
+
 </style>
 </head>
 <body>
