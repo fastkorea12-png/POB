@@ -436,9 +436,12 @@ body{background:#f7fbff;}
   align-items:stretch;
 }
 .qa-body.answer-mode{
-  height:auto;
+  height:100%;
   min-height:100%;
-  grid-template-rows:minmax(340px,48vh) auto;
+  grid-template-columns:minmax(0,68fr) minmax(360px,32fr);
+  grid-template-rows:1fr;
+  gap:0;
+  background:#07111d;
 }
 .qa-visual{
   order:1;
@@ -475,7 +478,10 @@ body{background:#f7fbff;}
 }
 .qa-main.answer-mode{
   justify-content:center;
-  min-height:52vh;
+  min-height:100%;
+  padding:22px clamp(24px,2.2vw,48px) 24px;
+  background:linear-gradient(180deg,#fff 0%,#f5fbff 100%);
+  overflow:auto;
 }
 .qa-prog{justify-content:center;}
 .q-label-row{justify-content:center;}
@@ -523,8 +529,12 @@ body{background:#f7fbff;}
   text-align:center;
 }
 .script-box.has-video{
-  display:block;
-  padding:34px 44px;
+  display:flex;
+  flex:1;
+  min-height:0;
+  flex-direction:column;
+  justify-content:center;
+  padding:30px clamp(24px,2.6vw,46px);
   border-radius:28px;
   background:linear-gradient(135deg,#fff 0%,#f2fff5 100%);
 }
@@ -543,7 +553,7 @@ body{background:#f7fbff;}
   max-height:42vh;
 }
 .script-box.has-video .sc-text{
-  font-size:clamp(1.55rem,2.05vw,2.25rem);
+  font-size:clamp(1.25rem,1.62vw,2.05rem);
   line-height:1.72;
   font-weight:800;
   text-align:center;
@@ -565,11 +575,18 @@ body{background:#f7fbff;}
   .main{min-height:0;}
   .screen.on{min-height:0;}
   .qa-body{grid-template-rows:48% 52%;}
+  .qa-body.answer-mode{
+    grid-template-columns:minmax(0,68fr) minmax(350px,32fr);
+    grid-template-rows:1fr;
+  }
   .qa-main{padding:14px clamp(32px,5vw,74px) 18px;gap:10px;}
+  .qa-main.answer-mode{padding:16px clamp(18px,2vw,34px);}
   .q-box{padding:16px 24px;}
   .q-text{font-size:clamp(1.65rem,2.45vw,2.35rem);line-height:1.42;}
   .ch-btn{min-height:60px;font-size:clamp(1.1rem,1.65vw,1.6rem);}
   .qa-visual div{bottom:18px;}
+  .script-box.has-video{padding:22px clamp(18px,2vw,34px);}
+  .script-box.has-video .sc-text{font-size:clamp(1.05rem,1.45vw,1.62rem);line-height:1.65;}
   .creed-body,.worship-body,.quest-body,.mem-body,.close-body{padding:22px clamp(36px,5vw,82px);}
   .quest-title{font-size:clamp(1.9rem,2.9vw,3rem);}
   .quest-intro{font-size:1rem;}
@@ -689,7 +706,9 @@ body{background:#f7fbff;}
   .f-step{min-width:74px;}
   .leader-kit{grid-template-columns:1fr;}
   .start-body,.qa-body,.mem-stage{grid-template-columns:1fr;grid-template-rows:auto;}
+  .qa-body.answer-mode{grid-template-columns:1fr;grid-template-rows:auto auto;height:auto;background:#fff;}
   .start-copy,.qa-main,.mem-copy{padding:16px;}
+  .qa-main.answer-mode{min-height:auto;padding:16px;overflow:visible;}
   .lesson-art{min-height:280px;border-radius:20px;}
   .lesson-art img{min-height:280px;aspect-ratio:16/10;}
   .qa-visual,.mem-art{position:static;}
@@ -1135,7 +1154,7 @@ function pick(idx){
     }
     scriptBox.classList.add('on');
     document.getElementById('qaNext').classList.add('on');
-    setTimeout(()=>scriptBox.scrollIntoView({behavior:'smooth',block:'center'}),120);
+    if(!q.video) setTimeout(()=>scriptBox.scrollIntoView({behavior:'smooth',block:'center'}),120);
     qaAnswered=true;
   } else {
     btns[idx].classList.add('ng');
