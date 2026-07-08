@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POB 성경클럽 상세페이지</title>
+<style>
+*{box-sizing:border-box}
+:root{
+  --ink:#17233a;
+  --ink-2:#31435d;
+  --muted:#68778b;
+  --paper:#fffaf1;
+  --white:#fff;
+  --line:rgba(23,35,58,.14);
+  --green:#2f7657;
+  --blue:#3b86c6;
+  --gold:#f3b33d;
+  --coral:#ef7b53;
+  --mint:#edf8ef;
+  --sky:#edf7ff;
+}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  line-height:1.62;
+}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit}
+.site-nav{
+  position:sticky;
+  top:0;
+  z-index:20;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:13px clamp(18px,4vw,56px);
+  background:rgba(255,250,241,.92);
+  border-bottom:1px solid var(--line);
+  backdrop-filter:blur(14px);
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:950}
+.brand-mark{
+  width:38px;
+  height:38px;
+  border-radius:8px;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  background:linear-gradient(135deg,var(--green),var(--blue));
+}
+.brand small{display:block;color:var(--muted);font-size:.72rem;font-weight:800;line-height:1.1}
+.nav-links{display:flex;align-items:center;gap:18px;color:var(--ink-2);font-size:.92rem;font-weight:850}
+.nav-cta{padding:9px 14px;border-radius:8px;color:#fff;background:var(--green)}
+.hero{
+  min-height:calc(100vh - 65px);
+  display:grid;
+  grid-template-columns:minmax(0,1.02fr) minmax(360px,.88fr);
+  gap:34px;
+  align-items:center;
+  padding:56px clamp(18px,5vw,76px) 42px;
+  background:linear-gradient(135deg,#fffaf1 0%,#f4fbff 58%,#eef8ef 100%);
+}
+.eyebrow{
+  display:inline-flex;
+  padding:7px 12px;
+  border:1px solid rgba(47,118,87,.24);
+  border-radius:999px;
+  color:var(--green);
+  background:rgba(255,255,255,.72);
+  font-weight:950;
+  font-size:.88rem;
+}
+h1{
+  margin:20px 0 18px;
+  font-size:clamp(3rem,7vw,6.7rem);
+  line-height:.98;
+  letter-spacing:0;
+}
+.hero-sub{
+  max-width:760px;
+  color:var(--ink-2);
+  font-size:clamp(1.08rem,1.9vw,1.36rem);
+  font-weight:760;
+}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:48px;
+  padding:12px 18px;
+  border-radius:8px;
+  border:1px solid transparent;
+  cursor:pointer;
+  font-weight:950;
+}
+.btn.primary{background:var(--green);color:#fff;box-shadow:0 12px 28px rgba(47,118,87,.22)}
+.btn.secondary{background:#fff;color:var(--ink);border-color:var(--line)}
+.hero-media{
+  overflow:hidden;
+  border-radius:8px;
+  background:#081421;
+  box-shadow:0 24px 70px rgba(23,35,58,.24);
+  border:1px solid rgba(255,255,255,.8);
+}
+.hero-media video,.hero-media img{
+  width:100%;
+  aspect-ratio:16/10;
+  object-fit:cover;
+  display:block;
+}
+.hero-strip{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:34px;
+}
+.mini{
+  padding:14px;
+  border-radius:8px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.76);
+}
+.mini b{display:block;color:var(--green);font-size:1.18rem}
+.mini span{display:block;color:var(--muted);font-size:.84rem;font-weight:850}
+.section{padding:76px clamp(18px,5vw,76px)}
+.section.white{background:#fff}
+.section.soft{background:#f4f8f2}
+.section-head{max-width:850px;margin-bottom:30px}
+.kicker{color:var(--green);font-weight:950;font-size:.86rem;letter-spacing:.08em}
+h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.07;letter-spacing:0}
+.lead{color:var(--ink-2);font-size:1.08rem;font-weight:740}
+.problem-grid,.target-grid,.feature-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+}
+.card{
+  min-height:190px;
+  padding:24px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:#fff;
+}
+.card .tag{display:inline-block;padding:5px 9px;border-radius:999px;background:var(--sky);font-size:.78rem;font-weight:950;color:#14608a}
+.card h3{margin:18px 0 8px;font-size:1.28rem;line-height:1.22}
+.card p{margin:0;color:var(--muted);font-size:.95rem;font-weight:680}
+.bridge{
+  display:grid;
+  grid-template-columns:minmax(320px,.85fr) minmax(0,1.15fr);
+  gap:20px;
+  align-items:stretch;
+}
+.bridge-visual{
+  position:relative;
+  overflow:hidden;
+  min-height:460px;
+  border-radius:8px;
+  background:#123;
+  color:#fff;
+  display:flex;
+  align-items:flex-end;
+  padding:28px;
+}
+.bridge-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.bridge-visual:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,33,61,.04),rgba(20,33,61,.72));z-index:1}
+.bridge-visual div{position:relative;z-index:2}
+.bridge-visual strong{display:block;font-size:2.15rem;line-height:1.12}
+.bridge-visual p{margin:10px 0 0;max-width:520px;font-weight:850}
+.path{
+  display:grid;
+  gap:10px;
+}
+.path-step{
+  display:grid;
+  grid-template-columns:80px minmax(0,1fr);
+  gap:14px;
+  align-items:start;
+  padding:16px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:#fff;
+}
+.path-step b{color:var(--coral)}
+.path-step strong{display:block;font-size:1.06rem}
+.path-step span{display:block;color:var(--muted);font-size:.9rem;font-weight:700}
+.schedule{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0 10px;
+}
+.schedule th{
+  padding:0 14px 6px;
+  text-align:left;
+  color:var(--muted);
+  font-size:.82rem;
+}
+.schedule td{
+  padding:18px 14px;
+  background:#fff;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  font-weight:760;
+}
+.schedule td:first-child{border-left:1px solid var(--line);border-radius:8px 0 0 8px;color:var(--green);font-weight:950}
+.schedule td:last-child{border-right:1px solid var(--line);border-radius:0 8px 8px 0;color:var(--coral);font-weight:950}
+.split{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+.panel{
+  padding:28px;
+  border-radius:8px;
+  border:1px solid var(--line);
+  background:#fff;
+}
+.panel h3{margin:0 0 14px;font-size:1.8rem}
+.check-list{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.check-list li{
+  padding:13px 14px;
+  border-radius:8px;
+  background:#f7fbff;
+  color:var(--ink-2);
+  font-weight:760;
+}
+.games{
+  display:grid;
+  grid-template-columns:minmax(0,.95fr) minmax(340px,1.05fr);
+  gap:24px;
+  align-items:center;
+}
+.games-copy{
+  padding:30px;
+  border-radius:8px;
+  background:#fff;
+  border:1px solid var(--line);
+}
+.games-copy h2{font-size:clamp(2.2rem,4.2vw,4rem)}
+.games-media{
+  overflow:hidden;
+  border-radius:8px;
+  min-height:420px;
+  background:#123;
+  box-shadow:0 22px 58px rgba(23,35,58,.18);
+}
+.games-media img{width:100%;height:100%;min-height:420px;object-fit:cover;display:block}
+.demo-grid{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:18px;
+  align-items:stretch;
+}
+.demo-video{
+  overflow:hidden;
+  border-radius:8px;
+  background:#081421;
+  box-shadow:0 20px 55px rgba(23,35,58,.2);
+}
+.demo-video video{width:100%;height:100%;min-height:420px;object-fit:contain;display:block}
+.demo-points{display:grid;gap:10px}
+.network{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+}
+.network .card{min-height:170px}
+.contact{
+  display:grid;
+  grid-template-columns:minmax(0,.95fr) minmax(340px,1.05fr);
+  gap:22px;
+  align-items:start;
+}
+.contact-box{
+  padding:30px;
+  border-radius:8px;
+  background:var(--ink);
+  color:#fff;
+}
+.contact-box h2{margin-top:0}
+.contact-box p{color:#d7e1ef;font-weight:760}
+.form{
+  display:grid;
+  gap:12px;
+  padding:24px;
+  border-radius:8px;
+  background:#fff;
+  border:1px solid var(--line);
+}
+.field label{display:block;font-size:.82rem;color:var(--muted);font-weight:900;margin-bottom:6px}
+.field input,.field select,.field textarea{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:12px 13px;
+  color:var(--ink);
+  background:#fff;
+}
+.field textarea{min-height:110px;resize:vertical}
+.notice{
+  margin:0;
+  color:var(--muted);
+  font-size:.86rem;
+  font-weight:700;
+}
+@media (max-width:1060px){
+  .hero,.bridge,.games,.demo-grid,.contact{grid-template-columns:1fr}
+  .problem-grid,.target-grid,.feature-grid{grid-template-columns:repeat(2,1fr)}
+  .network{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:680px){
+  .site-nav{padding:11px 16px}
+  .nav-links a:not(.nav-cta){display:none}
+  h1{font-size:3.1rem}
+  .hero{padding-top:36px}
+  .hero-strip,.problem-grid,.target-grid,.feature-grid,.split,.network{grid-template-columns:1fr}
+  .bridge-visual,.games-media,.demo-video video{min-height:300px}
+  .path-step{grid-template-columns:1fr}
+  .schedule thead{display:none}
+  .schedule tr,.schedule td{display:block}
+  .schedule td{border-left:1px solid var(--line);border-right:1px solid var(--line);border-radius:0}
+  .schedule td:first-child{border-radius:8px 8px 0 0}
+  .schedule td:last-child{border-radius:0 0 8px 8px}
+}
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <a class="brand" href="index.html" aria-label="POB 성경클럽 홈">
+    <span class="brand-mark">POB</span>
+    <span>POB 성경클럽<small>상세 안내</small></span>
+  </a>
+  <div class="nav-links">
+    <a href="#flow">70분 흐름</a>
+    <a href="#games">토요 게임즈</a>
+    <a href="#church">교회 도입</a>
+    <a class="nav-cta" href="#contact">문의하기</a>
+  </div>
+</nav>
+
+<main id="top">
+  <section class="hero">
+    <div>
+      <span class="eyebrow">어린이 말씀 탐험 프로그램</span>
+      <h1>성경을 읽고,<br>뛰고, 풀고,<br>기억하는 시간</h1>
+      <p class="hero-sub">POB 성경클럽은 주일학교 아이들이 말씀을 지루하게 듣기만 하지 않도록, 성경 본문을 중심으로 퀴즈, 체조, 게임, 몸놀이, 묵상을 연결합니다.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#contact">프로그램 문의하기</a>
+        <a class="btn secondary" href="lesson-01.html">샘플 콘텐츠 보기</a>
+      </div>
+      <div class="hero-strip">
+        <div class="mini"><b>주일 70분</b><span>말씀 중심 예배 흐름</span></div>
+        <div class="mini"><b>토요 90분</b><span>부담 없는 활동 클럽</span></div>
+        <div class="mini"><b>교사 1명</b><span>작은 교회도 시작</span></div>
+      </div>
+    </div>
+    <div class="hero-media" aria-label="POB 성경클럽 샘플 영상">
+      <video src="assets/gemini-story-q1.mp4" poster="assets/forgiveness-question.png" muted autoplay loop playsinline controls></video>
+    </div>
+  </section>
+
+  <section class="section white">
+    <div class="section-head">
+      <div class="kicker">WHY</div>
+      <h2>아이들이 앉아 있기는 하지만, 말씀을 정말 이해하고 있을까요?</h2>
+      <p class="lead">부모와 교회 담당자가 함께 느끼는 고민에서 POB 성경클럽은 시작합니다.</p>
+    </div>
+    <div class="problem-grid">
+      <article class="card"><span class="tag">기억</span><h3>들어도 금방 잊어버립니다</h3><p>성경 이야기를 듣는 것만으로는 아이들의 생활과 마음에 오래 남기 어렵습니다.</p></article>
+      <article class="card"><span class="tag">연결</span><h3>주일과 평일이 끊어집니다</h3><p>주일에 들은 말씀이 가정의 묵상과 대화로 이어질 장치가 필요합니다.</p></article>
+      <article class="card"><span class="tag">준비</span><h3>교사 혼자 준비하기 어렵습니다</h3><p>본문, PPT, 퀴즈, 게임, 암송까지 매주 새로 만드는 부담이 큽니다.</p></article>
+      <article class="card"><span class="tag">참여</span><h3>아이들은 움직일 때 더 잘 배웁니다</h3><p>대답하고 누르고 뛰고 팀으로 활동할 때 말씀을 자기 경험으로 받아들입니다.</p></article>
+      <article class="card"><span class="tag">지속</span><h3>작은 교회는 꾸준함이 어렵습니다</h3><p>사람이 적어도 계속 열 수 있는 안정적인 흐름이 필요합니다.</p></article>
+      <article class="card"><span class="tag">접점</span><h3>지역 가정과 만날 입구가 필요합니다</h3><p>신앙이 없는 가정도 부담 없이 들어올 수 있는 활동형 시간이 필요합니다.</p></article>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="bridge">
+      <div class="bridge-visual">
+        <img src="assets/forgiveness-cover.png" alt="POB 성경클럽 어린이 말씀 장면">
+        <div>
+          <strong>한 본문을 중심으로 말씀과 활동이 이어집니다</strong>
+          <p>읽기, 듣기, 질문, 퀴즈, 활동, 암송, 묵상까지 한 흐름으로 묶습니다.</p>
+        </div>
+      </div>
+      <div class="path">
+        <div class="path-step"><b>01</b><div><strong>성경 본문 함께 읽기</strong><span>오늘의 말씀을 교사와 아이들이 같이 읽습니다.</span></div></div>
+        <div class="path-step"><b>02</b><div><strong>스토리텔링 말씀 설명</strong><span>아이 눈높이의 영상과 설명으로 본문을 이해합니다.</span></div></div>
+        <div class="path-step"><b>03</b><div><strong>본문 이해 퀴즈</strong><span>맞히는 재미 속에서 말씀의 핵심을 확인합니다.</span></div></div>
+        <div class="path-step"><b>04</b><div><strong>태블릿 기반 시각 게임</strong><span>누르고 선택하며 말씀 내용을 화면에서 직접 확인합니다.</span></div></div>
+        <div class="path-step"><b>05</b><div><strong>몸놀이와 팀 활동</strong><span>주제와 연결된 움직임으로 말씀을 몸에 남깁니다.</span></div></div>
+        <div class="path-step"><b>06</b><div><strong>암송과 주중 묵상</strong><span>예배가 끝난 뒤에도 가정에서 말씀을 기억하게 합니다.</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section white" id="flow">
+    <div class="section-head">
+      <div class="kicker">SUNDAY 70 MINUTES</div>
+      <h2>주일 70분 프로그램 예시</h2>
+      <p class="lead">성경을 읽고, 움직이고, 풀고, 기억하는 흐름으로 예배와 활동을 자연스럽게 잇습니다.</p>
+    </div>
+    <table class="schedule" aria-label="POB 성경클럽 70분 운영 예시">
+      <thead><tr><th>순서</th><th>내용</th><th>시간</th></tr></thead>
+      <tbody>
+        <tr><td>오프닝 체조</td><td>몸을 깨우고 집중을 준비합니다</td><td>10-15분</td></tr>
+        <tr><td>찬양</td><td>영상 또는 현장 찬양으로 마음을 엽니다</td><td>5-10분</td></tr>
+        <tr><td>본문 읽기</td><td>오늘의 성경 본문을 함께 읽습니다</td><td>5분</td></tr>
+        <tr><td>말씀 스토리</td><td>본문을 아이 눈높이로 설명합니다</td><td>10분</td></tr>
+        <tr><td>성경 퀴즈</td><td>본문 내용을 질문과 선택으로 확인합니다</td><td>10분</td></tr>
+        <tr><td>말씀 게임</td><td>태블릿과 시각 자료로 말씀을 익힙니다</td><td>10분</td></tr>
+        <tr><td>몸놀이</td><td>주제와 연결된 팀 활동으로 움직입니다</td><td>10-15분</td></tr>
+        <tr><td>암송/마무리</td><td>말씀을 기억하고 기도로 마칩니다</td><td>5분</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section soft">
+    <div class="section-head">
+      <div class="kicker">DIFFERENCE</div>
+      <h2>POB 성경클럽의 차별점</h2>
+      <p class="lead">재미있는 활동을 붙이는 것이 아니라, 말씀을 중심에 두고 활동이 따라오게 합니다.</p>
+    </div>
+    <div class="feature-grid">
+      <article class="card"><span class="tag">본문 중심</span><h3>성경 본문 자체를 중심으로 합니다</h3><p>주제 활동보다 먼저 본문을 읽고, 질문하고, 확인합니다.</p></article>
+      <article class="card"><span class="tag">직접 참여</span><h3>아이들이 직접 참여합니다</h3><p>손을 들고, 누르고, 선택하고, 팀으로 움직입니다.</p></article>
+      <article class="card"><span class="tag">말씀+활동</span><h3>말씀과 활동이 분리되지 않습니다</h3><p>게임은 놀이로 끝나지 않고 오늘의 말씀을 기억하게 합니다.</p></article>
+      <article class="card"><span class="tag">주중 묵상</span><h3>주일과 평일 묵상이 연결됩니다</h3><p>가정에서 다시 떠올릴 수 있는 말씀 흐름을 만듭니다.</p></article>
+      <article class="card"><span class="tag">작은 교회</span><h3>작은 교회도 운영할 수 있습니다</h3><p>콘텐츠와 흐름을 제공해 교사 부담을 줄입니다.</p></article>
+      <article class="card"><span class="tag">연합 확장</span><h3>여러 교회가 함께 확장할 수 있습니다</h3><p>성경 퀴즈, 캠프, 교사훈련으로 이어질 수 있습니다.</p></article>
+    </div>
+  </section>
+
+  <section class="section white">
+    <div class="section-head">
+      <div class="kicker">FOR WHOM</div>
+      <h2>교회와 가정, 두 입구를 모두 생각했습니다</h2>
+      <p class="lead">말씀 중심은 분명하게, 입구는 부담 없게 열어둡니다.</p>
+    </div>
+    <div class="split">
+      <div class="panel" id="church">
+        <h3>교회용</h3>
+        <ul class="check-list">
+          <li>주일학교 콘텐츠가 필요한 교회</li>
+          <li>교사가 적은 작은 교회</li>
+          <li>아이들이 예배에 잘 참여하지 못하는 교회</li>
+          <li>말씀 중심 교회학교를 세우고 싶은 교회</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>가정/부모용</h3>
+        <ul class="check-list">
+          <li>아이가 성경을 재미있게 배우길 원하는 가정</li>
+          <li>스마트폰 대신 몸으로 노는 시간을 원하는 부모</li>
+          <li>주말 오전 아이 활동 프로그램을 찾는 부모</li>
+          <li>신앙이 없어도 부담 없이 참여할 시간을 찾는 가정</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft" id="games">
+    <div class="games">
+      <div class="games-copy">
+        <div class="kicker">SATURDAY POB GAMES</div>
+        <h2>토요일에는 더 가볍게, 더 활동적으로</h2>
+        <p class="lead">POB 게임즈는 교회 밖 아이들도 부담 없이 참여할 수 있는 90분 활동 프로그램입니다. 체조, 게임, 팀 활동, 성경 스토리를 결합해 아이들이 스마트폰 없이 뛰고 웃고 배우는 시간을 만듭니다.</p>
+        <ul class="check-list">
+          <li>90분 활동형 프로그램</li>
+          <li>운동, 게임, 팀 활동 중심</li>
+          <li>성경 이야기는 부담 없이 짧게</li>
+          <li>외부 가정도 참여 가능</li>
+          <li>교회 홍보와 자연스러운 접점 형성</li>
+        </ul>
+      </div>
+      <div class="games-media">
+        <img src="assets/encourage-cover.png" alt="토요 POB 게임즈 활동 이미지">
+      </div>
+    </div>
+  </section>
+
+  <section class="section white">
+    <div class="section-head">
+      <div class="kicker">TABLET CONTENTS</div>
+      <h2>태블릿으로 보고, 누르고, 맞히며 배우는 말씀 콘텐츠</h2>
+      <p class="lead">말씀 설명, 퀴즈, 영상, 점수 화면이 이어져 아이들이 화면 앞에서 수동적으로 머물지 않고 직접 참여합니다.</p>
+    </div>
+    <div class="demo-grid">
+      <div class="demo-video">
+        <video src="assets/gemini-story-q2.mp4" poster="assets/forgiveness-question.png" controls muted playsinline></video>
+      </div>
+      <div class="demo-points">
+        <article class="card"><span class="tag">퀴즈 화면</span><h3>본문 내용을 바로 확인합니다</h3><p>질문을 통해 아이들이 성경 이야기의 핵심을 스스로 찾습니다.</p></article>
+        <article class="card"><span class="tag">스토리 영상</span><h3>어려운 장면을 눈으로 봅니다</h3><p>본문 속 사건을 아이 눈높이에 맞춰 영상으로 보여줍니다.</p></article>
+        <article class="card"><span class="tag">점수와 팀 활동</span><h3>함께 참여하는 분위기를 만듭니다</h3><p>팀 점수와 활동으로 조용한 아이들도 자연스럽게 들어옵니다.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="section-head">
+      <div class="kicker">NETWORK</div>
+      <h2>한 교회를 넘어, 함께 말씀을 배우는 교회학교 네트워크로</h2>
+      <p class="lead">POB 성경클럽은 한 교회의 행사로 끝나지 않고, 교사훈련과 연합 활동으로 확장될 수 있습니다.</p>
+    </div>
+    <div class="network">
+      <article class="card"><span class="tag">운영</span><h3>교회별 POB 운영</h3><p>각 교회 상황에 맞게 주일 또는 토요 프로그램으로 운영합니다.</p></article>
+      <article class="card"><span class="tag">훈련</span><h3>교사 훈련 세미나</h3><p>평신도 교사도 주일학교를 맡을 수 있도록 훈련합니다.</p></article>
+      <article class="card"><span class="tag">공유</span><h3>본문별 콘텐츠 공유</h3><p>같은 본문을 여러 교회가 함께 활용하고 발전시킵니다.</p></article>
+      <article class="card"><span class="tag">연합</span><h3>성경 퀴즈와 캠프</h3><p>연합 성경 퀴즈대회, 캠프, 방학 프로그램으로 확장합니다.</p></article>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="contact">
+      <div class="contact-box">
+        <h2>우리 교회, 우리 아이에게 POB 성경클럽을 시작해보고 싶다면 문의해 주세요</h2>
+        <p>주일 POB, 토요 POB 게임즈, 교사훈련, 콘텐츠 도입 중 관심 있는 방향을 정리해 주시면 상담과 자료 준비가 쉬워집니다.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="lesson-01.html">샘플 먼저 보기</a>
+          <a class="btn secondary" href="index.html">랜딩으로 돌아가기</a>
+        </div>
+      </div>
+      <form class="form" onsubmit="event.preventDefault();copyInquiry();">
+        <div class="field">
+          <label for="name">이름</label>
+          <input id="name" name="name" placeholder="성함을 입력해 주세요">
+        </div>
+        <div class="field">
+          <label for="phone">연락처</label>
+          <input id="phone" name="phone" placeholder="연락 가능한 번호">
+        </div>
+        <div class="field">
+          <label for="group">교회명 또는 가정</label>
+          <input id="group" name="group" placeholder="예: 한들교회 / 김OO 가정">
+        </div>
+        <div class="field">
+          <label for="interest">관심 프로그램</label>
+          <select id="interest" name="interest">
+            <option>주일 POB 성경클럽</option>
+            <option>토요 POB 게임즈</option>
+            <option>교사훈련</option>
+            <option>콘텐츠 도입</option>
+            <option>기타 상담</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="message">문의 내용</label>
+          <textarea id="message" name="message" placeholder="아이 연령, 교회 상황, 원하는 운영 형태 등을 적어 주세요"></textarea>
+        </div>
+        <button class="btn primary" type="submit">문의 내용 복사하기</button>
+        <p class="notice" id="copyNotice">실제 접수 채널이 정해지면 이 영역을 카카오채널, 구글폼, 네이버폼으로 연결하면 됩니다.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<script>
+function copyInquiry(){
+  const fields=['name','phone','group','interest','message'];
+  const labels={name:'이름',phone:'연락처',group:'교회명/가정',interest:'관심 프로그램',message:'문의 내용'};
+  const text=fields.map(id=>`${labels[id]}: ${document.getElementById(id).value || '-'}`).join('\n');
+  navigator.clipboard?.writeText(text).then(()=>{
+    document.getElementById('copyNotice').textContent='문의 내용이 복사되었습니다. 카카오톡이나 문자에 붙여넣어 전달할 수 있습니다.';
+  }).catch(()=>{
+    document.getElementById('copyNotice').textContent='복사가 막혔습니다. 입력한 내용을 직접 선택해 복사해 주세요.';
+  });
+}
+</script>
+</body>
+</html>
