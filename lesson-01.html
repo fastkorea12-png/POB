@@ -163,10 +163,33 @@ body{
   border:1px solid var(--dim);
   box-shadow:0 18px 44px rgba(87,123,155,.16);
 }
-.qa-visual img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block;}
+.visual-video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  background:#07111d;
+  opacity:0;
+  transform:scale(.985);
+  transition:opacity .45s ease,transform .55s ease;
+  z-index:1;
+}
+.qa-visual img{
+  position:relative;
+  z-index:2;
+  width:100%;
+  aspect-ratio:4/5;
+  object-fit:cover;
+  display:block;
+  transition:transform .72s cubic-bezier(.2,.78,.22,1),opacity .48s ease;
+}
 .qa-visual div{padding:14px 16px;background:#fff;}
 .qa-visual b{display:block;color:var(--orange);font-size:.82rem;margin-bottom:4px;}
 .qa-visual span{display:block;color:var(--muted);font-size:.84rem;font-weight:800;line-height:1.5;}
+.qa-visual.video-on .visual-video{opacity:1;transform:scale(1);}
+.qa-visual.video-on img{transform:translateY(108%);opacity:.08;}
+.qa-visual.video-on div{opacity:0;transform:translateY(18px);pointer-events:none;}
 .qa-prog{display:flex;gap:6px;align-items:center;}
 .qp-dot{width:28px;height:8px;border:0;border-radius:999px;background:#dcecf7;transition:all .3s;cursor:pointer;font-family:inherit;}
 .qp-dot.active{background:var(--gold);width:36px;}
@@ -441,6 +464,8 @@ body{background:#f7fbff;}
   border-radius:18px;
   background:rgba(255,255,255,.9);
   box-shadow:0 14px 32px rgba(20,33,61,.16);
+  z-index:3;
+  transition:opacity .35s ease,transform .35s ease;
 }
 .qa-main{
   order:2;
@@ -498,24 +523,19 @@ body{background:#f7fbff;}
   text-align:center;
 }
 .script-box.has-video{
-  display:grid;
-  grid-template-columns:minmax(320px,.48fr) minmax(0,.52fr);
-  gap:24px;
-  align-items:center;
-  padding:22px;
+  display:block;
+  padding:34px 44px;
   border-radius:28px;
   background:linear-gradient(135deg,#fff 0%,#f2fff5 100%);
 }
 .script-box.has-video .sc-label{
-  grid-column:1/-1;
-  margin-bottom:0;
+  margin-bottom:14px;
   font-size:1rem;
   justify-content:center;
   color:#1a8b49;
 }
 .script-box.has-video .video-explain{
-  border-radius:24px;
-  box-shadow:0 16px 32px rgba(35,50,77,.14);
+  display:none;
 }
 .script-box.has-video .video-explain video{
   aspect-ratio:16/9;
@@ -523,9 +543,10 @@ body{background:#f7fbff;}
   max-height:42vh;
 }
 .script-box.has-video .sc-text{
-  font-size:clamp(1.35rem,1.8vw,1.95rem);
+  font-size:clamp(1.55rem,2.05vw,2.25rem);
   line-height:1.72;
   font-weight:800;
+  text-align:center;
 }
 .qa-next-row{justify-content:center;}
 .qa-next{
@@ -820,6 +841,7 @@ body{background:#f7fbff;}
       <div class="qa-done" id="qaDone">✦ POB 스토리즈 완료! POB 게임즈로 이동하세요 →</div>
     </div>
     <aside class="qa-visual" aria-label="질문 장면 이미지">
+      <video class="visual-video" id="visualVideo" controls playsinline preload="metadata"></video>
       <img src="assets/forgiveness-question.png" alt="베드로가 예수님께 용서를 묻는 밝은 성경 이야기 장면">
       <div><b>단서 찾기</b><span>질문을 맞히는 것보다, 왜 예수님이 이 이야기를 들려주셨는지 함께 발견해요.</span></div>
     </aside>
@@ -1061,16 +1083,21 @@ function loadQ(idx){
   qaIdx=idx; qaAnswered=false;
   const q=QA[idx];
   const video=document.getElementById('explainVideo');
+  const visualVideo=document.getElementById('visualVideo');
   document.getElementById('qLabel').textContent='질문 '+(idx+1)+' / '+QA.length;
   document.getElementById('qText').innerHTML=q.q.replace(/\n/g,'<br>');
   document.getElementById('choices').innerHTML=q.choices.map((c,i)=>`<button class="ch-btn" onclick="pick(${i})">${c}</button>`).join('');
   document.getElementById('qaBody').classList.remove('answer-mode');
   document.getElementById('qaMain').classList.remove('answer-mode');
+  document.querySelector('.qa-visual').classList.remove('video-on');
   document.getElementById('scriptBox').classList.remove('on','has-video');
   document.getElementById('videoExplain').hidden=true;
   video.pause();
   video.removeAttribute('src');
   video.load();
+  visualVideo.pause();
+  visualVideo.removeAttribute('src');
+  visualVideo.load();
   document.getElementById('scriptLabel').textContent='정답 해설';
   document.getElementById('qaNext').classList.remove('on');
   document.getElementById('qaDone').classList.remove('on');
@@ -1090,9 +1117,20 @@ function pick(idx){
     document.getElementById('scriptLabel').textContent=q.video?'스토리 영상':'정답 해설';
     if(q.video){
       const video=document.getElementById('explainVideo');
-      document.getElementById('videoExplain').hidden=false;
-      video.src=q.video;
+      const visualVideo=document.getElementById('visualVideo');
+      const visual=document.querySelector('.qa-visual');
+      document.getElementById('videoExplain').hidden=true;
+      video.pause();
+      video.removeAttribute('src');
       video.load();
+      visualVideo.src=q.video;
+      visualVideo.muted=false;
+      visualVideo.load();
+      visual.classList.add('video-on');
+      visualVideo.play().catch(()=>{
+        visualVideo.muted=true;
+        visualVideo.play().catch(()=>{});
+      });
       scriptBox.classList.add('has-video');
     }
     scriptBox.classList.add('on');
