@@ -24,14 +24,10 @@
 html{scroll-behavior:smooth}
 body{
   margin:0;
-  background:
-    radial-gradient(circle at 12% 8%,rgba(243,179,61,.18),transparent 26rem),
-    radial-gradient(circle at 90% 18%,rgba(59,134,198,.16),transparent 24rem),
-    var(--paper);
+  background:var(--paper);
   color:var(--ink);
   font-family:"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
   line-height:1.6;
-  overflow-x:hidden;
 }
 a{color:inherit;text-decoration:none}
 button{font:inherit}
@@ -317,143 +313,6 @@ h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.06;letter-s
 }
 .cta h2{margin:0 0 8px;font-size:2.3rem}
 .cta p{margin:0;color:#d7e1ef;font-weight:700}
-
-.brand-mark,.nav-cta{box-shadow:0 10px 24px rgba(47,118,87,.22)}
-.hero{
-  position:relative;
-  isolation:isolate;
-  overflow:hidden;
-  background:
-    linear-gradient(135deg,rgba(255,250,241,.97) 0%,rgba(244,251,255,.92) 55%,rgba(238,248,239,.96) 100%),
-    url("assets/pob-soft-pattern.jpg") center/cover no-repeat;
-}
-.hero:before,.hero:after{
-  content:"";
-  position:absolute;
-  width:42vw;
-  aspect-ratio:1;
-  border-radius:50%;
-  filter:blur(2px);
-  z-index:-1;
-  pointer-events:none;
-}
-.hero:before{
-  inset:-18% -12% auto auto;
-  background:radial-gradient(circle,rgba(243,179,61,.28),rgba(239,123,83,.12) 38%,transparent 68%);
-  animation:driftGlow 12s ease-in-out infinite alternate;
-}
-.hero:after{
-  inset:auto auto -18% -10%;
-  width:36vw;
-  background:radial-gradient(circle,rgba(47,118,87,.22),rgba(59,134,198,.1) 42%,transparent 70%);
-  animation:driftGlow 14s ease-in-out infinite alternate-reverse;
-}
-.hero-copy{animation:riseIn .7s ease-out both}
-h1{text-shadow:0 12px 32px rgba(23,35,58,.08)}
-.hero-stage{animation:floatIn .85s .1s ease-out both}
-.btn,.metric,.pillar,.proposal-item,.mini-stat,.lesson-preview,.point,.flow-step,.field{
-  transition:transform .24s ease, box-shadow .24s ease, border-color .24s ease, background .24s ease;
-}
-.btn:hover{transform:translateY(-2px)}
-.btn.primary:hover{background:#28684d;box-shadow:0 18px 36px rgba(47,118,87,.28)}
-.btn.secondary:hover{border-color:rgba(59,134,198,.32);box-shadow:0 14px 30px rgba(23,35,58,.1)}
-.feature-frame{
-  transform:perspective(1100px) rotateY(-3deg) rotateX(1.5deg);
-  transition:transform .35s ease, box-shadow .35s ease;
-}
-.feature-frame:after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(115deg,transparent 0%,rgba(255,255,255,.18) 38%,transparent 56%);
-  transform:translateX(-120%);
-  animation:sheen 5.8s ease-in-out infinite;
-  pointer-events:none;
-}
-.feature-frame:hover{transform:perspective(1100px) rotateY(0deg) rotateX(0deg) translateY(-4px);box-shadow:0 30px 82px rgba(23,35,58,.27)}
-.feature-frame img,.lesson-preview img,.field img{transition:transform 7s ease}
-.feature-frame:hover img,.lesson-preview:hover img{transform:scale(1.04)}
-.metric:hover{transform:translateY(-4px);background:#fff;box-shadow:0 16px 32px rgba(23,35,58,.09)}
-.section{position:relative}
-.section.soft{
-  background:
-    linear-gradient(180deg,rgba(244,248,242,.94),rgba(244,248,242,.97)),
-    url("assets/pob-soft-pattern.jpg") center/cover no-repeat;
-}
-.pillar,.proposal-main,.proposal-note,.lesson-preview,.point,.flow-step{
-  box-shadow:0 12px 30px rgba(23,35,58,.05);
-}
-.pillar{background:rgba(255,255,255,.92)}
-.pillar:hover{transform:translateY(-7px);border-color:rgba(47,118,87,.26);box-shadow:0 22px 44px rgba(23,35,58,.11)}
-.proposal-main,.proposal-note{background:rgba(255,255,255,.92);box-shadow:0 14px 34px rgba(23,35,58,.06)}
-.proposal-item:hover,.point:hover{transform:translateX(5px);box-shadow:0 14px 30px rgba(23,35,58,.08)}
-.proposal-item:hover{background:#eff8eb}
-.mini-stat:hover{transform:translateY(-4px);box-shadow:0 12px 26px rgba(47,118,87,.11)}
-.lesson-preview:hover{transform:translateY(-5px);box-shadow:0 26px 58px rgba(23,35,58,.13)}
-.flow-step{position:relative;overflow:hidden;background:rgba(255,255,255,.94)}
-.flow-step:before{
-  content:"";
-  position:absolute;
-  inset:0 auto 0 0;
-  width:4px;
-  background:linear-gradient(180deg,var(--green),var(--gold),var(--coral));
-  opacity:.75;
-}
-.flow-step:hover{transform:translateY(-6px);border-color:rgba(47,118,87,.34);box-shadow:0 18px 38px rgba(23,35,58,.1)}
-.field{box-shadow:0 18px 44px rgba(23,35,58,.12)}
-.field:hover{transform:translateY(-5px);box-shadow:0 26px 58px rgba(23,35,58,.17)}
-.field:hover img{transform:scale(1.06)}
-.cta{
-  position:relative;
-  overflow:hidden;
-  box-shadow:0 22px 54px rgba(23,35,58,.18);
-}
-.cta:before{
-  content:"";
-  position:absolute;
-  inset:-60% auto auto 48%;
-  width:42%;
-  aspect-ratio:1;
-  border-radius:50%;
-  background:radial-gradient(circle,rgba(243,179,61,.34),transparent 68%);
-  animation:driftGlow 10s ease-in-out infinite alternate;
-}
-.cta > *{position:relative;z-index:1}
-@media (prefers-reduced-motion:no-preference){
-  .pillar,.proposal-main,.proposal-note,.lesson-preview,.point,.flow-step,.field,.cta{
-    animation:sectionRise .65s ease both;
-    animation-timeline:view();
-    animation-range:entry 0% cover 30%;
-  }
-}
-@media (prefers-reduced-motion:reduce){
-  *,*:before,*:after{
-    animation-duration:.01ms!important;
-    animation-iteration-count:1!important;
-    scroll-behavior:auto!important;
-    transition-duration:.01ms!important;
-  }
-}
-@keyframes riseIn{
-  from{opacity:0;transform:translateY(18px)}
-  to{opacity:1;transform:translateY(0)}
-}
-@keyframes floatIn{
-  from{opacity:0;transform:translateY(24px) scale(.98)}
-  to{opacity:1;transform:translateY(0) scale(1)}
-}
-@keyframes sectionRise{
-  from{opacity:.4;transform:translateY(24px)}
-  to{opacity:1;transform:translateY(0)}
-}
-@keyframes driftGlow{
-  from{transform:translate3d(0,0,0) scale(1)}
-  to{transform:translate3d(-24px,18px,0) scale(1.08)}
-}
-@keyframes sheen{
-  0%,56%{transform:translateX(-120%)}
-  72%,100%{transform:translateX(120%)}
-}
 @media (max-width:1060px){
   .hero,.showcase,.field-band,.cta{grid-template-columns:1fr}
   .hero{min-height:auto}
