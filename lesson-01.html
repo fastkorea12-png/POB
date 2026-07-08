@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>B-QUEST | 용서</title>
+<title>POB 성경클럽 | 용서</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 html{height:100%;}
@@ -151,7 +151,7 @@ body{
 .w-song{font-size:1.8rem;font-weight:800;}
 .w-note{font-size:.82rem;color:var(--muted);margin-top:8px;}
 
-/* ── Q&A ── */
+/* ── POB STORIES ── */
 .qa-body{flex:1;display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:18px;align-items:start;}
 .qa-main{display:flex;flex-direction:column;gap:14px;}
 .qa-visual{
@@ -209,7 +209,7 @@ body{
 .qa-done{text-align:center;padding:16px;color:#1a8b49;font-size:.95rem;font-weight:900;display:none;background:var(--mint);border-radius:16px;border:1px solid rgba(84,201,111,.28);}
 .qa-done.on{display:block;}
 
-/* ── QUEST ── */
+/* ── CLUB MISSION ── */
 .quest-body{flex:1;display:flex;gap:16px;}
 .quest-main{flex:1;display:flex;flex-direction:column;gap:12px;}
 .quest-title{font-size:1.5rem;font-weight:900;color:var(--orange);}
@@ -709,8 +709,8 @@ body{background:#f7fbff;}
 
 <div class="top">
   <div class="top-left">
-    <a class="home-link" href="index.html">← B-QUEST 홈</a>
-    <div class="logo-sm">B·QUEST</div>
+    <a class="home-link" href="index.html">← POB 성경클럽 홈</a>
+    <div class="logo-sm">POB</div>
     <div class="sec-badge" id="secBadge">W01</div>
     <div class="sec-name" id="secName">시작</div>
   </div>
@@ -728,7 +728,7 @@ body{background:#f7fbff;}
 <div class="screen on" id="sc-start">
   <div class="start-body">
     <div class="start-copy">
-      <div class="s-logo">B · QUEST</div>
+      <div class="s-logo">POB 성경클럽</div>
       <div class="s-date">2026년 7월 5일 (주일) · W01</div>
       <div class="s-theme">용서</div>
       <div class="s-verse">
@@ -743,9 +743,9 @@ body{background:#f7fbff;}
         <div class="f-sep">›</div>
         <div class="f-step"><div class="f-num">02</div><div class="f-name">찬양</div><div class="f-time">7분</div></div>
         <div class="f-sep">›</div>
-        <div class="f-step"><div class="f-num">03</div><div class="f-name">Q&A 탐험</div><div class="f-time">20분</div></div>
+        <div class="f-step"><div class="f-num">03</div><div class="f-name">POB 스토리즈</div><div class="f-time">20분</div></div>
         <div class="f-sep">›</div>
-        <div class="f-step"><div class="f-num">04</div><div class="f-name">퀘스트 임무</div><div class="f-time">20분</div></div>
+        <div class="f-step"><div class="f-num">04</div><div class="f-name">POB 게임즈</div><div class="f-time">20분</div></div>
         <div class="f-sep">›</div>
         <div class="f-step"><div class="f-num">05</div><div class="f-name">비밀 코드</div><div class="f-time">10분</div></div>
         <div class="f-sep">›</div>
@@ -794,13 +794,13 @@ body{background:#f7fbff;}
   </div>
 </div>
 
-<!-- 3. Q&A 탐험 -->
+<!-- 3. POB 스토리즈 -->
 <div class="screen" id="sc-qa">
   <div class="qa-body" id="qaBody">
       <div class="qa-main" id="qaMain">
       <div class="qa-prog" id="qaProg"></div>
       <div class="q-label-row">
-        <div class="q-label" id="qLabel">QUESTION 1 / 4</div>
+        <div class="q-label" id="qLabel">질문 1 / 4</div>
       </div>
       <div class="q-box" id="qBox">
         <div class="q-text" id="qText"></div>
@@ -817,7 +817,7 @@ body{background:#f7fbff;}
       <div class="qa-next-row">
         <button class="qa-next" id="qaNext" onclick="nextQ()">다음 질문 →</button>
       </div>
-      <div class="qa-done" id="qaDone">✦ Q&A 탐험 완료! 퀘스트 임무로 이동하세요 →</div>
+      <div class="qa-done" id="qaDone">✦ POB 스토리즈 완료! POB 게임즈로 이동하세요 →</div>
     </div>
     <aside class="qa-visual" aria-label="질문 장면 이미지">
       <img src="assets/forgiveness-question.png" alt="베드로가 예수님께 용서를 묻는 밝은 성경 이야기 장면">
@@ -826,11 +826,11 @@ body{background:#f7fbff;}
   </div>
 </div>
 
-<!-- 4. 퀘스트 임무 -->
+<!-- 4. POB 게임즈 -->
 <div class="screen" id="sc-quest">
   <div class="quest-body">
     <div class="quest-main">
-      <div class="quest-title">⚔️ 용서 저울 게임</div>
+      <div class="quest-title">⚔️ POB 게임즈 · 용서 저울</div>
       <div class="quest-intro">카드를 하나씩 읽고 각 팀이 "용서 O / X"를 선택합니다. 이유를 말하면 +1점, 오늘 말씀과 연결하면 +1점 추가!</div>
       <div class="q-steps">
         <div class="q-step"><div class="step-n">①</div><div class="step-t">아래 상황 카드를 하나 선택해 큰 소리로 읽습니다</div></div>
@@ -857,7 +857,7 @@ body{background:#f7fbff;}
     </div>
     <div class="quest-side">
       <div class="score-card">
-        <div class="sc-hd">QUEST 점수판</div>
+        <div class="sc-hd">클럽 점수판</div>
         <div id="teamRows"></div>
         <button class="btn-r" onclick="resetScores()">초기화</button>
       </div>
@@ -892,7 +892,7 @@ body{background:#f7fbff;}
 <!-- 6. 마무리 -->
 <div class="screen" id="sc-closing">
   <div class="close-body">
-    <div class="close-title">🏆 오늘의 퀘스트 완료!</div>
+    <div class="close-title">🏆 오늘의 성경 클럽 완료!</div>
     <div class="close-winner" id="closeWinner"></div>
     <div class="close-scores" id="closeScores"></div>
     <div class="close-msg">
@@ -915,7 +915,7 @@ body{background:#f7fbff;}
 <div class="nav">
   <button class="btn btn-prev" id="btnPrev" onclick="goPrev()" disabled>← 이전</button>
   <button class="btn btn-timer" id="btnTimer" onclick="toggleTimer()">⏸ 일시정지</button>
-  <button class="btn btn-next" id="btnNext" onclick="goNext()">퀘스트 시작!</button>
+  <button class="btn btn-next" id="btnNext" onclick="goNext()">클럽 시작!</button>
 </div>
 
 <script>
@@ -923,8 +923,8 @@ const SEC = [
   {id:'start',    name:'시작',       dur:0},
   {id:'exercise', name:'사전 체조',   dur:180},
   {id:'worship',  name:'찬양',       dur:420},
-  {id:'qa',       name:'Q&A 탐험',   dur:1200},
-  {id:'quest',    name:'퀘스트 임무', dur:1200},
+  {id:'qa',       name:'POB 스토리즈', dur:1200},
+  {id:'quest',    name:'POB 게임즈',   dur:1200},
   {id:'memory',   name:'비밀 코드',   dur:600},
   {id:'closing',  name:'마무리',     dur:600},
 ];
@@ -1006,7 +1006,7 @@ function setSection(idx){
 function updateNav(){
   document.getElementById('btnPrev').disabled=cur===0;
   const n=document.getElementById('btnNext');
-  if(cur===0){n.textContent='퀘스트 시작!';n.className='btn btn-next';}
+  if(cur===0){n.textContent='클럽 시작!';n.className='btn btn-next';}
   else if(cur===SEC.length-1){n.textContent='예배 종료';n.className='btn btn-done';}
   else{n.textContent='다음 →';n.className='btn btn-next';}
 }
@@ -1038,10 +1038,10 @@ function startElapsed(){
 }
 function pad(n){return String(n).padStart(2,'0');}
 
-/* Q&A */
+/* POB STORIES */
 function buildQaProg(){
-  const dots=QA.map((_,i)=>`<button class="qp-dot" id="qp${i}" onclick="jumpQ(${i})" aria-label="QUESTION ${i+1}로 이동"></button>`).join('');
-  const jumpDots=QA.map((_,i)=>`<button class="qp-dot" id="qj${i}" onclick="jumpQ(${i})" aria-label="QUESTION ${i+1}로 이동"></button>`).join('');
+  const dots=QA.map((_,i)=>`<button class="qp-dot" id="qp${i}" onclick="jumpQ(${i})" aria-label="질문 ${i+1}로 이동"></button>`).join('');
+  const jumpDots=QA.map((_,i)=>`<button class="qp-dot" id="qj${i}" onclick="jumpQ(${i})" aria-label="질문 ${i+1}로 이동"></button>`).join('');
   document.getElementById('qaProg').innerHTML=dots;
   document.getElementById('qaJump').innerHTML=jumpDots;
 }
@@ -1061,7 +1061,7 @@ function loadQ(idx){
   qaIdx=idx; qaAnswered=false;
   const q=QA[idx];
   const video=document.getElementById('explainVideo');
-  document.getElementById('qLabel').textContent='QUESTION '+(idx+1)+' / '+QA.length;
+  document.getElementById('qLabel').textContent='질문 '+(idx+1)+' / '+QA.length;
   document.getElementById('qText').innerHTML=q.q.replace(/\n/g,'<br>');
   document.getElementById('choices').innerHTML=q.choices.map((c,i)=>`<button class="ch-btn" onclick="pick(${i})">${c}</button>`).join('');
   document.getElementById('qaBody').classList.remove('answer-mode');
@@ -1116,7 +1116,7 @@ function nextQ(){
   }
 }
 
-/* QUEST */
+/* CLUB MISSION */
 function buildSits(){
   document.getElementById('sitCards').innerHTML=SITS.map((s,i)=>`<button class="sit-card" id="sit${i}" onclick="useSit(${i})">"${s}"</button>`).join('');
 }

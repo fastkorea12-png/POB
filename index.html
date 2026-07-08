@@ -180,6 +180,45 @@ h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.06;letter-s
 .pillar .tag{display:inline-block;padding:5px 9px;border-radius:999px;background:var(--sky);font-size:.78rem;font-weight:950;color:#14608a}
 .pillar h3{margin:18px 0 8px;font-size:1.28rem;line-height:1.22}
 .pillar p{margin:0;color:var(--muted);font-size:.95rem;font-weight:650}
+.proposal-grid{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:18px;
+  align-items:stretch;
+}
+.proposal-main,.proposal-note{
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:#fff;
+}
+.proposal-main{padding:28px}
+.proposal-main h3{margin:0 0 14px;font-size:2rem;line-height:1.12}
+.proposal-list{display:grid;gap:12px;margin-top:18px}
+.proposal-item{
+  display:grid;
+  grid-template-columns:120px minmax(0,1fr);
+  gap:14px;
+  padding:14px;
+  border-radius:8px;
+  background:#f7fbf4;
+}
+.proposal-item b{color:var(--green)}
+.proposal-item span{color:var(--ink-2);font-weight:750}
+.proposal-note{
+  padding:24px;
+  background:linear-gradient(135deg,#fff 0%,#eef8ef 100%);
+}
+.proposal-note strong{display:block;font-size:1.45rem;line-height:1.2;margin-bottom:12px}
+.proposal-note p{margin:0 0 16px;color:var(--ink-2);font-weight:700}
+.mini-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.mini-stat{
+  padding:14px;
+  border-radius:8px;
+  background:rgba(255,255,255,.78);
+  border:1px solid rgba(47,118,87,.16);
+}
+.mini-stat b{display:block;color:var(--coral);font-size:1.35rem}
+.mini-stat span{display:block;color:var(--muted);font-size:.84rem;font-weight:800}
 .showcase{
   display:grid;
   grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr);
@@ -280,6 +319,7 @@ h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.06;letter-s
   .hero-stage{min-height:430px}
   .feature-frame,.feature-frame img{min-height:400px}
   .pillars{grid-template-columns:repeat(2,1fr)}
+  .proposal-grid{grid-template-columns:1fr}
   .flow-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:680px){
@@ -290,6 +330,7 @@ h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.06;letter-s
   .hero-stage{min-height:330px}
   .feature-frame,.feature-frame img{min-height:310px}
   .metric-row,.pillars,.flow-grid{grid-template-columns:1fr}
+  .proposal-item,.mini-stats{grid-template-columns:1fr}
   .hero-label{left:16px;right:16px;bottom:16px}
   .field{min-height:220px}
   .cta{padding:24px}
@@ -300,11 +341,12 @@ h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.06;letter-s
 <nav class="site-nav">
   <a class="brand" href="#top" aria-label="POB 성경클럽 홈">
     <span class="brand-mark">POB</span>
-    <span>POB 성경클럽<small>B-QUEST 운영 화면</small></span>
+    <span>POB 성경클럽<small>말씀 탐험 운영 화면</small></span>
   </a>
   <div class="nav-links">
     <a href="#club">클럽 소개</a>
-    <a href="#bquest">B-QUEST</a>
+    <a href="#proposal">제안 핵심</a>
+    <a href="#sample">1회차 샘플</a>
     <a href="#flow">운영 흐름</a>
     <a class="nav-cta" href="lesson-01.html">1회차 열기</a>
   </div>
@@ -316,21 +358,21 @@ h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.06;letter-s
       <span class="eyebrow">초등 성경수업 · 예배 PPT 대안 · 현장 운영형 콘텐츠</span>
       <h1>POB<br>성경클럽</h1>
       <p class="hero-sub">
-        말씀을 듣고 끝나는 시간이 아니라, 아이들이 질문하고 선택하고 움직이며 복음을 발견하는 성경클럽입니다. B-QUEST 화면으로 교사 1명이 예배와 활동을 한 흐름으로 진행합니다.
+        교사 1명이 스크린 하나로 찬양, 말씀 관찰, 신체 미션, 암송, 주중 실천까지 이끄는 융합형 주일학교 시스템입니다.
       </p>
       <div class="hero-actions">
-        <a class="btn primary" href="lesson-01.html">B-QUEST 1회차 체험</a>
+        <a class="btn primary" href="lesson-01.html">POB 1회차 체험</a>
         <a class="btn secondary" href="#club">클럽 구조 보기</a>
       </div>
       <div class="metric-row" aria-label="POB 성경클럽 핵심 지표">
         <div class="metric"><b>70분</b><span>예배와 활동 완결</span></div>
         <div class="metric"><b>1인</b><span>교사 운영 가능</span></div>
-        <div class="metric"><b>TV</b><span>교실 화면 진행</span></div>
+        <div class="metric"><b>104과</b><span>달력형 교육과정</span></div>
       </div>
     </div>
     <div class="hero-stage" aria-label="POB 성경클럽 대표 화면">
       <div class="feature-frame">
-        <img src="assets/forgiveness-cover.png" alt="POB 성경클럽 B-QUEST 용서 수업 대표 화면">
+        <img src="assets/forgiveness-cover.png" alt="POB 성경클럽 용서 수업 대표 화면">
         <div class="hero-label">
           <b>이번 주 클럽</b>
           <strong>예수님이 먼저 용서해요</strong>
@@ -342,45 +384,73 @@ h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.06;letter-s
   <section class="section white" id="club">
     <div class="section-head">
       <div class="kicker">POB BIBLE CLUB</div>
-      <h2>작은 교회 교회학교를 위한 성경클럽 운영 페이지</h2>
-      <p class="lead">POB 성경클럽은 예배, 말씀, 질문, 게임, 암송을 하나의 화면 흐름으로 묶어 교사가 덜 헤매고 아이들이 더 많이 참여하도록 돕습니다.</p>
+      <h2>작은 교회 교회학교를 움직이는 마스터 스크린</h2>
+      <p class="lead">POB 성경클럽은 주일 1시간과 평일 167시간이 끊어지지 않도록 MIND, BODY, LIFE를 한 화면 흐름으로 연결합니다.</p>
     </div>
     <div class="pillars">
       <article class="pillar">
-        <span class="tag">Story</span>
-        <h3>성경 이야기를 화면으로 봅니다</h3>
-        <p>주제 이미지와 짧은 스토리 영상으로 본문 장면을 먼저 만나게 합니다.</p>
+        <span class="tag">MIND</span>
+        <h3>POB 스토리즈</h3>
+        <p>성경 본문을 짧고 선명한 이미지, 오디오, 관찰 질문으로 스스로 읽게 합니다.</p>
       </article>
       <article class="pillar">
-        <span class="tag">Question</span>
-        <h3>아이들이 직접 답합니다</h3>
-        <p>정답보다 발견에 초점을 두고, 질문과 선택으로 말씀의 핵심에 들어갑니다.</p>
+        <span class="tag">LEVEL</span>
+        <h3>유년·초등 이원화</h3>
+        <p>저학년은 단서 찾기, 고학년은 이유 추론으로 같은 본문을 함께 배웁니다.</p>
       </article>
       <article class="pillar">
-        <span class="tag">Quest</span>
-        <h3>말씀을 활동으로 경험합니다</h3>
-        <p>상황 카드, 저울 게임, 팀 점수로 말씀을 생활 장면에 연결합니다.</p>
+        <span class="tag">BODY</span>
+        <h3>POB 게임즈</h3>
+        <p>줄넘기, 팀 합산, 상황 카드 같은 신체 미션으로 말씀을 몸에 남깁니다.</p>
       </article>
       <article class="pillar">
-        <span class="tag">Memory</span>
-        <h3>암송과 결단으로 마칩니다</h3>
-        <p>비밀 코드처럼 구절을 붙잡고, 이번 주 실천으로 이어지게 합니다.</p>
+        <span class="tag">LIFE</span>
+        <h3>POB 게임클럽</h3>
+        <p>주중 성경 읽기와 신체 미션 인증을 랭킹 보드로 연결해 생활화를 돕습니다.</p>
       </article>
     </div>
   </section>
 
-  <section class="section soft" id="bquest">
+  <section class="section soft" id="proposal">
     <div class="section-head">
-      <div class="kicker">B-QUEST SAMPLE</div>
+      <div class="kicker">PROPOSAL CORE</div>
+      <h2>제안서의 핵심을 화면 구조로 옮겼습니다</h2>
+      <p class="lead">POB는 자료를 많이 만드는 프로젝트가 아니라, 교사가 한 번 켜면 예배와 수업을 끝까지 진행할 수 있는 현장 운영 시스템입니다.</p>
+    </div>
+    <div class="proposal-grid">
+      <article class="proposal-main">
+        <h3>현장의 세 가지 문제를 바로 겨냥합니다</h3>
+        <div class="proposal-list">
+          <div class="proposal-item"><b>단절</b><span>주일의 말씀 경험이 평일의 성경 읽기와 생활 습관으로 이어지지 않습니다.</span></div>
+          <div class="proposal-item"><b>부담</b><span>찬양, 설교, 공과, 게임, 행정을 교사 한두 명이 모두 준비해야 합니다.</span></div>
+          <div class="proposal-item"><b>격차</b><span>유년부와 초등부가 함께 있을 때 난이도와 참여 방식이 쉽게 어긋납니다.</span></div>
+        </div>
+      </article>
+      <aside class="proposal-note">
+        <strong>POB의 답: 1인 교사용 원클릭 수업 흐름</strong>
+        <p>카운트다운, 찬양과 체조, 스토리즈, 게임즈, 암송, 랭킹 보드를 하나의 마스터 스크린으로 이어 교사는 콘텐츠 준비보다 아이들과의 상호작용에 집중합니다.</p>
+        <div class="mini-stats">
+          <div class="mini-stat"><b>312</b><span>성경 스토리 패키지 비전</span></div>
+          <div class="mini-stat"><b>2년</b><span>104과 비중복 청사진</span></div>
+          <div class="mini-stat"><b>4단계</b><span>찬양·스토리·게임·생활</span></div>
+          <div class="mini-stat"><b>0준비</b><span>원클릭 운영 지향</span></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section soft" id="sample">
+    <div class="section-head">
+      <div class="kicker">POB SAMPLE</div>
       <h2>1회차 샘플: 용서</h2>
-      <p class="lead">마태복음 18장 21-35절을 “내가 먼저 탕감받았기 때문에, 나도 용서할 수 있어요”라는 한 문장으로 붙잡습니다.</p>
+      <p class="lead">마태복음 18장 21-35절을 “내가 먼저 탕감받았기 때문에, 나도 용서할 수 있어요”라는 한 문장으로 붙잡고, 관찰 질문에서 생활 미션까지 연결합니다.</p>
     </div>
     <div class="showcase">
       <article class="lesson-preview">
         <img src="assets/forgiveness-question.png" alt="베드로가 예수님께 용서를 묻는 장면">
         <div class="lesson-copy">
           <h3>몇 번이나 용서해야 해요?</h3>
-          <p>Q&A 탐험, 스토리 영상, 용서 저울 게임, 비밀 코드 암송까지 한 번에 이어지는 실제 운영 화면입니다.</p>
+          <p>POB 스토리즈, 용서 저울 게임, 비밀 코드 암송까지 한 번에 이어지는 실제 운영 화면입니다.</p>
           <div class="hero-actions">
             <a class="btn primary" href="lesson-01.html">수업 화면 열기</a>
             <a class="btn secondary" href="#flow">흐름 먼저 보기</a>
@@ -388,10 +458,10 @@ h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.06;letter-s
         </div>
       </article>
       <div class="lesson-points">
-        <div class="point"><b>01</b><div><h3>Q&A 탐험</h3><p>문제를 맞히고, 스토리 영상으로 본문 흐름을 다시 봅니다.</p></div></div>
-        <div class="point"><b>02</b><div><h3>용서 저울 게임</h3><p>상황 카드에 대해 팀별로 용서 O/X를 선택하고 이유를 말합니다.</p></div></div>
-        <div class="point"><b>03</b><div><h3>비밀 코드</h3><p>에베소서 4장 32절을 암송하고 팀 보너스를 얻습니다.</p></div></div>
-        <div class="point"><b>04</b><div><h3>마무리 기도</h3><p>받은 용서를 기억하고 이번 주 실천으로 이어갑니다.</p></div></div>
+        <div class="point"><b>01</b><div><h3>본문 관찰</h3><p>질문을 따라가며 예수님이 들려주신 이야기의 핵심 단서를 찾습니다.</p></div></div>
+        <div class="point"><b>02</b><div><h3>생활 적용</h3><p>상황 카드에 대해 팀별로 용서 O/X를 선택하고 이유를 말합니다.</p></div></div>
+        <div class="point"><b>03</b><div><h3>비밀 코드</h3><p>에베소서 4장 32절을 암송하고 받은 은혜를 한 문장으로 붙잡습니다.</p></div></div>
+        <div class="point"><b>04</b><div><h3>주중 연결</h3><p>이번 주 내가 용서해야 할 사람을 떠올리며 평일 실천으로 이어갑니다.</p></div></div>
       </div>
     </div>
   </section>
@@ -399,17 +469,17 @@ h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.06;letter-s
   <section class="section white" id="flow">
     <div class="section-head">
       <div class="kicker">70 MINUTE FLOW</div>
-      <h2>교사 1명이 따라가기 쉬운 진행 흐름</h2>
-      <p class="lead">시간, 화면, 활동이 분리되지 않도록 설계해 작은 교회에서도 바로 실행할 수 있게 합니다.</p>
+      <h2>Hook, Book, Look, Took으로 이어지는 70분</h2>
+      <p class="lead">제안서의 70분 청사진을 수업 화면에 맞춰 재구성해, 에너지의 높낮이가 자연스럽게 흐르도록 했습니다.</p>
     </div>
     <div class="flow-grid">
-      <div class="flow-step"><b>01 · 3분</b><strong>사전 체조</strong><span>신앙고백과 동작으로 시작</span></div>
-      <div class="flow-step"><b>02 · 7분</b><strong>찬양</strong><span>오늘 주제와 연결</span></div>
-      <div class="flow-step"><b>03 · 15분</b><strong>나침반 타임</strong><span>본문 흐름 이해</span></div>
-      <div class="flow-step"><b>04 · 5분</b><strong>단서 찾기</strong><span>관찰 질문과 확인</span></div>
-      <div class="flow-step"><b>05 · 20분</b><strong>퀘스트 임무</strong><span>말씀을 몸으로 경험</span></div>
-      <div class="flow-step"><b>06 · 10분</b><strong>비밀 코드</strong><span>암송과 보너스 점수</span></div>
-      <div class="flow-step"><b>07 · 10분</b><strong>마무리</strong><span>정리와 기도</span></div>
+      <div class="flow-step"><b>01 · Hook</b><strong>찬양과 체조</strong><span>몸과 마음을 예배 모드로 정렬</span></div>
+      <div class="flow-step"><b>02 · Book</b><strong>POB 스토리즈</strong><span>본문을 관찰하고 핵심 단서 찾기</span></div>
+      <div class="flow-step"><b>03 · Look</b><strong>POB 게임즈</strong><span>상황 카드와 팀 활동으로 말씀 체화</span></div>
+      <div class="flow-step"><b>04 · Took</b><strong>비밀 코드</strong><span>암송과 결단으로 오늘의 문장 붙잡기</span></div>
+      <div class="flow-step"><b>05 · LIFE</b><strong>주중 미션</strong><span>성경 읽기와 실천을 가정으로 연결</span></div>
+      <div class="flow-step"><b>06 · DATA</b><strong>랭킹 보드</strong><span>평일 인증을 다음 주 화면에 반영</span></div>
+      <div class="flow-step"><b>07 · SCALE</b><strong>104과 확장</strong><span>달력형 커리큘럼으로 반복 운영</span></div>
     </div>
   </section>
 
@@ -425,8 +495,8 @@ h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.06;letter-s
       <div class="field">
         <img src="assets/encourage-cover.png" alt="격려 주제 수업 이미지">
         <div>
-          <strong>주차 확장</strong>
-          <p>용서, 격려, 은사, 기도, 섬김 등 주차별 B-QUEST로 계속 확장할 수 있습니다.</p>
+          <strong>커리큘럼 확장</strong>
+          <p>104과 달력형 청사진 위에서 절기, 가정주일, 캠프, 성탄까지 자연스럽게 이어집니다.</p>
         </div>
       </div>
     </div>
@@ -436,7 +506,7 @@ h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.06;letter-s
     <div class="cta">
       <div>
         <h2>POB 성경클럽 1회차를 열어보세요</h2>
-        <p>55인치 TV, 아이패드, 교실 노트북에서 바로 실행할 수 있는 B-QUEST 샘플입니다.</p>
+        <p>55인치 TV, 아이패드, 교실 노트북에서 바로 실행할 수 있는 POB 성경클럽 샘플입니다.</p>
       </div>
       <a class="btn primary" href="lesson-01.html">1회차 시작</a>
     </div>
