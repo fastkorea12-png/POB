@@ -63,13 +63,29 @@ p,li,td,span{
 .nav-links{display:flex;align-items:center;gap:18px;color:var(--ink-2);font-size:.92rem;font-weight:850}
 .nav-cta{padding:9px 14px;border-radius:8px;color:#fff;background:var(--green)}
 .hero{
+  position:relative;
+  overflow:hidden;
   min-height:calc(100vh - 65px);
   display:grid;
   grid-template-columns:minmax(0,1.02fr) minmax(360px,.88fr);
   gap:34px;
   align-items:center;
   padding:56px clamp(18px,5vw,76px) 42px;
-  background:linear-gradient(135deg,#fffaf1 0%,#f4fbff 58%,#eef8ef 100%);
+  background:
+    linear-gradient(90deg,rgba(255,250,241,.98) 0%,rgba(255,250,241,.86) 34%,rgba(255,250,241,.36) 62%,rgba(255,250,241,.1) 100%),
+    url("assets/pob-hero-bg.jpg") center right/cover no-repeat;
+}
+.hero:after{
+  content:"";
+  position:absolute;
+  inset:auto 0 0;
+  height:30%;
+  pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,250,241,0),var(--paper));
+}
+.hero > *{
+  position:relative;
+  z-index:1;
 }
 .eyebrow{
   display:inline-flex;
@@ -139,9 +155,16 @@ h1{
 }
 .mini b{display:block;color:var(--green);font-size:1.18rem}
 .mini span{display:block;color:var(--muted);font-size:.84rem;font-weight:850}
-.section{padding:76px clamp(18px,5vw,76px)}
+.section{
+  position:relative;
+  padding:76px clamp(18px,5vw,76px);
+}
 .section.white{background:#fff}
-.section.soft{background:#f4f8f2}
+.section.soft{
+  background:
+    linear-gradient(180deg,rgba(244,248,242,.9),rgba(244,248,242,.94)),
+    url("assets/pob-soft-pattern.jpg") center/cover no-repeat;
+}
 .section-head{max-width:850px;margin-bottom:30px}
 .kicker{color:var(--green);font-weight:950;font-size:.86rem;letter-spacing:.08em}
 h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.07;letter-spacing:0}
@@ -166,7 +189,9 @@ h2,h3,.bridge-visual strong{word-break:keep-all;text-wrap:balance}
   padding:24px;
   border:1px solid var(--line);
   border-radius:8px;
-  background:#fff;
+  background:rgba(255,255,255,.9);
+  box-shadow:0 14px 36px rgba(23,35,58,.06);
+  backdrop-filter:blur(4px);
 }
 .card .tag{display:inline-block;padding:5px 9px;border-radius:999px;background:var(--sky);font-size:.78rem;font-weight:950;color:#14608a}
 .card h3{margin:18px 0 8px;font-size:1.28rem;line-height:1.22}
@@ -324,7 +349,9 @@ h2,h3,.bridge-visual strong{word-break:keep-all;text-wrap:balance}
 .contact-box{
   padding:30px;
   border-radius:8px;
-  background:var(--ink);
+  background:
+    linear-gradient(135deg,rgba(23,35,58,.94),rgba(38,70,80,.9)),
+    url("assets/pob-soft-pattern.jpg") center/cover no-repeat;
   color:#fff;
 }
 .contact-box h2{margin-top:0}
