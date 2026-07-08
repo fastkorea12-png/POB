@@ -577,7 +577,7 @@ h2,h3,.bridge-visual strong{word-break:keep-all;text-wrap:balance}
           <a class="btn secondary" href="index.html">랜딩으로 돌아가기</a>
         </div>
       </div>
-      <form class="form" onsubmit="event.preventDefault();copyInquiry();">
+      <form class="form" onsubmit="event.preventDefault();sendInquiryEmail();">
         <div class="field">
           <label for="name">이름</label>
           <input id="name" name="name" placeholder="성함을 입력해 주세요">
@@ -604,23 +604,24 @@ h2,h3,.bridge-visual strong{word-break:keep-all;text-wrap:balance}
           <label for="message">문의 내용</label>
           <textarea id="message" name="message" placeholder="아이 연령, 교회 상황, 원하는 운영 형태 등을 적어 주세요"></textarea>
         </div>
-        <button class="btn primary" type="submit">문의 내용 복사하기</button>
-        <p class="notice" id="copyNotice">실제 접수 채널이 정해지면 이 영역을 카카오채널, 구글폼, 네이버폼으로 연결하면 됩니다.</p>
+        <button class="btn primary" type="submit">Gmail로 문의 보내기</button>
+        <p class="notice" id="mailNotice">버튼을 누르면 입력한 내용이 담긴 Gmail 작성창이 열립니다.</p>
       </form>
     </div>
   </section>
 </main>
 
 <script>
-function copyInquiry(){
+function sendInquiryEmail(){
+  const recipient='fastkorea12@gmail.com';
   const fields=['name','phone','group','interest','message'];
   const labels={name:'이름',phone:'연락처',group:'교회명/가정',interest:'관심 프로그램',message:'문의 내용'};
   const text=fields.map(id=>`${labels[id]}: ${document.getElementById(id).value || '-'}`).join('\n');
-  navigator.clipboard?.writeText(text).then(()=>{
-    document.getElementById('copyNotice').textContent='문의 내용이 복사되었습니다. 카카오톡이나 문자에 붙여넣어 전달할 수 있습니다.';
-  }).catch(()=>{
-    document.getElementById('copyNotice').textContent='복사가 막혔습니다. 입력한 내용을 직접 선택해 복사해 주세요.';
-  });
+  const subject='POB 성경클럽 문의';
+  const body=`POB 성경클럽 상세페이지에서 문의가 작성되었습니다.\n\n${text}`;
+  const gmailUrl=`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(recipient)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  window.open(gmailUrl,'_blank','noopener');
+  document.getElementById('mailNotice').textContent='Gmail 작성창이 열렸습니다. 열리지 않으면 팝업 차단을 확인해 주세요.';
 }
 </script>
 </body>
