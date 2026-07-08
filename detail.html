@@ -577,7 +577,7 @@ h2,h3,.bridge-visual strong{word-break:keep-all;text-wrap:balance}
           <a class="btn secondary" href="index.html">랜딩으로 돌아가기</a>
         </div>
       </div>
-      <form class="form" onsubmit="event.preventDefault();sendInquiryEmail();">
+      <form class="form" onsubmit="event.preventDefault();submitInquiry();">
         <div class="field">
           <label for="name">이름</label>
           <input id="name" name="name" placeholder="성함을 입력해 주세요">
@@ -604,24 +604,57 @@ h2,h3,.bridge-visual strong{word-break:keep-all;text-wrap:balance}
           <label for="message">문의 내용</label>
           <textarea id="message" name="message" placeholder="아이 연령, 교회 상황, 원하는 운영 형태 등을 적어 주세요"></textarea>
         </div>
-        <button class="btn primary" type="submit">Gmail로 문의 보내기</button>
-        <p class="notice" id="mailNotice">버튼을 누르면 입력한 내용이 담긴 Gmail 작성창이 열립니다.</p>
+        <button class="btn primary" type="submit">문의 접수하기</button>
+        <p class="notice" id="formNotice">제출하면 문의 내용이 기록되고 담당자에게 알림이 전송됩니다.</p>
       </form>
     </div>
   </section>
 </main>
 
 <script>
-function sendInquiryEmail(){
-  const recipient='fastkorea12@gmail.com';
-  const fields=['name','phone','group','interest','message'];
-  const labels={name:'이름',phone:'연락처',group:'교회명/가정',interest:'관심 프로그램',message:'문의 내용'};
-  const text=fields.map(id=>`${labels[id]}: ${document.getElementById(id).value || '-'}`).join('\n');
-  const subject='POB 성경클럽 문의';
-  const body=`POB 성경클럽 상세페이지에서 문의가 작성되었습니다.\n\n${text}`;
-  const gmailUrl=`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(recipient)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  window.open(gmailUrl,'_blank','noopener');
-  document.getElementById('mailNotice').textContent='Gmail 작성창이 열렸습니다. 열리지 않으면 팝업 차단을 확인해 주세요.';
+const INQUIRY_ENDPOINT = 'https://script.google.com/macros/s/AKfycby6LmAZE65FrAZGtiTaVvqJduCTB-nCoRKJZn4mCWzCUCJm6KAKI2MzcBmyFxpYrIeD/exec';
+
+async function submitInquiry(){
+  const notice=document.getElementById('formNotice');
+  const button=document.querySelector('.form button[type="submit"]');
+  const payload={
+    name:document.getElementById('name').value.trim(),
+    phone:document.getElementById('phone').value.trim(),
+    group:document.getElementById('group').value.trim(),
+    interest:document.getElementById('interest').value,
+    message:document.getElementById('message').value.trim(),
+    page:location.href
+  };
+
+  if(!payload.name || !payload.phone){
+    notice.textContent='이름과 연락처를 입력해 주세요.';
+    return;
+  }
+
+  if(!INQUIRY_ENDPOINT){
+    notice.textContent='문의 접수 연결 준비 중입니다. 잠시 후 다시 시도해 주세요.';
+    return;
+  }
+
+  button.disabled=true;
+  button.textContent='접수 중입니다...';
+  notice.textContent='문의 내용을 전송하고 있습니다.';
+
+  try{
+    const response=await fetch(INQUIRY_ENDPOINT,{
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify(payload)
+    });
+    document.querySelector('.form').reset();
+    notice.textContent='문의가 접수되었습니다. 곧 연락드리겠습니다.';
+  }catch(error){
+    notice.textContent='전송이 원활하지 않습니다. 잠시 후 다시 시도해 주세요.';
+  }finally{
+    button.disabled=false;
+    button.textContent='문의 접수하기';
+  }
 }
 </script>
 </body>
