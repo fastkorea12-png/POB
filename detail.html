@@ -27,9 +27,15 @@ body{
   color:var(--ink);
   font-family:"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
   line-height:1.62;
+  word-break:keep-all;
+  overflow-wrap:break-word;
 }
 a{color:inherit;text-decoration:none}
 button,input,select,textarea{font:inherit}
+p,li,td,span{
+  word-break:keep-all;
+  overflow-wrap:break-word;
+}
 .site-nav{
   position:sticky;
   top:0;
@@ -80,12 +86,17 @@ h1{
   font-size:clamp(3rem,7vw,6.7rem);
   line-height:.98;
   letter-spacing:0;
+  text-wrap:balance;
 }
 .hero-sub{
   max-width:760px;
   color:var(--ink-2);
   font-size:clamp(1.08rem,1.9vw,1.36rem);
   font-weight:760;
+  text-align:justify;
+  text-align-last:left;
+  text-justify:inter-character;
+  text-wrap:pretty;
 }
 .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
 .btn{
@@ -134,7 +145,17 @@ h1{
 .section-head{max-width:850px;margin-bottom:30px}
 .kicker{color:var(--green);font-weight:950;font-size:.86rem;letter-spacing:.08em}
 h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.07;letter-spacing:0}
-.lead{color:var(--ink-2);font-size:1.08rem;font-weight:740}
+h2,h3,.bridge-visual strong{word-break:keep-all;text-wrap:balance}
+.phrase-lines .line{display:block}
+.lead{
+  color:var(--ink-2);
+  font-size:1.08rem;
+  font-weight:740;
+  text-align:justify;
+  text-align-last:left;
+  text-justify:inter-character;
+  text-wrap:pretty;
+}
 .problem-grid,.target-grid,.feature-grid{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
@@ -149,7 +170,16 @@ h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.07;letter-s
 }
 .card .tag{display:inline-block;padding:5px 9px;border-radius:999px;background:var(--sky);font-size:.78rem;font-weight:950;color:#14608a}
 .card h3{margin:18px 0 8px;font-size:1.28rem;line-height:1.22}
-.card p{margin:0;color:var(--muted);font-size:.95rem;font-weight:680}
+.card p{
+  margin:0;
+  color:var(--muted);
+  font-size:.95rem;
+  font-weight:680;
+  text-align:justify;
+  text-align-last:left;
+  text-justify:inter-character;
+  text-wrap:pretty;
+}
 .bridge{
   display:grid;
   grid-template-columns:minmax(320px,.85fr) minmax(0,1.15fr);
@@ -171,7 +201,13 @@ h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.07;letter-s
 .bridge-visual:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,33,61,.04),rgba(20,33,61,.72));z-index:1}
 .bridge-visual div{position:relative;z-index:2}
 .bridge-visual strong{display:block;font-size:2.15rem;line-height:1.12}
-.bridge-visual p{margin:10px 0 0;max-width:520px;font-weight:850}
+.bridge-visual p{
+  margin:10px 0 0;
+  max-width:520px;
+  font-weight:850;
+  text-align:justify;
+  text-align-last:left;
+}
 .path{
   display:grid;
   gap:10px;
@@ -188,7 +224,14 @@ h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.07;letter-s
 }
 .path-step b{color:var(--coral)}
 .path-step strong{display:block;font-size:1.06rem}
-.path-step span{display:block;color:var(--muted);font-size:.9rem;font-weight:700}
+.path-step span{
+  display:block;
+  color:var(--muted);
+  font-size:.9rem;
+  font-weight:700;
+  text-align:justify;
+  text-align-last:left;
+}
 .schedule{
   width:100%;
   border-collapse:separate;
@@ -228,6 +271,8 @@ h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.07;letter-s
   background:#f7fbff;
   color:var(--ink-2);
   font-weight:760;
+  text-align:justify;
+  text-align-last:left;
 }
 .games{
   display:grid;
@@ -283,7 +328,12 @@ h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.07;letter-s
   color:#fff;
 }
 .contact-box h2{margin-top:0}
-.contact-box p{color:#d7e1ef;font-weight:760}
+.contact-box p{
+  color:#d7e1ef;
+  font-weight:760;
+  text-align:justify;
+  text-align-last:left;
+}
 .form{
   display:grid;
   gap:12px;
@@ -347,7 +397,7 @@ h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.07;letter-s
   <section class="hero">
     <div>
       <span class="eyebrow">어린이 말씀 탐험 프로그램</span>
-      <h1>성경을 읽고,<br>뛰고, 풀고,<br>기억하는 시간</h1>
+      <h1 class="phrase-lines"><span class="line">성경을 읽고,</span><span class="line">뛰고, 풀고,</span><span class="line">기억하는 시간</span></h1>
       <p class="hero-sub">POB 성경클럽은 주일학교 아이들이 말씀을 지루하게 듣기만 하지 않도록, 성경 본문을 중심으로 퀴즈, 체조, 게임, 몸놀이, 묵상을 연결합니다.</p>
       <div class="hero-actions">
         <a class="btn primary" href="#contact">프로그램 문의하기</a>
@@ -367,7 +417,7 @@ h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.07;letter-s
   <section class="section white">
     <div class="section-head">
       <div class="kicker">WHY</div>
-      <h2>아이들이 앉아 있기는 하지만, 말씀을 정말 이해하고 있을까요?</h2>
+      <h2 class="phrase-lines"><span class="line">아이들이 앉아 있기는 하지만,</span><span class="line">말씀을 정말 이해하고 있을까요?</span></h2>
       <p class="lead">부모와 교회 담당자가 함께 느끼는 고민에서 POB 성경클럽은 시작합니다.</p>
     </div>
     <div class="problem-grid">
@@ -385,7 +435,7 @@ h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.07;letter-s
       <div class="bridge-visual">
         <img src="assets/forgiveness-cover.png" alt="POB 성경클럽 어린이 말씀 장면">
         <div>
-          <strong>한 본문을 중심으로 말씀과 활동이 이어집니다</strong>
+          <strong class="phrase-lines"><span class="line">한 본문을 중심으로</span><span class="line">말씀과 활동이 이어집니다</span></strong>
           <p>읽기, 듣기, 질문, 퀴즈, 활동, 암송, 묵상까지 한 흐름으로 묶습니다.</p>
         </div>
       </div>
@@ -403,7 +453,7 @@ h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.07;letter-s
   <section class="section white" id="flow">
     <div class="section-head">
       <div class="kicker">SUNDAY 70 MINUTES</div>
-      <h2>주일 70분 프로그램 예시</h2>
+      <h2 class="phrase-lines"><span class="line">주일 70분</span><span class="line">프로그램 예시</span></h2>
       <p class="lead">성경을 읽고, 움직이고, 풀고, 기억하는 흐름으로 예배와 활동을 자연스럽게 잇습니다.</p>
     </div>
     <table class="schedule" aria-label="POB 성경클럽 70분 운영 예시">
@@ -424,7 +474,7 @@ h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.07;letter-s
   <section class="section soft">
     <div class="section-head">
       <div class="kicker">DIFFERENCE</div>
-      <h2>POB 성경클럽의 차별점</h2>
+      <h2 class="phrase-lines"><span class="line">POB 성경클럽의</span><span class="line">차별점</span></h2>
       <p class="lead">재미있는 활동을 붙이는 것이 아니라, 말씀을 중심에 두고 활동이 따라오게 합니다.</p>
     </div>
     <div class="feature-grid">
@@ -440,7 +490,7 @@ h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.07;letter-s
   <section class="section white">
     <div class="section-head">
       <div class="kicker">FOR WHOM</div>
-      <h2>교회와 가정, 두 입구를 모두 생각했습니다</h2>
+      <h2 class="phrase-lines"><span class="line">교회와 가정,</span><span class="line">두 입구를 모두 생각했습니다</span></h2>
       <p class="lead">말씀 중심은 분명하게, 입구는 부담 없게 열어둡니다.</p>
     </div>
     <div class="split">
@@ -469,7 +519,7 @@ h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.07;letter-s
     <div class="games">
       <div class="games-copy">
         <div class="kicker">SATURDAY POB GAMES</div>
-        <h2>토요일에는 더 가볍게, 더 활동적으로</h2>
+        <h2 class="phrase-lines"><span class="line">토요일에는 더 가볍게,</span><span class="line">더 활동적으로</span></h2>
         <p class="lead">POB 게임즈는 교회 밖 아이들도 부담 없이 참여할 수 있는 90분 활동 프로그램입니다. 체조, 게임, 팀 활동, 성경 스토리를 결합해 아이들이 스마트폰 없이 뛰고 웃고 배우는 시간을 만듭니다.</p>
         <ul class="check-list">
           <li>90분 활동형 프로그램</li>
@@ -488,7 +538,7 @@ h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.07;letter-s
   <section class="section white">
     <div class="section-head">
       <div class="kicker">TABLET CONTENTS</div>
-      <h2>태블릿으로 보고, 누르고, 맞히며 배우는 말씀 콘텐츠</h2>
+      <h2 class="phrase-lines"><span class="line">태블릿으로 보고, 누르고, 맞히며</span><span class="line">배우는 말씀 콘텐츠</span></h2>
       <p class="lead">말씀 설명, 퀴즈, 영상, 점수 화면이 이어져 아이들이 화면 앞에서 수동적으로 머물지 않고 직접 참여합니다.</p>
     </div>
     <div class="demo-grid">
@@ -506,7 +556,7 @@ h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.07;letter-s
   <section class="section soft">
     <div class="section-head">
       <div class="kicker">NETWORK</div>
-      <h2>한 교회를 넘어, 함께 말씀을 배우는 교회학교 네트워크로</h2>
+      <h2 class="phrase-lines"><span class="line">한 교회를 넘어,</span><span class="line">함께 말씀을 배우는 교회학교 네트워크로</span></h2>
       <p class="lead">POB 성경클럽은 한 교회의 행사로 끝나지 않고, 교사훈련과 연합 활동으로 확장될 수 있습니다.</p>
     </div>
     <div class="network">
@@ -520,7 +570,7 @@ h2{margin:8px 0 10px;font-size:clamp(2rem,4vw,3.55rem);line-height:1.07;letter-s
   <section class="section" id="contact">
     <div class="contact">
       <div class="contact-box">
-        <h2>우리 교회, 우리 아이에게 POB 성경클럽을 시작해보고 싶다면 문의해 주세요</h2>
+        <h2 class="phrase-lines"><span class="line">우리 교회, 우리 아이에게</span><span class="line">POB 성경클럽을 시작해보고 싶다면</span><span class="line">문의해 주세요</span></h2>
         <p>주일 POB, 토요 POB 게임즈, 교사훈련, 콘텐츠 도입 중 관심 있는 방향을 정리해 주시면 상담과 자료 준비가 쉬워집니다.</p>
         <div class="hero-actions">
           <a class="btn primary" href="lesson-01.html">샘플 먼저 보기</a>
