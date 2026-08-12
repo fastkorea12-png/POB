@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POB 성경클럽 주일 70분 완몰입 예배 템플릿 & 교사 멘토 스크립트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-dark: #0B0F19;
+  --bg-card: #151C2C;
+  --bg-card-active: #1E293B;
+  --text-main: #F9FAFB;
+  --text-muted: #9CA3AF;
+  --accent-gold: #F59E0B;
+  --accent-green: #10B981;
+  --accent-indigo: #818CF8;
+  --accent-rose: #F43F5E;
+  --line-color: rgba(255, 255, 255, 0.12);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  padding: 30px 20px;
+  line-height: 1.6;
+}
+
+.app-container {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+/* Header */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line-color);
+  padding-bottom: 20px;
+  margin-bottom: 24px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-badge {
+  background: linear-gradient(135deg, var(--accent-indigo), var(--accent-green));
+  color: white;
+  font-weight: 900;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+}
+
+.title-group h1 {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: white;
+}
+
+.title-group p {
+  font-size: 0.95rem;
+  color: var(--accent-gold);
+  font-weight: 600;
+}
+
+.action-btns {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-header {
+  background: var(--bg-card);
+  border: 1px solid var(--line-color);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-header:hover {
+  background: var(--accent-indigo);
+  border-color: var(--accent-indigo);
+}
+
+/* Layout: Timer + Phase Stepper */
+.timer-panel {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(16, 185, 129, 0.1));
+  border: 1.5px solid var(--accent-indigo);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.timer-display {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.timer-clock {
+  font-size: 3.4rem;
+  font-weight: 900;
+  color: var(--accent-gold);
+  font-family: monospace;
+}
+
+.timer-label {
+  font-size: 1.05rem;
+  color: white;
+  font-weight: 700;
+}
+
+.timer-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-timer {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 800;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.btn-timer.start { background: var(--accent-green); color: white; }
+.btn-timer.pause { background: var(--accent-gold); color: white; }
+.btn-timer.reset { background: rgba(255,255,255,0.1); color: white; border: 1px solid var(--line-color); }
+
+/* Timeline Phase Selector */
+.phase-selector {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.phase-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--line-color);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.phase-btn:hover, .phase-btn.active {
+  background: var(--bg-card-active);
+  border-color: var(--accent-green);
+}
+
+.phase-btn.active {
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.3);
+}
+
+.phase-tag {
+  font-size: 0.8rem;
+  font-weight: 900;
+  color: var(--accent-gold);
+  text-transform: uppercase;
+}
+
+.phase-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: white;
+  margin-top: 4px;
+}
+
+.phase-time {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Detailed Script Area */
+.script-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line-color);
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 24px;
+}
+
+.script-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line-color);
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+}
+
+.script-title {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--accent-indigo);
+}
+
+.script-cue {
+  background: rgba(245, 158, 11, 0.2);
+  color: var(--accent-gold);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.script-section {
+  margin-bottom: 24px;
+}
+
+.script-section-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--accent-green);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.teacher-say {
+  background: rgba(99, 102, 241, 0.1);
+  border-left: 4px solid var(--accent-indigo);
+  padding: 16px;
+  border-radius: 0 8px 8px 0;
+  font-size: 1.05rem;
+  color: #F1F5F9;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+.teacher-say strong {
+  color: var(--accent-gold);
+}
+
+.action-guide {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  background: rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  border-radius: 8px;
+}
+
+/* Printable Worship Order Table */
+.order-table-container {
+  background: var(--bg-card);
+  border: 1px solid var(--line-color);
+  border-radius: 16px;
+  padding: 32px;
+}
+
+.order-table-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 16px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid var(--line-color);
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+th {
+  background: rgba(99, 102, 241, 0.2);
+  color: var(--accent-gold);
+  font-weight: 800;
+}
+
+@media print {
+  body { background: white; color: black; }
+  .timer-panel, .timer-controls, .action-btns, .phase-selector { display: none !important; }
+  .script-card, .order-table-container { border: 1px solid #ccc !important; background: white !important; color: black !important; }
+  .script-title, .teacher-say, td, th { color: black !important; }
+  .teacher-say { background: #f8fafc !important; border-left-color: #3b82f6 !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="app-container">
+
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <div class="brand-badge">POB</div>
+      <div class="title-group">
+        <h1>POB 70분 주일 완몰입 예배 실행 템플릿</h1>
+        <p>선생님용 워드포워드(Word-for-Word) 주도문 멘트집 & 마스터 순서지</p>
+      </div>
+    </div>
+    
+    <div class="action-btns">
+      <button class="btn-header" onclick="window.print()">🖨️ 예배 순서지 인쇄</button>
+      <button class="btn-header" onclick="location.href='presentation.html'">🖥️ 발표 PPT 보기</button>
+    </div>
+  </header>
+
+  <!-- Timer & Sound Cue Panel -->
+  <div class="timer-panel">
+    <div class="timer-display">
+      <span class="timer-clock" id="timerClock">70:00</span>
+      <span class="timer-label" id="currentPhaseLabel">Step 1. 오프닝 찬양 & 체조 진행 중</span>
+    </div>
+    <div class="timer-controls">
+      <button class="btn-timer start" onclick="startTimer()">▶ 예배 시작</button>
+      <button class="btn-timer pause" onclick="pauseTimer()">⏸ 일시정지</button>
+      <button class="btn-timer reset" onclick="resetTimer()">↺ 리셋</button>
+    </div>
+  </div>
+
+  <!-- Phase Selector Stepper -->
+  <div class="phase-selector">
+    <button class="phase-btn active" onclick="selectPhase(1)">
+      <div class="phase-tag">Step 1 (15분)</div>
+      <div class="phase-title">오프닝 찬양 & 체조</div>
+      <div class="phase-time">10:00 ~ 10:15</div>
+    </button>
+
+    <button class="phase-btn" onclick="selectPhase(2)">
+      <div class="phase-tag">Step 2 (20분)</div>
+      <div class="phase-title">돋보기 성경 탐험</div>
+      <div class="phase-time">10:15 ~ 10:35</div>
+    </button>
+
+    <button class="phase-btn" onclick="selectPhase(3)">
+      <div class="phase-tag">Step 3 (20분)</div>
+      <div class="phase-title">줄넘기 & 말씀 해금</div>
+      <div class="phase-time">10:35 ~ 10:55</div>
+    </button>
+
+    <button class="phase-btn" onclick="selectPhase(4)">
+      <div class="phase-tag">Step 4 (15분)</div>
+      <div class="phase-title">조끼 뱃지 시상 & 파송</div>
+      <div class="phase-time">10:55 ~ 11:10</div>
+    </button>
+  </div>
+
+  <!-- Script Display Box -->
+  <div class="script-card" id="scriptBox">
+    <!-- Dynamic Content Loaded by JS -->
+  </div>
+
+  <!-- Printable Master Order Sheet Table -->
+  <div class="order-table-container">
+    <div class="order-table-title">📜 POB 주일학교 70분 마스터 예배 순서지</div>
+    <table>
+      <thead>
+        <tr>
+          <th>시간 (70분)</th>
+          <th>예배 순서</th>
+          <th>세부 활동 내용</th>
+          <th>스크린 및 교구 큐시트</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>10:00 ~ 10:05</strong></td>
+          <td>묵도 & 헌신기도</td>
+          <td>예배 준비 및 스크린 카운트다운 영상 송출</td>
+          <td>카운트다운 BGM + POB 조끼 입기</td>
+        </tr>
+        <tr>
+          <td><strong>10:05 ~ 10:15</strong></td>
+          <td>오프닝 찬양 & 체조</td>
+          <td>비트 CCM 2곡 + 7단계 일상습관 스트레칭 체조</td>
+          <td>체조 캐릭터 영상 + 중앙 롤매트 활용</td>
+        </tr>
+        <tr>
+          <td><strong>10:15 ~ 10:20</strong></td>
+          <td>대표기도 & 봉독</td>
+          <td>아동 대표 기도 및 오디오 성경 입체 낭독</td>
+          <td>오디오 성경 자막 송출</td>
+        </tr>
+        <tr>
+          <td><strong>10:20 ~ 10:35</strong></td>
+          <td>돋보기 성경 탐험</td>
+          <td>이원화 화면 관찰 퀴즈 (유년 단어찾기 vs 초등 의미추론)</td>
+          <td>화면 이원화(Dual UI) + 2인 1조 짝꿍</td>
+        </tr>
+        <tr>
+          <td><strong>10:35 ~ 10:55</strong></td>
+          <td>줄넘기 미션 & 암송</td>
+          <td>줄넘기 60회 합산 달성 시 황금빛 성경 구절 해금 및 암송</td>
+          <td>타이머 스크린 + 구슬 줄넘기 6개</td>
+        </tr>
+        <tr>
+          <td><strong>10:55 ~ 11:05</strong></td>
+          <td>조끼 뱃지 시상식</td>
+          <td>주중 네이버 밴드 Best 쇼츠 송출 & 30초 스토리텔링 뱃지 시상</td>
+          <td>밴드 랭킹 전광판 + 와펜 뱃지 수여</td>
+        </tr>
+        <tr>
+          <td><strong>11:05 ~ 11:10</strong></td>
+          <td>헌금, 광고 & 파송</td>
+          <td>주중 밴드 동영상 과제 공지 및 주님의 축도 파송</td>
+          <td>주중 카톡 알림장 연결</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+// Master Script Database for Teachers
+const phaseScripts = {
+  1: {
+    title: "Step 1. 오프닝 찬양 & 7단계 으뜸 체조 (10:00 ~ 10:15)",
+    cue: "🎵 CCM 비트 음향 큐 ON / 중앙 롤매트 세팅",
+    sections: [
+      {
+        subtitle: "1. 아이 등교 및 POB 단원 조끼 착용 (10:00~10:05)",
+        teacherSay: "<strong>교사:</strong> '어서 오세요! 우리 자랑스러운 POB 성경 탐험가 친구들! 입구에서 <strong>POB 단원 조끼</strong>를 멋지게 입고 중앙 롤매트 위로 모여봅시다!'",
+        actionGuide: "💡 행동 가이드: 입구에서 교사가 아이들에게 조끼를 입혀주며 반갑게 눈맞춤 인사를 나누고 중앙 롤매트로 유도합니다."
+      },
+      {
+        subtitle: "2. 비트 찬양 2곡 & 7단계 으뜸 체조 (10:05~10:15)",
+        teacherSay: "<strong>교사:</strong> '자! 스크린의 캐릭터 친구를 따라 7단계 으뜸 체조 시작! 1단계 정돈! 2단계 감사! 3단계 경청! 4단계 동행! 몸도 마음도 주님께 정렬합니다!'",
+        actionGuide: "💡 행동 가이드: 교사가 맨 앞에서 큰 동작으로 체조를 시범 보입니다. 체조가 끝나면 자연스럽게 의자로 이동합니다."
+      }
+    ]
+  },
+  2: {
+    title: "Step 2. POB 돋보기 성경 탐험 (10:15 ~ 10:35)",
+    cue: "📖 312과 입체 오디오 성경 ON / 화면 이원화(Dual UI) 켜기",
+    sections: [
+      {
+        subtitle: "1. 대표 기도 및 입체 오디오 성경 들어보기 (10:15~10:20)",
+        teacherSay: "<strong>교사:</strong> '오늘 주신 요한복음 16장 말씀을 입체 오디오 성경으로 조용히 눈과 귀를 모아 들어보겠습니다.'",
+        actionGuide: "💡 행동 가이드: 예배실 조명을 살짝 낮추고 스크린 텍스트와 입체 오디오에 몰입시킵니다."
+      },
+      {
+        subtitle: "2. 유년부-초등부 이원화 돋보기 퀴즈 (10:20~10:35)",
+        teacherSay: "<strong>교사:</strong> '자! 스크린 좌측 <strong>유년부 동생들</strong>은 성경책에서 <strong>[보혜사]</strong> 글자에 동그라미 치기! 스크린 우측 <strong>초등부 형들</strong>은 예수님이 떠나시는 이유를 찾아 동생에게 설명해주기! 짝꿍끼리 도와보세요!'",
+        actionGuide: "💡 행동 가이드: 5~6학년 멘토가 2~3학년 멘티의 성경책 페이지와 단어 찾기를 손가락으로 짚어주도록 장려합니다."
+      }
+    ]
+  },
+  3: {
+    title: "Step 3. 줄넘기 미션 & 황금 말씀 해금 (10:35 ~ 10:55)",
+    cue: "🏃 스크린 줄넘기 60회 타이머 스타트 / 구슬 줄넘기 준비",
+    sections: [
+      {
+        subtitle: "1. 2인 1조 줄넘기 60회 합산 미션 (10:35~10:45)",
+        teacherSay: "<strong>교사:</strong> '오늘의 신체 미션! 줄넘기 합산 60회 도전! 동생이 20개 뛰면, 형이 남은 40개를 채워 뛰는 겁니다! 준비~ 시작!'",
+        actionGuide: "💡 행동 가이드: 교사는 롤매트 위에서 아이들이 발걸림 없이 안전하게 뛰도록 주변을 살피고 응원합니다."
+      },
+      {
+        subtitle: "2. 황금 말씀 해금 및 큰 소리 암송 (10:45~10:55)",
+        teacherSay: "<strong>교사:</strong> '우와! 60개 성공! 어둡던 스크린 화면이 열리며 황금빛 <strong>요한복음 16:13 말씀</strong>이 열렸습니다! 다 함께 힘차게 말씀을 암송해봅시다!'",
+        actionGuide: "💡 행동 가이드: 스크린의 황금빛 암송 구절을 바라보며 온 아이들이 땀을 흘리며 목청껏 말씀을 외칩니다."
+      }
+    ]
+  },
+  4: {
+    title: "Step 4. 밴드 쇼츠 공유, 뱃지 시상 및 파송 (10:55 ~ 11:10)",
+    cue: "📱 네이버 밴드 주간 Best 쇼츠 송출 / 와펜 뱃지 수여",
+    sections: [
+      {
+        subtitle: "1. 주중 밴드 30초 동영상 Best 쇼츠 감사 (10:55~11:00)",
+        teacherSay: "<strong>교사:</strong> '지난 한 주 동안 집에서 네이버 밴드에 30초 성경 설명 영상을 올려준 자랑스러운 우리 친구들의 영상을 스크린으로 크게 만나봅시다!'",
+        actionGuide: "💡 행동 가이드: 밴드에 올려진 2~3개의 아이들 30초 암송 영상을 스크린에 띄워 전 교인과 축하를 줍니다."
+      },
+      {
+        subtitle: "2. 30초 스토리텔링 뱃지 시상 및 파송 (11:00~11:10)",
+        teacherSay: "<strong>교사:</strong> '자, 주중 밴드 미션을 완수한 친구들은 나와서 선생님과 목사님께 이 뱃지가 무슨 성경 이야기인지 30초 동안 자랑스럽게 고백하고 조끼 가슴에 뱃지를 받아달아봅시다!'",
+        actionGuide: "💡 행동 가이드: 단상에 올라와 30초 성경 이야기를 고백한 아동의 조끼 가슴에 와펜 뱃지를 달아주고 사진을 촬영합니다."
+      }
+    ]
+  }
+};
+
+let currentPhase = 1;
+let timerInterval = null;
+let totalSeconds = 70 * 60;
+
+function renderScript() {
+  const data = phaseScripts[currentPhase];
+  const box = document.getElementById('scriptBox');
+  
+  let html = `
+    <div class="script-header">
+      <div class="script-title">${data.title}</div>
+      <div class="script-cue">${data.cue}</div>
+    </div>
+  `;
+
+  data.sections.forEach(sec => {
+    html += `
+      <div class="script-section">
+        <div class="script-section-title">📌 ${sec.subtitle}</div>
+        <div class="teacher-say">${sec.teacherSay}</div>
+        <div class="action-guide">${sec.actionGuide}</div>
+      </div>
+    `;
+  });
+
+  box.innerHTML = html;
+
+  // Update Buttons Active State
+  document.querySelectorAll('.phase-btn').forEach((btn, idx) => {
+    btn.classList.toggle('active', idx + 1 === currentPhase);
+  });
+}
+
+function selectPhase(num) {
+  currentPhase = num;
+  renderScript();
+}
+
+function updateClockDisplay() {
+  const m = Math.floor(totalSeconds / 60);
+  const s = totalSeconds % 60;
+  document.getElementById('timerClock').innerText = 
+    `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+}
+
+function startTimer() {
+  if (timerInterval) return;
+  timerInterval = setInterval(() => {
+    if (totalSeconds > 0) {
+      totalSeconds--;
+      updateClockDisplay();
+    } else {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      alert("🎉 주일 70분 완몰입 예배가 은혜 가운데 마쳤습니다!");
+    }
+  }, 1000);
+}
+
+function pauseTimer() {
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+}
+
+function resetTimer() {
+  pauseTimer();
+  totalSeconds = 70 * 60;
+  updateClockDisplay();
+}
+
+// Init
+renderScript();
+updateClockDisplay();
+</script>
+</body>
+</html>
