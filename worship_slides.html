@@ -314,6 +314,41 @@ html, body {
 .slide-counter span { color: var(--text-dark); }
 .btn-nav { padding: 9px 22px; border-radius: 999px; background: var(--pastel-blue); border: 1px solid #BFDBFE; color: var(--pastel-blue-dark); font-weight: 900; font-size: 0.95rem; cursor: pointer; }
 
+/* ── 반응형 ── */
+@media (max-width: 900px) {
+  .top-nav { height: 42px; padding: 0 14px; }
+  .bottom-controls { height: 42px; padding: 0 14px; }
+  .btn-nav { padding: 5px 14px; font-size: 0.82rem; }
+  .slide-counter { font-size: 0.85rem; }
+  .stage { padding: 4px; }
+  .brand-mark { display: none; }
+  .presentation-title { font-size: 0.8rem; }
+}
+
+/* Portrait 오버레이 */
+.portrait-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--pastel-mint);
+  z-index: 9999;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: center;
+  padding: 40px;
+}
+.portrait-rotate-icon { font-size: 4rem; animation: rotateHint 2s ease-in-out infinite; }
+@keyframes rotateHint {
+  0%, 100% { transform: rotate(0deg); }
+  40%, 60% { transform: rotate(-90deg); }
+}
+
+@media (orientation: portrait) and (max-width: 900px) {
+  .portrait-overlay { display: flex; }
+}
+
 @media print {
   body { background: white; color: black; overflow: visible; }
   .top-nav, .bottom-controls, .notes-drawer, .overview-modal, .slide-nav-arrow { display: none !important; }
@@ -323,6 +358,13 @@ html, body {
 </style>
 </head>
 <body>
+
+<!-- Portrait 유도 오버레이 (모바일 세로) -->
+<div class="portrait-overlay" id="portraitOverlay">
+  <div class="portrait-rotate-icon">📱</div>
+  <h2 style="font-size: 1.5rem; font-weight: 900; color: var(--text-dark);">화면을 가로로 돌려주세요</h2>
+  <p style="font-size: 1rem; color: var(--text-sub); line-height: 1.6;">POB 예배 슬라이드는<br>가로 모드에서 더 잘 보여요!</p>
+</div>
 
 <div class="presentation-container">
 
@@ -884,12 +926,14 @@ document.addEventListener('keydown', (e) => {
 });
 
 function scaleStage() {
-  const stage = document.getElementById('stageArea');
   const viewport = document.getElementById('slideViewport');
-  const stageWidth = stage.clientWidth - 30;
-  const stageHeight = stage.clientHeight - 30;
-  const scaleX = stageWidth / 1280;
-  const scaleY = stageHeight / 720;
+  const topH = document.querySelector('.top-nav')?.offsetHeight || 0;
+  const bottomH = document.querySelector('.bottom-controls')?.offsetHeight || 0;
+  const padding = 8;
+  const availW = window.innerWidth - padding * 2;
+  const availH = window.innerHeight - topH - bottomH - padding * 2;
+  const scaleX = availW / 1280;
+  const scaleY = availH / 720;
   const scale = Math.min(scaleX, scaleY, 1.2);
   viewport.style.transform = `scale(${scale})`;
 }
