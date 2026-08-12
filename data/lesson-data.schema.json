@@ -1,0 +1,205 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "POB Lesson Data",
+  "description": "BibleTree 주간 원천에서 추출한 POB 수업 데이터. 날짜+본문이 정본 식별자. Codex가 생성하고 Claude Code가 소비한다.",
+  "type": "object",
+  "required": ["id", "source", "schedule", "content", "review"],
+  "properties": {
+
+    "id": {
+      "description": "정본 식별자: 날짜 + 본문. 월 주차 번호나 파일 순번은 식별자가 아님.",
+      "type": "object",
+      "required": ["date", "passage"],
+      "properties": {
+        "date":    { "type": "string", "format": "date", "example": "2026-09-06" },
+        "passage": { "type": "string", "example": "요한복음 16:7-15",
+                     "description": "BibleTree 원천과 정확히 일치해야 함 (절 범위 포함)" }
+      }
+    },
+
+    "source": {
+      "description": "BibleTree 원천 파일 경로와 검증 상태. 충돌 시 blocked 처리.",
+      "type": "object",
+      "required": ["curriculum", "passages", "verified"],
+      "properties": {
+        "curriculum": {
+          "type": "string",
+          "example": "/Users/kimchoongman/AI 로컬/BibleTree_HEM/sep_oct_curriculum.md"
+        },
+        "passages": {
+          "type": "string",
+          "example": "/Users/kimchoongman/AI 로컬/BibleTree_HEM/sep_oct_passages.md"
+        },
+        "lesson_guide": {
+          "type": ["string", "null"],
+          "example": "/Users/kimchoongman/AI 로컬/BibleTree_HEM/lessons/9월_1주차_0906_공과가이드.md"
+        },
+        "sermon": {
+          "type": ["string", "null"],
+          "example": "/Users/kimchoongman/AI 로컬/BibleTree_HEM/sermons/9월_1주차_0906_설교문.md"
+        },
+        "ppt": {
+          "type": ["string", "null"],
+          "example": "/Users/kimchoongman/AI 로컬/BibleTree_HEM/outputs/presentations/바이블트리_9월1주차_저학년_제목.pptx"
+        },
+        "verified": {
+          "type": "boolean",
+          "description": "커리큘럼·본문표·공과가이드 사이 날짜+본문+제목 일치 확인 여부. false이면 이후 작업 불가."
+        },
+        "conflict": {
+          "type": ["string", "null"],
+          "description": "불일치 내용 기술. 예: '야고보서 1:2-10 vs 1:1-8'. verified=false일 때 필수."
+        }
+      }
+    },
+
+    "meta": {
+      "description": "수업 메타 정보. BibleTree 원천에서 직접 추출, 임의 수정 금지.",
+      "type": "object",
+      "required": ["series", "weekly_theme", "title", "core_sentence"],
+      "properties": {
+        "series":        { "type": "string", "example": "성령 하나님과 함께 살다" },
+        "monthly_theme": { "type": "string", "example": "성령 하나님을 알고 함께 살아가다" },
+        "weekly_theme":  { "type": "string", "example": "성령 하나님을 알아가다" },
+        "title":         { "type": "string", "example": "보혜사 성령이 오시면" },
+        "core_sentence": { "type": "string", "maxLength": 40,
+                           "description": "복음 순서 준수: 하나님이 하신 일 → 우리도. 20자 이내 권장." },
+        "memory_verse": {
+          "type": ["object", "null"],
+          "description": "null이면 reviewer가 사람에게 확정 요청",
+          "properties": {
+            "ref":  { "type": "string", "example": "요한복음 16:13" },
+            "text": { "type": "string" }
+          }
+        }
+      }
+    },
+
+    "schedule": {
+      "description": "70분 예배 구조. 총합 70분 고정. 순서 이름과 시간은 변경하지 않음.",
+      "type": "object",
+      "required": ["intro", "worship", "book", "look", "took", "games", "memorization", "closing"],
+      "properties": {
+        "intro":         { "$ref": "#/definitions/segment", "description": "도입 3분" },
+        "worship":       { "$ref": "#/definitions/segment", "description": "찬양·기도 7분" },
+        "book":          { "$ref": "#/definitions/segment", "description": "성경 본문 읽기 + 내러티브 Q1 — 8분" },
+        "look":          { "$ref": "#/definitions/segment", "description": "교훈 발견 + 성찰 Q2 — 7분" },
+        "took":          { "$ref": "#/definitions/segment", "description": "실천 결단 Q3 — 5분" },
+        "games":         { "$ref": "#/definitions/segment", "description": "공동체 활동 (본문 연결 게임·움직임) — 20분" },
+        "memorization":  { "$ref": "#/definitions/segment", "description": "암송 구절 — 10분" },
+        "closing":       { "$ref": "#/definitions/segment", "description": "기도·가정 연계 안내 — 10분" }
+      }
+    },
+
+    "content": {
+      "description": "각 순서별 실행 내용. 초등부 혼합반 기본/확장 질문 포함.",
+      "type": "object",
+      "required": ["book", "look", "took", "games"],
+      "properties": {
+        "book": {
+          "description": "Book — 성경 본문 읽기 + 내러티브 (8분)",
+          "type": "object",
+          "required": ["narrative", "basic_question", "extended_question"],
+          "properties": {
+            "narrative":         { "type": "string", "description": "본문 장면을 아이 눈앞에 펼치는 스토리텔링" },
+            "basic_question":    { "type": "string", "description": "저학년 기본 질문: 본문에서 직접 찾을 수 있는 사실" },
+            "extended_question": { "type": "string", "description": "고학년 확장 질문: 의미 탐색 또는 그리스도 연결" },
+            "teacher_note":      { "type": "string" }
+          }
+        },
+        "look": {
+          "description": "Look — 교훈 발견 + 내면 성찰 (7분)",
+          "type": "object",
+          "required": ["explanation", "basic_question", "extended_question"],
+          "properties": {
+            "explanation":       { "type": "string", "description": "복음 동기 기반 교훈. 도덕주의 금지." },
+            "basic_question":    { "type": "string" },
+            "extended_question": { "type": "string" },
+            "teacher_note":      { "type": "string" }
+          }
+        },
+        "took": {
+          "description": "Took — 이번 주 실천 결단 (5분)",
+          "type": "object",
+          "required": ["practices", "basic_question", "extended_question"],
+          "properties": {
+            "practices": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 3,
+              "items": { "type": "string" },
+              "description": "이번 주 구체적 실천 2-3가지"
+            },
+            "basic_question":    { "type": "string" },
+            "extended_question": { "type": "string" },
+            "teacher_note":      { "type": "string" }
+          }
+        },
+        "games": {
+          "description": "공동체 활동 — 본문 연결 게임·움직임 (20분)",
+          "type": "object",
+          "required": ["activity_name", "instructions"],
+          "properties": {
+            "activity_name": { "type": "string" },
+            "instructions":  { "type": "string", "description": "진행 방법. 교사 1명이 혼자 진행 가능한 수준." },
+            "materials":     { "type": "string" },
+            "bible_link":    { "type": "string", "description": "이 활동이 오늘 본문과 어떻게 연결되는지" }
+          }
+        },
+        "intro_text":   { "type": "string", "description": "도입 3분 교사 멘트" },
+        "worship_song": { "type": "string", "description": "찬양 곡명 또는 링크" },
+        "closing_prayer_guide": { "type": "string", "description": "마무리 기도 안내문" },
+        "home_connection": {
+          "type": "string",
+          "description": "가정 연계: 이번 주 BibleTree 묵상과 연결되는 안내"
+        }
+      }
+    },
+
+    "media": {
+      "description": "미디어 파일 경로. 승인 전에는 경로만 기록. 비용 발생 작업은 media_approved 확인 후에만 실행.",
+      "type": "object",
+      "properties": {
+        "cover":    { "type": ["string", "null"] },
+        "q1_video": { "type": ["string", "null"], "description": "Book 내러티브 영상. 길이는 내용에 따라 결정." },
+        "q2_video": { "type": ["string", "null"], "description": "Look 교훈 영상." },
+        "q3_video": { "type": ["string", "null"], "description": "Took 적용 장면 영상." },
+        "q4_video": { "type": ["string", "null"], "description": "복음 연결 영상. 필요 여부는 매 회차 판단." }
+      }
+    },
+
+    "review": {
+      "description": "승인 게이트. 사람만 변경 가능.",
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["draft", "source_conflict", "reviewed", "approved", "deployed"],
+          "description": "source_conflict = blocked 상태. 사람 확인 전까지 이후 작업 불가."
+        },
+        "source_verified":  { "type": "boolean", "default": false },
+        "content_approved": { "type": "boolean", "default": false,
+                              "description": "신학·목회 검토 완료. Claude 대화 + 사람 확인." },
+        "media_approved":   { "type": "boolean", "default": false,
+                              "description": "비용 발생 미디어 생성 동의. true 전까지 Gemini/HeyGen API 호출 금지." },
+        "html_approved":    { "type": "boolean", "default": false,
+                              "description": "HTML 완성본 확인. true 전까지 GitHub 푸시 금지." },
+        "approved_by":      { "type": ["string", "null"] },
+        "notes":            { "type": "string" }
+      }
+    }
+
+  },
+
+  "definitions": {
+    "segment": {
+      "type": "object",
+      "required": ["minutes"],
+      "properties": {
+        "minutes": { "type": "integer" },
+        "note":    { "type": "string" }
+      }
+    }
+  }
+}

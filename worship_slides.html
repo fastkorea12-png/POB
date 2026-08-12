@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>POB 주일 70분 완몰입 예배 마스터 PPT (초등 파스텔 톤)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&family=Gaegu:wght@700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-pastel-cream: #FFFDF7;
+  --bg-card: #FFFFFF;
+  --text-dark: #1E293B;
+  --text-sub: #475569;
+  --pastel-mint: #D1FAE5;
+  --pastel-mint-dark: #059669;
+  --pastel-yellow: #FEF3C7;
+  --pastel-yellow-dark: #D97706;
+  --pastel-blue: #E0F2FE;
+  --pastel-blue-dark: #0284C7;
+  --pastel-pink: #FFE4E6;
+  --pastel-pink-dark: #E11D48;
+  --border-color: #E2E8F0;
+  --radius-xl: 24px;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --slide-width: 1280px;
+  --slide-height: 720px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; touch-action: manipulation; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: #F1F5F9;
+  color: var(--text-dark);
+  font-family: 'Noto Sans KR', sans-serif;
+  overflow: hidden;
+  user-select: none;
+}
+
+.presentation-container {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+/* Header bar */
+.top-nav {
+  height: 56px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px dashed #CBD5E1;
+  background: #FFFFFF;
+  z-index: 50;
+}
+
+.brand-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 1.05rem;
+}
+
+.brand-mark {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--pastel-mint);
+  color: var(--pastel-mint-dark);
+  font-size: 0.9rem;
+  font-weight: 900;
+  border: 1px solid #A7F3D0;
+}
+
+.presentation-title {
+  font-size: 0.95rem;
+  color: var(--text-sub);
+  font-weight: 700;
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-icon {
+  background: var(--pastel-yellow);
+  border: 1px solid #FDE68A;
+  color: var(--pastel-yellow-dark);
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.btn-icon.active {
+  background: var(--pastel-mint);
+  color: var(--pastel-mint-dark);
+  border-color: #A7F3D0;
+}
+
+/* Stage Area */
+.stage {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  padding: 16px;
+  background: #E2E8F0;
+}
+
+.slide-viewport {
+  width: var(--slide-width);
+  height: var(--slide-height);
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--bg-pastel-cream);
+  border: 3px solid #CBD5E1;
+  cursor: pointer;
+}
+
+.slide-nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid #CBD5E1;
+  color: var(--text-dark);
+  font-size: 1.4rem;
+  font-weight: 900;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  z-index: 100;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.slide-nav-arrow.prev { left: 16px; }
+.slide-nav-arrow.next { right: 16px; }
+
+/* Slides Track */
+.slide {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 44px 52px;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.98);
+  transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--bg-pastel-cream);
+}
+
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  z-index: 10;
+}
+
+.slide-header {
+  margin-bottom: 16px;
+}
+
+.slide-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: var(--pastel-yellow);
+  border: 1px solid #FDE68A;
+  color: var(--pastel-yellow-dark);
+  font-size: 0.95rem;
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+
+.slide-title {
+  font-size: 2.6rem;
+  font-weight: 900;
+  line-height: 1.15;
+  color: var(--text-dark);
+  letter-spacing: -0.02em;
+}
+
+.slide-subtitle {
+  font-size: 1.25rem;
+  color: var(--text-sub);
+  margin-top: 4px;
+  font-weight: 700;
+}
+
+.slide-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+.card {
+  background: var(--bg-card);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+}
+
+.card-title { font-size: 1.3rem; font-weight: 900; color: var(--text-dark); }
+.card-desc { font-size: 1.05rem; color: var(--text-sub); line-height: 1.65; }
+
+/* Pre-Worship Mission Spoiler Pastel Box */
+.spoiler-box {
+  background: linear-gradient(135deg, #FEF3C7, #FFE4E6);
+  border: 3px dashed #F59E0B;
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(245, 158, 11, 0.15);
+}
+
+.spoiler-badge {
+  display: inline-block;
+  background: var(--pastel-pink-dark);
+  color: white;
+  font-weight: 900;
+  padding: 6px 20px;
+  border-radius: 999px;
+  font-size: 1.05rem;
+  margin-bottom: 14px;
+}
+
+.spoiler-h2 {
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: var(--text-dark);
+  margin-bottom: 14px;
+}
+
+.spoiler-desc {
+  font-size: 1.3rem;
+  color: var(--text-sub);
+  line-height: 1.7;
+  font-weight: 700;
+}
+
+/* Presenter Notes Drawer */
+.notes-drawer {
+  position: absolute;
+  bottom: 65px; right: 24px;
+  width: 480px; max-height: 320px;
+  background: #FFFFFF;
+  border: 2px solid var(--pastel-yellow-dark);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
+  border-radius: var(--radius-lg);
+  padding: 20px; z-index: 100;
+  display: none; flex-direction: column; gap: 10px; overflow-y: auto;
+}
+.notes-drawer.active { display: flex; }
+.notes-header { display: flex; align-items: center; justify-content: space-between; font-size: 0.9rem; font-weight: 900; color: var(--pastel-yellow-dark); }
+.notes-content { font-size: 1rem; color: var(--text-dark); line-height: 1.7; }
+
+/* Overview Modal */
+.overview-modal {
+  position: fixed; inset: 0;
+  background: rgba(255, 253, 247, 0.98);
+  backdrop-filter: blur(20px);
+  z-index: 200; display: none; flex-direction: column; padding: 36px; overflow-y: auto;
+}
+.overview-modal.active { display: flex; }
+.overview-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 20px; }
+.thumb-card {
+  background: #FFFFFF; border: 2px solid var(--border-color);
+  border-radius: var(--radius-md); padding: 14px; cursor: pointer; aspect-ratio: 16/9;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.thumb-card.active { border-color: var(--pastel-yellow-dark); box-shadow: 0 0 16px rgba(245,158,11,0.3); }
+
+/* Bottom Controls */
+.bottom-controls {
+  height: 56px; padding: 0 28px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 2px dashed #CBD5E1;
+  background: #FFFFFF; z-index: 50;
+}
+.progress-bar-container { position: absolute; top: -2px; left: 0; width: 100%; height: 4px; background: #E2E8F0; }
+.progress-bar { height: 100%; background: linear-gradient(90deg, #10B981, #F59E0B); width: 12.5%; transition: width 0.3s ease; }
+.slide-counter { font-size: 1.05rem; font-weight: 800; color: var(--text-sub); }
+.slide-counter span { color: var(--text-dark); }
+.btn-nav { padding: 9px 22px; border-radius: 999px; background: var(--pastel-blue); border: 1px solid #BFDBFE; color: var(--pastel-blue-dark); font-weight: 900; font-size: 0.95rem; cursor: pointer; }
+
+@media print {
+  body { background: white; color: black; overflow: visible; }
+  .top-nav, .bottom-controls, .notes-drawer, .overview-modal, .slide-nav-arrow { display: none !important; }
+  .slide-viewport { width: 100% !important; height: 100% !important; border: none !important; box-shadow: none !important; }
+  .slide { position: relative !important; page-break-after: always; opacity: 1 !important; visibility: visible !important; transform: none !important; background: white !important; color: black !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="presentation-container">
+
+  <!-- Top Navigation Header -->
+  <header class="top-nav">
+    <div class="brand-badge">
+      <span class="brand-mark">POB</span>
+      <span>POB 성경클럽</span>
+      <span class="presentation-title">| 주일 70분 완몰입 예배 마스터 PPT (파스텔 톤)</span>
+    </div>
+    
+    <div class="top-actions">
+      <button class="btn-icon" id="btnNotesToggle" onclick="toggleNotes()">💬 멘토 대본 [N]</button>
+      <button class="btn-icon" id="btnOverviewToggle" onclick="toggleOverview()">☰ 순서 목차 [T]</button>
+      <button class="btn-icon" onclick="toggleFullscreen()">⛶ 전체화면</button>
+    </div>
+  </header>
+
+  <!-- Stage Area -->
+  <main class="stage" id="stageArea">
+    <div class="slide-viewport" id="slideViewport">
+      <!-- Touch / Click Arrows -->
+      <button class="slide-nav-arrow prev" onclick="prevSlide()" title="이전 슬라이드 [←]">◀</button>
+      <button class="slide-nav-arrow next" onclick="nextSlide()" title="다음 슬라이드 [→]">▶</button>
+      
+      <!-- Slide 1: Pre-Worship Mission Spoiler (09:50 ~ 10:00) -->
+      <section class="slide active" data-slide="1">
+        <div class="slide-header">
+          <div class="slide-tag">09:50 ~ 10:00 | 예배 전 자유 연습시간</div>
+          <h1 class="slide-title">🔥 오늘의 POB 미션 스포일러!</h1>
+          <p class="slide-subtitle">등교한 탐험가 친구들은 지금 중앙 롤매트에서 자유롭게 미리 연습해보세요!</p>
+        </div>
+
+        <div class="slide-body">
+          <div class="spoiler-box">
+            <span class="spoiler-badge">TODAY'S MISSION SPOILER</span>
+            <h2 class="spoiler-h2">오늘의 체육 미션: 2인 1조 줄넘기 60개 성공하기!</h2>
+            <p class="spoiler-desc">
+              🎒 1. 입구에서 <strong>POB 탐험가 단원 조끼</strong>를 착용하세요!<br>
+              🪢 2. 짝꿍과 함께 중앙 롤매트에서 줄넘기 60개를 미리 연습해보세요!<br>
+              🏆 3. 미션 성공 시 스크린의 <strong>황금빛 성경 구절</strong>이 열립니다!
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 2: Opening Countdown (10:00 ~ 10:05) -->
+      <section class="slide" data-slide="2">
+        <div class="slide-header">
+          <div class="slide-tag">10:00 ~ 10:05 | 묵도 & 카운트다운</div>
+          <h2 class="slide-title">예배를 여는 오프닝 카운트다운</h2>
+          <p class="slide-subtitle">몸과 마음을 다스리고 하나님께 드리는 예배의 자리로 들어갑니다</p>
+        </div>
+
+        <div class="slide-body">
+          <div style="text-align: center; padding: 40px; background: var(--pastel-yellow); border-radius: var(--radius-xl); border: 2px dashed #F59E0B;">
+            <div style="font-size: 5.2rem; font-weight: 900; color: var(--pastel-yellow-dark); font-family: monospace;">05 : 00</div>
+            <p style="font-size: 1.35rem; color: var(--text-dark); margin-top: 16px; font-weight: 800;">
+              "여호와는 그의 성전에 계시니 온 땅은 그 앞에서 잠잠할지니라 (하박국 2:20)"
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 3: Praise & 7-Step Gymnastics (10:05 ~ 10:15) -->
+      <section class="slide" data-slide="3">
+        <div class="slide-header">
+          <div class="slide-tag">10:05 ~ 10:15 | Step 1. 찬양 & 체조</div>
+          <h2 class="slide-title">비트 찬양 2곡 & 7단계 으뜸 체조</h2>
+          <p class="slide-subtitle">스크린 속 캐릭터 동작에 맞춰 온몸으로 하나님을 찬양합니다</p>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-2">
+            <div class="card" style="background: var(--pastel-mint); border-color: #A7F3D0;">
+              <div class="card-title" style="color: var(--pastel-mint-dark);">7단계 일상습관 체조</div>
+              <div class="card-desc" style="font-size: 1.05rem; color: var(--text-dark);">
+                1. <strong>정돈</strong> - 몸과 마음을 정돈해요<br>
+                2. <strong>감사</strong> - 건강 주신 주님께 감사해요<br>
+                3. <strong>경청</strong> - 말씀 들을 준비를 해요<br>
+                4. <strong>동행</strong> - 주님과 함께 걸어가요<br>
+                5. <strong>절제</strong> - 내 마음을 다스려요<br>
+                6. <strong>섬김</strong> - 따뜻하게 이웃을 도와요<br>
+                7. <strong>승리</strong> - 믿음으로 하루를 승리해요!
+              </div>
+            </div>
+
+            <div style="width: 100%; height: 100%; border-radius: var(--radius-lg); overflow: hidden; border: 2px solid #CBD5E1;">
+              <img src="assets/pob_kids_gymnastics.jpg" alt="7단계 체조 수행 모습" style="width:100%; height:100%; object-fit:cover;">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: Scripture Reading (10:15 ~ 10:20) -->
+      <section class="slide" data-slide="4">
+        <div class="slide-header">
+          <div class="slide-tag">10:15 ~ 10:20 | 대표기도 & 성경봉독</div>
+          <h2 class="slide-title">오늘의 성경 본문: 요한복음 16장 13절</h2>
+          <p class="slide-subtitle">입체 오디오 성경으로 말씀의 목소리에 깊이 몰입합니다</p>
+        </div>
+
+        <div class="slide-body">
+          <div style="background: var(--pastel-blue); border: 2px solid #BFDBFE; border-radius: var(--radius-xl); padding: 36px; text-align: center;">
+            <p style="font-size: 1.6rem; color: var(--text-dark); font-weight: 800; line-height: 1.7;">
+              "그러나 <strong>진리의 성령</strong>이 오시면 그가 너희를 모든 <strong>진리 가운데로 인도하시리니</strong><br>
+              그가 스스로 말하지 않고 오직 들은 것을 말하며 장래 일을 너희에게 알리시리라"
+            </p>
+            <p style="font-size: 1.15rem; color: var(--pastel-blue-dark); margin-top: 16px; font-weight: 900;">- 요한복음 16장 13절 말씀 -</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: Dual Screen Bible Study (10:20 ~ 10:35) -->
+      <section class="slide" data-slide="5">
+        <div class="slide-header">
+          <div class="slide-tag">10:20 ~ 10:35 | Step 2. 돋보기 성경 탐험</div>
+          <h2 class="slide-title">유년부와 초등부가 하나 되는 화면 이원화</h2>
+          <p class="slide-subtitle">고학년 형이 저학년 동생의 성경책을 짚어주며 돋보기 퀴즈를 풉니다</p>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-2">
+            <div style="background: var(--pastel-mint); border: 2px solid #A7F3D0; padding: 24px; border-radius: var(--radius-lg);">
+              <span style="background: var(--pastel-mint-dark); color: white; padding: 4px 14px; border-radius: 999px; font-weight: 900; font-size: 0.9rem;">유년부 (8~10세)</span>
+              <h3 style="font-size: 1.35rem; color: var(--text-dark); margin-top: 12px; font-weight: 900;">Q: 성경 본문에서 '보혜사' 단어를 찾아 동그라미를 쳐보세요!</h3>
+            </div>
+
+            <div style="background: var(--pastel-blue); border: 2px solid #BFDBFE; padding: 24px; border-radius: var(--radius-lg);">
+              <span style="background: var(--pastel-blue-dark); color: white; padding: 4px 14px; border-radius: 999px; font-weight: 900; font-size: 0.9rem;">초등부 (11~13세)</span>
+              <h3 style="font-size: 1.35rem; color: var(--text-dark); margin-top: 12px; font-weight: 900;">Q: 예수님이 오셔서 우리를 진리로 이끄신다는 약속의 의미는 무엇일까요?</h3>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: Jump Rope & Gold Verse Unlock (10:35 ~ 10:55) -->
+      <section class="slide" data-slide="6">
+        <div class="slide-header">
+          <div class="slide-tag">10:35 ~ 10:55 | Step 3. 줄넘기 & 황금말씀</div>
+          <h2 class="slide-title">줄넘기 60회 성공! 황금 말씀 해금</h2>
+          <p class="slide-subtitle">합산 60회를 채우는 순간 어둡던 화면이 열리고 큰 소리로 암송합니다!</p>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-2">
+            <div class="card" style="background: var(--pastel-yellow); border-color: #FDE68A; justify-content: center;">
+              <h3 style="color: var(--pastel-yellow-dark); font-size: 1.45rem;">2인 1조 줄넘기 60회 달성!</h3>
+              <p style="font-size: 1.1rem; color: var(--text-dark); line-height: 1.7; margin-top: 10px; font-weight: 700;">
+                동생 20개 + 형 40개 = 전원 미션 성공!<br>
+                성공하는 순간 스크린의 어둠이 걷히며 황금빛 요한복음 16:13 말씀이 열립니다!
+              </p>
+            </div>
+
+            <div style="width: 100%; height: 100%; border-radius: var(--radius-lg); overflow: hidden; border: 2px solid #CBD5E1;">
+              <img src="assets/pob_kids_jump_rope.jpg" alt="줄넘기 미션 현장 사진" style="width:100%; height:100%; object-fit:cover;">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7: Naver Band Shorts & Badge Ceremony (10:55 ~ 11:05) -->
+      <section class="slide" data-slide="7">
+        <div class="slide-header">
+          <div class="slide-tag">10:55 ~ 11:05 | Step 4. 조끼 뱃지 시상식</div>
+          <h2 class="slide-title">네이버 밴드 Best 쇼츠 & 30초 스토리텔링</h2>
+          <p class="slide-subtitle">주중 집에서 찍어 올린 30초 영상을 전 교인과 함께 축하하고 뱃지를 수여합니다</p>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-2">
+            <div class="card" style="background: var(--pastel-pink); border-color: #FECDD3; justify-content: center;">
+              <h3 style="color: var(--pastel-pink-dark); font-size: 1.35rem;">30초 스토리텔링 수여식</h3>
+              <p style="font-size: 1.05rem; color: var(--text-dark); line-height: 1.7; margin-top: 8px; font-weight: 700;">
+                단상에 올라온 아이가 부모님과 선생님 앞에서 <strong>"이 뱃지는 성령님이 불꽃으로 오신 이야기예요!"</strong>라고 30초 동안 설명 후 조끼 가슴에 와펜 뱃지를 부착합니다!
+              </p>
+            </div>
+
+            <div style="width: 100%; height: 100%; border-radius: var(--radius-lg); overflow: hidden; border: 2px solid #CBD5E1;">
+              <img src="assets/pob_badge_storytelling.jpg" alt="30초 스토리텔링 카드 사진" style="width:100%; height:100%; object-fit:cover;">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8: Dismissal & Weekly Mission (11:05 ~ 11:10) -->
+      <section class="slide" data-slide="8">
+        <div class="slide-header">
+          <div class="slide-tag">11:05 ~ 11:10 | 헌금, 광고 & 축복 파송</div>
+          <h2 class="slide-title">집으로 파송: 이번 주 네이버 밴드 과제 공지</h2>
+          <p class="slide-subtitle">매일 밤 부모님과 성경 1장 읽고 30초 설명 영상 올리기에 도전합니다!</p>
+        </div>
+
+        <div class="slide-body">
+          <div style="background: var(--pastel-mint); border: 2px dashed #059669; border-radius: var(--radius-xl); padding: 32px; text-align: center;">
+            <h3 style="font-size: 1.65rem; color: var(--pastel-mint-dark); font-weight: 900; margin-bottom: 12px;">📱 이번 주 네이버 밴드 30초 영상 미션</h3>
+            <p style="font-size: 1.25rem; color: var(--text-dark); font-weight: 800; line-height: 1.7;">
+              1. POB 탐험가 조끼를 입고 요한복음 16장 13절 말씀 암송하기<br>
+              2. 30초 동안 "성령 하나님은 나를 진리로 이끄시는 분" 고백하기<br>
+              3. 네이버 밴드에 업로드 시 다음 주 주일 스크린 전광판 쇼츠 송출!
+            </p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Presenter Notes Drawer -->
+  <aside class="notes-drawer" id="notesDrawer">
+    <div class="notes-header">
+      <span>사역자 발표 대본 (Presenter Notes)</span>
+      <span style="font-size: 0.85rem; color: var(--pastel-yellow-dark);" id="notesSlideTag">Slide 1/8</span>
+    </div>
+    <div class="notes-content" id="notesContent"></div>
+  </aside>
+
+  <!-- Overview Modal -->
+  <div class="overview-modal" id="overviewModal">
+    <div class="overview-header">
+      <div style="font-size: 1.5rem; font-weight: 900; color: var(--text-dark);">주일예배 마스터 PPT 전체 목차</div>
+      <button class="btn-icon" onclick="toggleOverview()">✕ 닫기 [Esc]</button>
+    </div>
+    <div class="overview-grid" id="overviewGrid"></div>
+  </div>
+
+  <!-- Bottom Navigation Bar -->
+  <footer class="bottom-controls">
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="slide-counter">
+      <span id="currentSlideNum">01</span> / <span id="totalSlideNum">08</span>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn-nav" onclick="prevSlide()">◀ 이전 [←]</button>
+      <button class="btn-nav" onclick="nextSlide()">다음 [→] ▶</button>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+// Presenter Notes Script for Worship PPT
+const conductorScripts = [
+  "09:50 등교 시간입니다! 예배실 스크린에 '오늘의 미션 스포일러: 줄넘기 60개 성공!' 화면을 띄워둡니다. 아이들이 들어오자마자 입구에서 POB 탐험가 조끼를 입고 중앙 롤매트에서 신나게 미리 줄넘기를 연습하도록 유도합니다.",
+  "10:00 예배 정시가 되었습니다. 카운트다운 5분 영상을 띄우며 조용히 마음을 다스리고 예배의 자리로 들어갑니다.",
+  "10:05 오프닝 15분! 스크린의 체조 캐릭터 동작을 따라 경쾌한 CCM 찬양과 7단계 으뜸 체조로 온몸을 풀고 예배에 100% 몰입합니다.",
+  "10:15 오늘의 성경 본문 요한복음 16장 13절 말씀을 입체 오디오 성경으로 다 함께 깊이 묵상합니다.",
+  "10:20 이원화 돋보기 성경 탐험입니다. 스크린 좌측 유년부는 '보혜사' 단어를 찾고, 우측 초등부는 의미를 유추합니다. 짝꿍 고학년 형이 저학년 동생을 도와줍니다.",
+  "10:35 오늘의 줄넘기 60개 미션! 짝꿍과 협동하여 60개를 성공하는 순간 스크린의 어둠이 걷히며 황금빛 말씀을 온 아이들이 힘차게 암송합니다.",
+  "10:55 지난주 네이버 밴드에 30초 영상을 올린 자랑스러운 아이들의 쇼츠를 스크린으로 함께 감상하고, 단상에 올라와 30초 성경 이야기를 설명 후 조끼 가슴에 와펜 뱃지를 부착해 줍니다.",
+  "11:05 파송 시간입니다. 이번 주 네이버 밴드 30초 동영상 과제를 안내하고 주님의 축복 기도 후 집으로 기쁘게 파송합니다."
+];
+
+let currentSlide = 1;
+const totalSlides = 8;
+
+const slides = document.querySelectorAll('.slide');
+const progressBar = document.getElementById('progressBar');
+const currentSlideNum = document.getElementById('currentSlideNum');
+const totalSlideNum = document.getElementById('totalSlideNum');
+const notesContent = document.getElementById('notesContent');
+const notesSlideTag = document.getElementById('notesSlideTag');
+const notesDrawer = document.getElementById('notesDrawer');
+const overviewModal = document.getElementById('overviewModal');
+const overviewGrid = document.getElementById('overviewGrid');
+
+function initOverview() {
+  overviewGrid.innerHTML = '';
+  slides.forEach((slide, idx) => {
+    const slideNum = idx + 1;
+    const title = slide.querySelector('.slide-title')?.innerText || `Slide ${slideNum}`;
+    const card = document.createElement('div');
+    card.className = `thumb-card ${slideNum === currentSlide ? 'active' : ''}`;
+    card.onclick = () => {
+      goToSlide(slideNum);
+      toggleOverview();
+    };
+    card.innerHTML = `
+      <div style="font-size: 0.85rem; font-weight:800; color:#D97706;">Slide ${String(slideNum).padStart(2, '0')}</div>
+      <div style="font-size: 0.95rem; font-weight:800; color:#1E293B;">${title}</div>
+    `;
+    overviewGrid.appendChild(card);
+  });
+}
+
+function updateSlide() {
+  slides.forEach((slide, idx) => {
+    slide.classList.toggle('active', idx + 1 === currentSlide);
+  });
+
+  const percentage = (currentSlide / totalSlides) * 100;
+  progressBar.style.width = `${percentage}%`;
+  currentSlideNum.innerText = String(currentSlide).padStart(2, '0');
+  totalSlideNum.innerText = String(totalSlides).padStart(2, '0');
+
+  notesContent.innerText = conductorScripts[currentSlide - 1] || '';
+  notesSlideTag.innerText = `Slide ${currentSlide}/${totalSlides}`;
+
+  document.querySelectorAll('.thumb-card').forEach((card, idx) => {
+    card.classList.toggle('active', idx + 1 === currentSlide);
+  });
+}
+
+function nextSlide() {
+  if (currentSlide < totalSlides) {
+    currentSlide++;
+    updateSlide();
+  }
+}
+
+function prevSlide() {
+  if (currentSlide > 1) {
+    currentSlide--;
+    updateSlide();
+  }
+}
+
+function goToSlide(num) {
+  if (num >= 1 && num <= totalSlides) {
+    currentSlide = num;
+    updateSlide();
+  }
+}
+
+function toggleNotes() {
+  notesDrawer.classList.toggle('active');
+  document.getElementById('btnNotesToggle').classList.toggle('active');
+}
+
+function toggleOverview() {
+  overviewModal.classList.toggle('active');
+  document.getElementById('btnOverviewToggle').classList.toggle('active');
+}
+
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(err => console.log(err));
+  } else {
+    document.exitFullscreen();
+  }
+}
+
+// Stage & Slide viewport click navigation
+document.getElementById('slideViewport').addEventListener('click', (e) => {
+  if (e.target.closest('button') || e.target.closest('.notes-drawer') || e.target.closest('.overview-modal')) {
+    return;
+  }
+  const rect = e.currentTarget.getBoundingClientRect();
+  const clickX = e.clientX - rect.left;
+  if (clickX > rect.width / 2) {
+    nextSlide();
+  } else {
+    prevSlide();
+  }
+});
+
+// Touch Gesture Support
+let touchStartX = 0;
+let touchStartY = 0;
+let touchEndX = 0;
+let touchEndY = 0;
+
+document.addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+  touchStartY = e.changedTouches[0].screenY;
+}, { passive: true });
+
+document.addEventListener('touchend', (e) => {
+  touchEndX = e.changedTouches[0].screenX;
+  touchEndY = e.changedTouches[0].screenY;
+  handleTouchGesture();
+}, { passive: true });
+
+function handleTouchGesture() {
+  const diffX = touchEndX - touchStartX;
+  const diffY = touchEndY - touchStartY;
+  if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+    if (diffX < 0) nextSlide();
+    else prevSlide();
+  }
+}
+
+// Keyboard Navigation
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+    e.preventDefault(); nextSlide();
+  } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+    e.preventDefault(); prevSlide();
+  } else if (e.key === 'Home') {
+    e.preventDefault(); goToSlide(1);
+  } else if (e.key === 'End') {
+    e.preventDefault(); goToSlide(totalSlides);
+  } else if (e.key === 'n' || e.key === 'N') {
+    toggleNotes();
+  } else if (e.key === 't' || e.key === 'T') {
+    toggleOverview();
+  } else if (e.key === 'f' || e.key === 'F') {
+    toggleFullscreen();
+  } else if (e.key === 'Escape') {
+    if (overviewModal.classList.contains('active')) toggleOverview();
+  }
+});
+
+function scaleStage() {
+  const stage = document.getElementById('stageArea');
+  const viewport = document.getElementById('slideViewport');
+  const stageWidth = stage.clientWidth - 30;
+  const stageHeight = stage.clientHeight - 30;
+  const scaleX = stageWidth / 1280;
+  const scaleY = stageHeight / 720;
+  const scale = Math.min(scaleX, scaleY, 1.2);
+  viewport.style.transform = `scale(${scale})`;
+}
+
+window.addEventListener('resize', scaleStage);
+
+initOverview();
+updateSlide();
+scaleStage();
+</script>
+</body>
+</html>
