@@ -762,6 +762,60 @@ html, body {
         </div>
       </section>
 
+      <!-- Slide 13: 준비 체크리스트 -->
+      <section class="slide" data-slide="13">
+        <div class="slide-header">
+          <div class="slide-tag">PART 3. 실행 전략 — 준비 체크리스트</div>
+          <h2 class="slide-title">9월 6일 전에 준비할 것들</h2>
+          <p class="slide-subtitle">목사님 결재 → 교사 확정 → 장비·교구 준비 → 리허설 순으로 진행합니다</p>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-3">
+            <div class="card" style="border-top: 4px solid var(--accent-primary-light);">
+              <div class="card-title" style="color: var(--accent-primary-light);">① 결정 사항 (8/13까지)</div>
+              <ul style="color: var(--text-muted); line-height: 2; font-size: 0.95rem; padding-left: 16px; margin-top: 8px;">
+                <li>☐ 9/6 주일 POB 시작 승인</li>
+                <li>☐ 9/12 토요 게임즈 시작 승인</li>
+                <li>☐ 예산 단계 선택 (3만 / 15만 / 50만)</li>
+                <li>☐ 체육지도자 역할 결정</li>
+              </ul>
+            </div>
+
+            <div class="card" style="border-top: 4px solid var(--accent-secondary);">
+              <div class="card-title" style="color: var(--accent-secondary);">② 인력·장비 (8/20까지)</div>
+              <ul style="color: var(--text-muted); line-height: 2; font-size: 0.95rem; padding-left: 16px; margin-top: 8px;">
+                <li>☐ 교사 1명 확정</li>
+                <li>☐ TV/프로젝터 + 노트북 확인</li>
+                <li>☐ 블루투스 스피커 준비</li>
+                <li>☐ 체육공간 사용 가능 확인</li>
+              </ul>
+            </div>
+
+            <div class="card" style="border-top: 4px solid var(--accent-gold);">
+              <div class="card-title" style="color: var(--accent-gold);">③ 교구·물품 (8/27까지)</div>
+              <ul style="color: var(--text-muted); line-height: 2; font-size: 0.95rem; padding-left: 16px; margin-top: 8px;">
+                <li>☐ 줄넘기 5개 이상</li>
+                <li>☐ 스텝박스 2개 + 미끄럼방지 패드</li>
+                <li>☐ 개인 기록지 인쇄</li>
+                <li>☐ 초청 카드 인쇄</li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div style="background: rgba(16,185,129,0.1); border: 1.5px solid var(--accent-secondary); border-radius: var(--radius-md); padding: 14px 18px;">
+              <div style="font-weight: 800; color: var(--accent-secondary); margin-bottom: 6px;">9/1(화) 교사 오리엔테이션</div>
+              <div style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.7;">70분 흐름 전달 · Q&A · 수업자료 전달<br>당일 W01 최종본 완성본 배포</div>
+            </div>
+            <div style="background: rgba(99,102,241,0.1); border: 1.5px solid var(--accent-primary); border-radius: var(--radius-md); padding: 14px 18px;">
+              <div style="font-weight: 800; color: var(--accent-primary-light); margin-bottom: 6px;">9/5(토) 리허설</div>
+              <div style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.7;">공간 세팅 점검 · 장비 테스트<br>체조 동선 · 줄넘기 안전 구역 확인</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
   </main>
 
@@ -819,7 +873,7 @@ const conductorScripts = [
 ];
 
 let currentSlide = 1;
-const totalSlides = 12;
+const totalSlides = 13;
 
 const slides = document.querySelectorAll('.slide');
 const progressBar = document.getElementById('progressBar');
