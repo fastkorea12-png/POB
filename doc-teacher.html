@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POB 성경클럽 — 교사 오리엔테이션 운영 매뉴얼</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', '맑은 고딕', sans-serif;
+  font-size: 10.5pt;
+  color: #1e293b;
+  background: #f1f5f9;
+  line-height: 1.7;
+}
+
+.page {
+  width: 210mm;
+  min-height: 297mm;
+  background: #fff;
+  margin: 16px auto;
+  padding: 18mm 20mm;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+}
+
+/* Cover page */
+.cover {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 297mm;
+  text-align: center;
+  background: linear-gradient(160deg, #f0fdf4, #e0f2fe);
+  padding: 40mm 20mm;
+}
+.cover-badge {
+  background: #059669;
+  color: white;
+  padding: 6px 20px;
+  border-radius: 999px;
+  font-size: 9pt;
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+.cover-title {
+  font-size: 26pt;
+  font-weight: 900;
+  color: #1e293b;
+  line-height: 1.25;
+  margin-bottom: 14px;
+}
+.cover-subtitle {
+  font-size: 13pt;
+  color: #475569;
+  margin-bottom: 32px;
+}
+.cover-info {
+  background: white;
+  border-radius: 12px;
+  padding: 20px 32px;
+  font-size: 10pt;
+  color: #334155;
+  line-height: 2;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+.cover-divider {
+  width: 60px;
+  height: 4px;
+  background: #059669;
+  border-radius: 2px;
+  margin: 24px auto;
+}
+.cover-note {
+  font-size: 8.5pt;
+  color: #94a3b8;
+  margin-top: 28px;
+}
+
+/* Section header */
+.section { margin-bottom: 22px; }
+.section-title {
+  font-size: 11pt;
+  font-weight: 900;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+.green { background: #059669; }
+.blue { background: #0284c7; }
+.orange { background: #d97706; }
+.purple { background: #7c3aed; }
+.rose { background: #e11d48; }
+.slate { background: #475569; }
+
+.sub-title {
+  font-size: 10pt;
+  font-weight: 900;
+  color: #1e293b;
+  border-bottom: 2px dashed #e2e8f0;
+  padding-bottom: 4px;
+  margin: 14px 0 8px;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9.5pt;
+  margin-bottom: 8px;
+}
+th {
+  padding: 6px 10px;
+  text-align: left;
+  font-weight: 700;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+}
+td {
+  padding: 6px 10px;
+  border: 1px solid #e2e8f0;
+  vertical-align: top;
+}
+tr:nth-child(even) td { background: #f8fafc; }
+
+/* Info box */
+.info-box {
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 9.5pt;
+}
+.info-green { background: #f0fdf4; border-left: 4px solid #059669; }
+.info-blue { background: #eff6ff; border-left: 4px solid #0284c7; }
+.info-orange { background: #fffbeb; border-left: 4px solid #d97706; }
+.info-red { background: #fff1f2; border-left: 4px solid #e11d48; }
+
+/* Creed table */
+.creed-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9pt;
+}
+.creed-table td {
+  padding: 5px 8px;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: middle;
+}
+.creed-table tr:nth-child(odd) td { background: #f0fdf4; }
+.creed-verse { font-weight: 700; color: #1e293b; }
+.creed-action { font-weight: 900; color: #059669; text-align: right; white-space: nowrap; }
+
+/* Badge grid */
+.badge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.badge-card {
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.badge-name { font-weight: 900; font-size: 10pt; color: #059669; margin-bottom: 4px; }
+.badge-desc { font-size: 8.5pt; color: #475569; }
+
+/* Grid 2 */
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+/* Tip box */
+.tip {
+  background: #f0fdf4;
+  border: 1px solid #a7f3d0;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 9pt;
+  color: #065f46;
+  margin-top: 8px;
+}
+.tip::before { content: "Tip. "; font-weight: 900; }
+
+/* Warning */
+.warning {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 9pt;
+  color: #9a3412;
+  margin-top: 8px;
+}
+.warning::before { content: "주의. "; font-weight: 900; }
+
+/* Print */
+@media print {
+  body { background: white; font-size: 10pt; }
+  .page { box-shadow: none; margin: 0; width: 100%; padding: 14mm 18mm; }
+  .page-break { page-break-before: always; }
+  .no-print { display: none; }
+  .cover { min-height: auto; }
+}
+
+.screen-nav {
+  text-align: center;
+  padding: 12px;
+  background: #059669;
+  color: white;
+  font-size: 9pt;
+}
+.screen-nav button {
+  background: white;
+  color: #059669;
+  border: none;
+  padding: 6px 18px;
+  border-radius: 999px;
+  font-weight: 900;
+  cursor: pointer;
+  font-size: 9pt;
+  margin: 0 6px;
+}
+</style>
+</head>
+<body>
+
+<div class="screen-nav no-print">
+  <button onclick="window.print()">인쇄 / PDF 저장</button>
+  <span style="opacity:.7;">| POB 성경클럽 교사 매뉴얼</span>
+</div>
+
+<!-- ====== COVER ====== -->
+<div class="page cover">
+  <div class="cover-badge">교사 오리엔테이션 자료 · 2026년 9월</div>
+  <div class="cover-title">POB 성경클럽<br>교사 운영 매뉴얼</div>
+  <div class="cover-subtitle">Pore Over Bible — 말씀 속으로 온몸으로 들어가는 예배</div>
+  <div class="cover-divider"></div>
+  <div class="cover-info">
+    <strong>대상 교회</strong>: 사랑하는교회 (파일럿)<br>
+    <strong>대상 아이</strong>: 초등학교 1~6학년 혼합반<br>
+    <strong>주일 예배</strong>: 매주 일요일 70분<br>
+    <strong>토요 게임즈</strong>: 매주 토요일 90분 (9/12, 9/19, 9/26)<br>
+    <strong>교사 오리엔테이션</strong>: 2026년 9월 1일(화)<br>
+    <strong>리허설</strong>: 2026년 9월 5일(토)
+  </div>
+  <div class="cover-note">이 문서는 교사용 내부 자료입니다. 외부 배포 금지.</div>
+</div>
+
+<!-- ====== PAGE 2: POB 소개 + 70분 예배 ====== -->
+<div class="page page-break">
+
+  <div class="section">
+    <div class="section-title green">POB란 무엇인가요?</div>
+    <div class="info-box info-green">
+      <strong>POB(Pore Over Bible)</strong>는 아이들이 성경 이야기 <em>속으로</em> 들어가는 70분 주일 예배입니다.<br>
+      공과 수업이 아닙니다. 아이들이 <strong>몸으로 기억하고, 마음으로 고백하고, 친구를 데려오고 싶은</strong> 예배 공간을 만드는 것이 목표입니다.
+    </div>
+    <div class="grid2">
+      <div class="info-box info-blue">
+        <strong>교사에게 필요한 것</strong><br>
+        기기 1대 + 열린 마음 + 아이들을 향한 사랑<br>
+        (신학 전문 지식 필수 아님)
+      </div>
+      <div class="info-box info-orange">
+        <strong>9월 시리즈 주제</strong><br>
+        "성령 하나님과 함께 살다"<br>
+        → 성령님은 내 안에 계신 친구
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title green">주일 70분 예배 전체 흐름</div>
+    <table>
+      <tr><th>순서</th><th>이름</th><th>시간</th><th>교사 행동</th></tr>
+      <tr><td>1</td><td><strong>도입 + 사도신경 체조</strong></td><td>3분</td><td>오늘 주제 한 문장 소개 → 체조 리드</td></tr>
+      <tr><td>2</td><td><strong>찬양 · 대표기도</strong></td><td>7분</td><td>찬양 1곡 틀기 → 대표기도(교사 또는 아이)</td></tr>
+      <tr><td>3</td><td><strong>Book</strong></td><td>8분</td><td>성경 본문 낭독 → 내러티브 영상 → Q1 질문</td></tr>
+      <tr><td>4</td><td><strong>Look</strong></td><td>7분</td><td>교훈 발견 → Q2 질문 (하나님이 하신 일)</td></tr>
+      <tr><td>5</td><td><strong>Took</strong></td><td>5분</td><td>실천 결단 → Q3 질문 (이번 주 내가 할 것)</td></tr>
+      <tr><td>6</td><td><strong>Games</strong></td><td>20분</td><td>본문 연결 게임 진행</td></tr>
+      <tr><td>7</td><td><strong>암송</strong></td><td>10분</td><td>주간 암송 구절 반복 (3회 이상)</td></tr>
+      <tr><td>8</td><td><strong>마무리 기도 + 안내</strong></td><td>10분</td><td>합심 기도 → 가정 연계 과제 안내 → 파송</td></tr>
+      <tr><td colspan="2" style="background:#f0fdf4;font-weight:900;color:#059669;">합계</td><td style="background:#f0fdf4;font-weight:900;color:#059669;">70분</td><td></td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="section-title green">Book · Look · Took 질문 가이드</div>
+    <div class="info-box info-blue">
+      <strong>복음 구조 원칙</strong>: Look 교훈은 "우리가 해야 한다(도덕)" 순서가 아닌 <strong>"하나님이 하신 일 → 그래서 우리도"(복음 동기)</strong> 순서를 따릅니다.
+    </div>
+    <table>
+      <tr><th>섹션</th><th>기본 질문 (저학년, 직접 찾기)</th><th>확장 질문 (고학년, 의미 탐색)</th></tr>
+      <tr><td><strong>Book</strong></td><td>본문에서 직접 찾을 수 있는 사실</td><td>의미 탐색 또는 예수님 연결</td></tr>
+      <tr><td><strong>Look</strong></td><td>이 이야기에서 하나님은 어떻게 하셨나요?</td><td>하나님이 하신 일이 나에게 어떤 의미인가요?</td></tr>
+      <tr><td><strong>Took</strong></td><td>이번 주 나는 무엇을 해볼 수 있을까요?</td><td>성령님이 도와주실 때 내가 할 수 있는 것은?</td></tr>
+    </table>
+    <div class="tip">저학년에게 기본 질문, 고학년에게 확장 질문을 던지거나 순서대로 모두 진행합니다. 답이 없어도 OK — 같이 생각하는 시간이 중요합니다.</div>
+  </div>
+
+</div>
+
+<!-- ====== PAGE 3: 사도신경 체조 ====== -->
+<div class="page page-break">
+
+  <div class="section">
+    <div class="section-title green">사도신경 체조 — 구절마다 함께 움직여요</div>
+    <div class="info-box info-green">
+      매주 도입(3분)과 마무리에 수미상관으로 진행합니다. 구절을 큰 소리로 외치며 동작을 따라합니다.<br>
+      신체 제약이 있는 아이는 자리에서 리듬만 타도 OK. 무리한 동작 절대 금지.
+    </div>
+    <table class="creed-table">
+      <tr>
+        <th style="width:55%">사도신경 구절</th>
+        <th style="width:45%;text-align:right;">동작</th>
+      </tr>
+      <tr>
+        <td class="creed-verse">전능하신 <strong>하나님 아버지</strong>를 내가 믿사오며</td>
+        <td class="creed-action">🙌 양팔 위로 활짝 펼치기</td>
+      </tr>
+      <tr>
+        <td class="creed-verse">외아들 우리 주 <strong>예수 그리스도</strong>를 믿사오니</td>
+        <td class="creed-action">🤲 두 손 가슴에 모으기</td>
+      </tr>
+      <tr>
+        <td class="creed-verse">성령으로 잉태하사 동정녀 마리아에게 나시고</td>
+        <td class="creed-action">🛏️ 두 손 요람 모양</td>
+      </tr>
+      <tr>
+        <td class="creed-verse"><strong>십자가에 못 박혀 죽으시고</strong></td>
+        <td class="creed-action">✝️ 양팔 수평 십자가</td>
+      </tr>
+      <tr>
+        <td class="creed-verse">사흘 만에 죽은 자 가운데서 <strong>다시 살아나시며</strong></td>
+        <td class="creed-action">⬆️ 무릎 굽혔다 쭉 일어서기</td>
+      </tr>
+      <tr>
+        <td class="creed-verse">하늘에 <strong>오르사</strong> 하나님 우편에 앉아 계시다가</td>
+        <td class="creed-action">🚀 까치발 + 양팔 위로</td>
+      </tr>
+      <tr>
+        <td class="creed-verse">산 자와 죽은 자를 <strong>심판하러 오시리라</strong></td>
+        <td class="creed-action">👐 두 손 앞으로 내밀기</td>
+      </tr>
+      <tr>
+        <td class="creed-verse"><strong>성령</strong>을 믿사오며</td>
+        <td class="creed-action">💨 손을 가슴에서 밖으로</td>
+      </tr>
+      <tr>
+        <td class="creed-verse">성도가 서로 <strong>교통하는</strong> 것과</td>
+        <td class="creed-action">🤝 옆 친구 손 잡기</td>
+      </tr>
+      <tr>
+        <td class="creed-verse"><strong>죄를 사하여</strong> 주시는 것과</td>
+        <td class="creed-action">⬇️ 손을 아래로 쓸어내리기</td>
+      </tr>
+      <tr>
+        <td class="creed-verse"><strong>몸이 다시 사는</strong> 것과</td>
+        <td class="creed-action">🎉 점프!</td>
+      </tr>
+      <tr>
+        <td class="creed-verse">영원히 사는 것을 믿사옵나이다. <strong>아멘.</strong></td>
+        <td class="creed-action">❤️ 양손 머리 위 하트</td>
+      </tr>
+    </table>
+    <div class="tip">처음 2주는 교사가 동작을 크게 시범 보여주세요. 3주차부터는 아이들이 먼저 리드할 거예요!</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title blue">토요 90분 게임즈 흐름</div>
+    <div class="info-box info-blue">
+      토요 POB 게임즈는 <strong>전도 창구</strong>입니다. 등록 아이 + 초청 친구가 함께 오는 자리입니다.
+      재미있고, 몸을 쓰고, 기록이 남는 — 다음 주에 또 오고 싶은 90분을 만들어주세요.
+    </div>
+    <table>
+      <tr><th>순서</th><th>이름</th><th>시간</th><th>내용</th></tr>
+      <tr><td>1</td><td><strong>맞이 + 체조</strong></td><td>10분</td><td>도착 순서대로 체조 연습, 스트레칭</td></tr>
+      <tr><td>2</td><td><strong>이야기 복습</strong></td><td>10분</td><td>주일 Book 내러티브 짧게 되짚기 (퀴즈 형식 가능)</td></tr>
+      <tr><td>3</td><td><strong>메인 게임즈</strong></td><td>35분</td><td>본문 연결 공동체 게임 2~3가지</td></tr>
+      <tr><td>4</td><td><strong>체육인증 측정</strong></td><td>20분</td><td>줄넘기 + 스텝박스 개인 기록 측정</td></tr>
+      <tr><td>5</td><td><strong>마무리 + 안내</strong></td><td>15분</td><td>암송 구절 + 다음 주 친구 초청 안내</td></tr>
+    </table>
+  </div>
+
+</div>
+
+<!-- ====== PAGE 4: 체육인증 + 9월 일정 ====== -->
+<div class="page page-break">
+
+  <div class="section">
+    <div class="section-title orange">체육인증 프로그램 — 교회 자체 배지제도</div>
+
+    <div class="sub-title">9월 파일럿 종목</div>
+    <div class="grid2">
+      <div class="info-box info-green">
+        <strong>줄넘기</strong><br>
+        측정: 1분 연속 횟수<br>
+        공간: 1인당 1.5m × 1.5m 이상<br>
+        안전: 줄 엉킴 방지 간격 유지
+      </div>
+      <div class="info-box info-blue">
+        <strong>스텝박스</strong><br>
+        측정: 1분 스텝 횟수<br>
+        장비: 높이 조절 가능 스텝박스<br>
+        안전: 미끄럼방지 패드 필수
+      </div>
+    </div>
+
+    <div class="sub-title">배지 등급 체계</div>
+    <div class="badge-grid">
+      <div class="badge-card">
+        <div class="badge-name">성장 배지</div>
+        <div class="badge-desc">내 지난 주 기록 대비 성장 시 지급. 경쟁이 아닌 개인 성장.</div>
+      </div>
+      <div class="badge-card">
+        <div class="badge-name">성실 배지</div>
+        <div class="badge-desc">매주 빠짐없이 출석한 아이에게 지급.</div>
+      </div>
+      <div class="badge-card">
+        <div class="badge-name">학년군 도전 배지</div>
+        <div class="badge-desc">저(1~2) / 중(3~4) / 고(5~6)학년 기준 도달 시.</div>
+      </div>
+      <div class="badge-card">
+        <div class="badge-name">분기 시상 (12월)</div>
+        <div class="badge-desc">성장률 최고 + 성실 참여 시상. 교회 내부 행사.</div>
+      </div>
+    </div>
+
+    <div class="sub-title" style="margin-top:12px;">기록지 양식</div>
+    <table>
+      <tr><th>날짜</th><th>줄넘기 (회)</th><th>스텝박스 (회)</th><th>출석</th><th>비고</th></tr>
+      <tr><td>9/12 (토)</td><td></td><td></td><td>□</td><td>첫 번째 기록</td></tr>
+      <tr><td>9/19 (토)</td><td></td><td></td><td>□</td><td></td></tr>
+      <tr><td>9/26 (토)</td><td></td><td></td><td>□</td><td>부모 공유</td></tr>
+    </table>
+
+    <div class="warning">
+      스텝박스 높이는 학년군별 제한 (저학년 15cm 이하). 미끄럼방지 매트 필수.
+      무리한 경쟁 유도 금지. 촬영·외부공개는 보호자 서면 동의 후에만 허용.
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title purple">9월 주차별 실행표</div>
+    <table>
+      <tr><th>주차</th><th>주일 (본문)</th><th>토요 게임즈</th><th>포인트</th></tr>
+      <tr>
+        <td><strong>W01<br>9/6</strong></td>
+        <td>요한복음 16:7-15<br><span style="font-size:8.5pt;color:#666;">성령 하나님을 알아가다</span></td>
+        <td>9/12 (토)<br>체육인증 첫 기록</td>
+        <td>초청 친구 첫 방문<br>즐거운 경험 최우선</td>
+      </tr>
+      <tr>
+        <td><strong>W02<br>9/13</strong></td>
+        <td>사도행전 10:44-48<br><span style="font-size:8.5pt;color:#666;">성령님과 함께 살아가다</span></td>
+        <td>9/19 (토)<br>체육인증 2회차</td>
+        <td>지난 주 초청 아이<br>재방문 유도</td>
+      </tr>
+      <tr>
+        <td><strong>W03<br>9/20</strong></td>
+        <td>요한복음 15:26-16:6<br><span style="font-size:8.5pt;color:#666;">성령의 인도하심을 따르다</span></td>
+        <td>9/26 (토)<br>체육인증 3회차</td>
+        <td>부모에게 기록지 공유<br>입소문 전략</td>
+      </tr>
+      <tr>
+        <td><strong>W04<br>9/27</strong></td>
+        <td>사도행전 6:1-7<br><span style="font-size:8.5pt;color:#666;">교회를 세워가시는 성령님</span></td>
+        <td>없음 (10월 시작)</td>
+        <td>9월 기록 정리 + 피드백<br>목표 5명 점검</td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+
+<!-- ====== PAGE 5: 8월 준비 일정 + 리스크 ====== -->
+<div class="page page-break">
+
+  <div class="section">
+    <div class="section-title slate">8/13 ~ 9/5 준비 일정</div>
+    <table>
+      <tr><th>날짜</th><th>담당</th><th>할 일</th></tr>
+      <tr><td>8/13 (목)</td><td>목사님</td><td>9월 시작 최종 승인 + 교사 모집 시작</td></tr>
+      <tr><td>8/13 (목)</td><td>실무총괄</td><td>BibleTree 원천 콘텐츠 재설계 작업 착수</td></tr>
+      <tr><td>8/20 (목)</td><td>목사님</td><td>교사 1명 확정 + 체육지도자 방향 결정</td></tr>
+      <tr><td>8/20 (목)</td><td>실무총괄</td><td>W01~W04 수업자료 초안 완성</td></tr>
+      <tr><td>8/27 (목)</td><td>실무총괄</td><td>교사 오리엔테이션 자료 준비 + 장비 조달</td></tr>
+      <tr><td><strong>9/1 (화)</strong></td><td>실무 + 교사</td><td><strong>교사 오리엔테이션 실시</strong></td></tr>
+      <tr><td>9/1 (화)</td><td>실무총괄</td><td>W01 수업 자료 최종본 완성</td></tr>
+      <tr><td><strong>9/5 (토)</strong></td><td>실무 + 교사</td><td><strong>리허설 — 공간 점검 + 장비 테스트</strong></td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="section-title rose">리스크 및 대응 방안</div>
+    <table>
+      <tr><th>리스크</th><th>가능성</th><th>대응 방안</th></tr>
+      <tr><td>아이 모집 부진</td><td>보통</td><td>교사가 직접 1명 초청 + 목사님 네트워크 가동</td></tr>
+      <tr><td>교사 확보 실패</td><td>보통</td><td>목사님 또는 실무총괄이 임시 교사 역할</td></tr>
+      <tr><td>체육지도자 미확보</td><td>높음</td><td>9월은 교사가 기본 동작만 진행, 10월 이후 전문가</td></tr>
+      <tr><td>콘텐츠 재설계 지연</td><td>보통</td><td>원천 본문 그대로 사용, 교사가 아이 눈높이로 구술</td></tr>
+      <tr><td>체육 안전사고</td><td>낮음</td><td>안전 수칙 준수, 미끄럼방지 매트, 높이 제한</td></tr>
+      <tr><td>체육공간 미확보</td><td>낮음</td><td>야외 대안 사전 확인, 비 오는 날 실내 동선 마련</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="section-title green">교사가 기억할 3가지</div>
+    <div class="grid2">
+      <div class="info-box info-green">
+        <strong>1. 완벽하지 않아도 됩니다</strong><br>
+        교사가 먼저 기쁘게 예배드리면 아이들이 따라옵니다. 준비보다 관계가 먼저입니다.
+      </div>
+      <div class="info-box info-blue">
+        <strong>2. 질문이 답보다 중요합니다</strong><br>
+        Book·Look·Took 질문은 정답을 구하는 것이 아니라 같이 생각하는 시간입니다.
+      </div>
+    </div>
+    <div class="info-box info-orange" style="margin-top:10px;">
+      <strong>3. 한 아이가 한 친구를 — 전도는 교사가 아닌 아이들이 합니다</strong><br>
+      토요 게임즈에 친구 초청 카드를 매주 나눠주세요. 아이들이 가장 강력한 전도자입니다.
+    </div>
+  </div>
+
+  <div style="margin-top:16px; padding:12px 16px; background:#f1f5f9; border-radius:8px; font-size:8.5pt; color:#475569; text-align:center;">
+    POB 성경클럽 2026년 9월 시범운영 · 교사 운영 매뉴얼 · 내부 자료 (배포 금지)<br>
+    질문 및 피드백: 실무총괄에게 연락 주세요.
+  </div>
+
+</div>
+
+</body>
+</html>
